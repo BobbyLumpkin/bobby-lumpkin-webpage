@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Bobby Lumpkin</title>
+    <link>https://bobbylumpkin.com/author/bobby-lumpkin/</link>
+      <atom:link href="https://bobbylumpkin.com/author/bobby-lumpkin/index.xml" rel="self" type="application/rss+xml" />
+    <description>Bobby Lumpkin</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Fri, 12 Jul 2019 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://bobbylumpkin.com/author/bobby-lumpkin/avatar_huf6c4d4185a23831b0e4870f350f20595_311409_270x270_fill_q75_lanczos_center.jpg</url>
+      <title>Bobby Lumpkin</title>
+      <link>https://bobbylumpkin.com/author/bobby-lumpkin/</link>
+    </image>
+    
+    <item>
+      <title>&#34;Weapons of Math Destruction&#34; Prompted Discussion &amp; A Review</title>
+      <link>https://bobbylumpkin.com/post/weapons-math-destruction/</link>
+      <pubDate>Fri, 12 Jul 2019 00:00:00 +0000</pubDate>
+      <guid>https://bobbylumpkin.com/post/weapons-math-destruction/</guid>
+      <description>&lt;p&gt;COMING SOON&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

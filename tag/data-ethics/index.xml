@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Data Ethics | Bobby Lumpkin</title>
+    <link>https://bobbylumpkin.com/tag/data-ethics/</link>
+      <atom:link href="https://bobbylumpkin.com/tag/data-ethics/index.xml" rel="self" type="application/rss+xml" />
+    <description>Data Ethics</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Fri, 12 Jul 2019 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://bobbylumpkin.com/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_512x512_fill_lanczos_center_3.png</url>
+      <title>Data Ethics</title>
+      <link>https://bobbylumpkin.com/tag/data-ethics/</link>
+    </image>
+    
+    <item>
+      <title>&#34;Weapons of Math Destruction&#34; Prompted Discussion &amp; A Review</title>
+      <link>https://bobbylumpkin.com/post/weapons-math-destruction/</link>
+      <pubDate>Fri, 12 Jul 2019 00:00:00 +0000</pubDate>
+      <guid>https://bobbylumpkin.com/post/weapons-math-destruction/</guid>
+      <description>&lt;p&gt;COMING SOON&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
