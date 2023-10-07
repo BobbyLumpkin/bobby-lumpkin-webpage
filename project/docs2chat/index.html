@@ -1,0 +1,2283 @@
+<!DOCTYPE html><html lang="en-us" >
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.4.0 for Hugo" />
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Bobby Lumpkin" />
+
+  
+  
+  
+    
+  
+  <meta name="description" content="A CLI application for chatting with your documents, powered by Haystack and LangChain." />
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://bobbylumpkin.com/project/docs2chat/" />
+
+  
+  
+  
+    <meta name="theme-color" content="#1565c0" />
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.f1ecf783c14edc00c9320c205831ad8e.css" media="print" onload="this.media='all'">
+
+  
+  
+  
+    
+    
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/styles/github.min.css" crossorigin="anonymous" title="hl-light" media="print" onload="this.media='all'">
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" media="print" onload="this.media='all'" disabled>
+        
+      
+    
+
+    
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.css" integrity="" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.512574799414e7d36471486881070b0f.css" />
+
+  
+
+
+
+  
+
+  
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+    <link rel="manifest" href="/manifest.webmanifest" />
+  
+
+  <link rel="icon" type="image/png" href="/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_32x32_fill_lanczos_center_3.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_180x180_fill_lanczos_center_3.png" />
+
+  <link rel="canonical" href="https://bobbylumpkin.com/project/docs2chat/" />
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+
+  
+  
+    
+    
+  
+  <meta property="twitter:card" content="summary_large_image" />
+  
+  <meta property="og:site_name" content="Bobby Lumpkin" />
+  <meta property="og:url" content="https://bobbylumpkin.com/project/docs2chat/" />
+  <meta property="og:title" content="Docs2Chat | Bobby Lumpkin" />
+  <meta property="og:description" content="A CLI application for chatting with your documents, powered by Haystack and LangChain." /><meta property="og:image" content="https://bobbylumpkin.com/project/docs2chat/featured.png" />
+    <meta property="twitter:image" content="https://bobbylumpkin.com/project/docs2chat/featured.png" /><meta property="og:locale" content="en-us" />
+  
+    
+      <meta
+        property="article:published_time"
+        content="2023-08-16T00:00:00&#43;00:00"
+      />
+    
+    <meta property="article:modified_time" content="2023-08-16T00:00:00&#43;00:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://bobbylumpkin.com/project/docs2chat/"
+  },
+  "headline": "Docs2Chat",
+  
+  "image": [
+    "https://bobbylumpkin.com/project/docs2chat/featured.png"
+  ],
+  
+  "datePublished": "2023-08-16T00:00:00Z",
+  "dateModified": "2023-08-16T00:00:00Z",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Bobby Lumpkin"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Bobby Lumpkin",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://bobbylumpkin.com/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_192x192_fill_lanczos_center_3.png"
+    }
+  },
+  "description": "A CLI application for chatting with your documents, powered by Haystack and LangChain."
+}
+</script>
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+  <title>Docs2Chat | Bobby Lumpkin</title>
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="34e92b5496f9426b5877d4d1ebab418b" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.8f76bdc9e086322ed5147724ebba3d06.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="header--fixed">
+  <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+    <div class="container-xl">
+
+      
+      <div class="d-none d-lg-inline-flex">
+        <a class="navbar-brand" href="/">Bobby Lumpkin</a>
+      </div>
+      
+
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+      
+      <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+        <a class="navbar-brand" href="/">Bobby Lumpkin</a>
+      </div>
+      
+
+      
+      
+      <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+        
+        <ul class="navbar-nav d-md-inline-flex">
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#intro"><span>Welcome</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#about"><span>About Me</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#projects"><span>Projects</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#posts"><span>Posts</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#publications"><span>Publications</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#contact"><span>Contact</span></a>
+          </li>
+
+          
+          
+
+        
+
+          
+        </ul>
+      </div>
+
+      <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+        
+        
+          
+        
+
+        
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+        
+        <li class="nav-item dropdown theme-dropdown">
+          <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </a>
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item js-set-theme-light">
+              <span>Light</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-dark">
+              <span>Dark</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-auto">
+              <span>Automatic</span>
+            </a>
+          </div>
+        </li>
+        
+
+        
+        
+
+      </ul>
+
+    </div>
+  </nav>
+</header>
+
+
+  </div>
+
+  <div class="page-body">
+    <article class="article article-project">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<div class="article-container pt-3">
+  <h1>Docs2Chat</h1>
+
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Aug 16, 2023
+  </span>
+  
+
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+  
+
+</div>
+
+  
+
+
+
+
+<div class="btn-links mb-3">
+  
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  
+  
+    
+  
+  <a class="btn btn-outline-primary btn-page-header" href="https://github.com/BobbyLumpkin/docs2chat/tree/main" target="_blank" rel="noopener">
+    <i class="fab fa-github mr-1"></i>source code</a>
+
+
+</div>
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 557px; max-height: 177px;">
+  <div style="position: relative">
+    <img src="/project/docs2chat/featured_hubc30ca2a63f642cb7e901c9af66c0474_3391_720x2500_fit_q75_h2_lanczos_3.webp" width="557" height="177" alt="" class="featured-image">
+    
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <h1 id="uoverview-and-table-of-contentsu"><strong><u>Overview and Table of Contents</u></strong></h1>
+<p>Large Langage Models (or LLMs) are all the rage these days. From AI
+assistants that can write our emails and do our homework for us to
+reinvigorated conversations about AGI and what it means to be conscious,
+LLMs have truly transitioned to center stage in the year 2023. Heck,
+LLMs can even right blog post introductions: &ldquo;In this post, we&rsquo;ll look
+at an example of how LLMs can be leveraged to extract knowledge, glean
+insights and engage interactive dialogues with repositories of
+information, such as academic papers and legal documents.&rdquo;. Get ready to
+chat with your documents!</p>
+<ol>
+<li><a href="#introduction-to-llm-pipelines">Introduction to LLM Pipelines</a></li>
+<li><a href="#chaining-frameworks-haystack--langchain">Chaining Frameworks: Haystack &amp; LangChain</a>
+<ol>
+<li><a href="#haystack">Haystack </a></li>
+<li><a href="#langchain">LangChain</a></li>
+<li><a href="#compare--contrast">Compare &amp; Contrast</a></li>
+</ol>
+</li>
+<li><a href="#pipeline-components-putting-the-pieces-together">Pipeline Components: Putting the Pieces Together</a>
+<ol>
+<li><a href="#loading-documents">Loading Documents</a></li>
+<li><a href="#document-splitters">Document Splitters</a></li>
+<li><a href="#words-to-vectors-embeddings--vectorstores">Words to Vectors: Embeddings &amp; Vectorstores</a>
+<ol>
+<li><a href="#bag-of-words">Bag of Words</a></li>
+<li><a href="#term-frequency---inverse-document-frequency">Term Frequency - Inverse Document Frequency</a></li>
+<li><a href="#word-embeddings">Word Embeddings</a></li>
+</ol>
+</li>
+<li><a href="#retrievers">Retrievers</a>
+<ol>
+<li><a href="#similarity-search">Similarity Search</a></li>
+<li><a href="#locality-sensitive-hashing">Locality Sensitive Hashing</a></li>
+</ol>
+</li>
+<li><a href="#rankers-bi-encoders-vs-cross-encoders">Rankers: Bi-Encoders vs Cross-Encoders</a></li>
+<li><a href="#readers">Readers</a></li>
+<li><a href="#generative-pipelines">Generative Pipelines</a></li>
+</ol>
+</li>
+<li><a href="#cli-application">CLI Application</a></li>
+</ol>
+<hr>
+<h2 id="introduction-to-llm-pipelines"><strong>Introduction to LLM Pipelines</strong></h2>
+<p>Computers represent information as yesses and nos, 1s and 0s, but <em>most</em>
+human beings don&rsquo;t speak binary to each other every day. How, then, do 
+people communicate with computers? From low-level languages like
+assembly to high-level abstractions like Python, computer science has
+produced a number of differnet paradigms that enable just that.  We call
+them <em>programming languages</em>. But the extent to which programming
+languages enable &ldquo;communication&rdquo; is restricted. Namely, communications
+<em>to</em> the machine are required to follow strict rules (syntax) in order
+to be understood properly (interpreted or compiled) and any
+communication <em>from</em> the machine must first have been explicitly
+instructed by the programmer. So, how on earth do applications like
+ChatGPT exist?!</p>
+<p>Enter natural language processing (NLP) and LLM pipelines. The goal of
+NLP is to endow a machine with the ability to understand and utilize
+<em>natural language</em>, that is: the means by which we communicate with
+other people (plain old English, for example). This is a tall ask, but
+modern frameworks like <code>LangChain</code> and <code>Haystack</code> put it within reach for
+those with some Python experience and minimal exposure to concepts in
+modern NLP. In the following sections, we&rsquo;ll explore some foundational
+NLP &amp; LLM concepts, along with <code>Haystack</code> and <code>LangChain</code> building
+blocks, all directed towards the aim of developing applications that
+enable us to chat with our documents. Everything we do is based on open
+source technologies and can be run entirely locally. That means,
+<strong>no sending your data to APIs and no paywalls!</strong></p>
+<hr>
+<h2 id="chaining-frameworks-haystack--langchain"><strong>Chaining Frameworks: Haystack &amp; LangChain</strong></h2>
+<p>It&rsquo;s never been easier and never been less intimidating to build
+powerful NLP applications. <code>Haystack</code> and <code>LangChain</code> are part of a new
+wave of tools for interfacing with LLMs and related infrastructure that
+have made great advancements in abstraction. The rest of this post will
+be a mixture of high-level concepts, a little bit of theory and examples
+of how to implement those theories and concepts using these frameworks.
+So, let&rsquo;s familiarize ourselves a bit.</p>
+<h3 id="haystack">Haystack</h3>
+<p><strong><code>Haystack</code></strong> describes itself as an &ldquo;open source Python framework by deepset
+for building custom apps with large language models &ldquo;. It utilizes three
+main types of objects:</p>
+<ol>
+<li>Components or Nodes: &ldquo;fundamental building blocks that can perform
+tasks like document retrieval, text generation, or summarization.&rdquo;</li>
+<li>Pipelines: &ldquo;structures made up of components, such as a Retriever
+and Reader, connected to infrastructure building blocks, such as a
+DocumentStore (for example, Elasticsearch or Weaviate) to form
+complex systems.&rdquo;</li>
+<li>Agents: makes use of tools (like pipeline components or whole
+pipelines) to resolve complex tasks.</li>
+</ol>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="Haystack Logo" srcset="
+               /project/docs2chat/haystack-logo_huff9b05d1682a75f14cb242ba9e14b291_2904_67c023c89c4d9148ca08aa0328518565.webp 400w,
+               /project/docs2chat/haystack-logo_huff9b05d1682a75f14cb242ba9e14b291_2904_dba01bf742f4476e9294c9a34c0086f0.webp 760w,
+               /project/docs2chat/haystack-logo_huff9b05d1682a75f14cb242ba9e14b291_2904_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/project/docs2chat/haystack-logo_huff9b05d1682a75f14cb242ba9e14b291_2904_67c023c89c4d9148ca08aa0328518565.webp"
+               width="325"
+               height="155"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>For our purposes, we&rsquo;ll need only the first two. We&rsquo;ll talk more about
+each object we use as we come to it, but you can find, still, more info
+in <a href="https://docs.haystack.deepset.ai/docs" target="_blank" rel="noopener"><code>Haystack</code>&rsquo;s documentation</a>.</p>
+<h3 id="langchain">LangChain</h3>
+<p>Similar to <code>Haystack</code>, <strong><code>LangChain</code></strong> describes itself as &ldquo;a framework
+for developing applications powered by language models.&rdquo; And the
+similarities don&rsquo;t end there. They share very similar interfaces, as
+well. The analogous objects here are:</p>
+<ol>
+<li>Components: &ldquo;abstractions for working with language models, along
+with a collection of implementations for each abstraction.&rdquo;</li>
+<li>Chains: &ldquo;a structured assembly of components for accomplishing
+specific higher-level tasks.&rdquo;</li>
+<li>Agents: lets &ldquo;chains choose which tools to use given high-level
+directives.&rdquo;</li>
+</ol>
+<p>Again, we&rsquo;ll only be utilizing the first two, with more implementation
+details to come. Checkout <a href="https://python.langchain.com/docs/get_started/introduction" target="_blank" rel="noopener"><code>LangChain</code>&rsquo;s documentation</a>
+for more information.</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="LangChain Logo" srcset="
+               /project/docs2chat/langchain-logo_hu3d94b59b9000eed37783d783e7bc0fee_3090_5f93978d1907e8e5b1956585ecaa2d9b.webp 400w,
+               /project/docs2chat/langchain-logo_hu3d94b59b9000eed37783d783e7bc0fee_3090_982dcf85aff32254edc89953a24a0dca.webp 760w,
+               /project/docs2chat/langchain-logo_hu3d94b59b9000eed37783d783e7bc0fee_3090_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/project/docs2chat/langchain-logo_hu3d94b59b9000eed37783d783e7bc0fee_3090_5f93978d1907e8e5b1956585ecaa2d9b.webp"
+               width="310"
+               height="162"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<h3 id="compare--contrast">Compare &amp; Contrast</h3>
+<p>Two frameworks with similar functionality and similar interfaces &hellip; 
+naturally, the questions arise:</p>
+<ul>
+<li>&ldquo;Is one &lsquo;better&rsquo; than the other?&rdquo;</li>
+<li>&ldquo;Which should we use?&rdquo; and</li>
+<li>&ldquo;Why are we using both?&rdquo;.</li>
+</ul>
+<p>If you like straight answers, apologies in advance because my honest
+takes are:</p>
+<ul>
+<li>&ldquo;It depends.&rdquo;</li>
+<li>&ldquo;It depends.&rdquo; and</li>
+<li>&ldquo;&hellip; because it depends.&rdquo;.</li>
+</ul>
+<p>I&rsquo;ll explain more as we start digging into the meat of the project.
+Let&rsquo;s dive in.</p>
+<hr>
+<h2 id="pipeline-components-putting-the-pieces-together"><strong>Pipeline Components: Putting the Pieces Together</strong></h2>
+<p>By the end of this post, we&rsquo;ll have looked at how to implement three
+different types of pipelines (or chains): &lsquo;generative&rsquo;,
+&lsquo;retriever-reader&rsquo; and &lsquo;retriever-ranker&rsquo;. But before we start
+discussing any of these, we need to talk &lsquo;preprocessing&rsquo;. Namely, we
+need to figure out how to take documents sitting in a directory and
+prepare them for consumption by a pipeline. Well, they say a picture is
+worth a thousand words, right? Here&rsquo;s an example of what a preprocessing
+workflow might look like. This is the workflow utilized in <code>Docs2Chat</code>.</p>
+
+
+<script src="https://unpkg.com/mermaid@10.3.1/dist/mermaid.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    mermaid.initialize({ 
+        theme: 'dark',
+        themeCSS: '',
+        cloneCssStyles: false,
+        useMaxWidth: true,
+        htmlLabels: false,
+        flowchart: { 
+                curve: 'basis' 
+        }
+    });
+</script>
+<pre class="mermaid" align="center">
+graph LR;
+    A[/Some Document/]
+    B[/Another Document/]
+    C[/One More Document/]
+    D[Document Loader]
+    E[Document Splitter]
+    F[(Vectorstore: Embeddings)]
+
+    A & B & C --> D
+    D --> E --> F
+</pre>
+<p>Don&rsquo;t wory, if you&rsquo;re not already familiar with the components in the
+diagram; we&rsquo;ll elaborate on each of them in the following sections.
+To get started, let&rsquo;s &lsquo;load&rsquo; some documents.</p>
+<h3 id="loading-documents">Loading Documents</h3>
+<p>Documents are represented in both <code>Haystack</code> and <code>LangChain</code> by
+<code>Document</code> objects. Each framework has a slightly different
+implementation, but they are <em>very</em> similar and we&rsquo;ll see later how easy
+it is to go back and forth between them.</p>
+<p>In <code>Haystack</code>, the relevant loading objects are called
+<a href="https://docs.haystack.deepset.ai/docs/file_converters" target="_blank" rel="noopener"><code>FileConverter</code></a>s.
+You&rsquo;ll find ten implementations covering a number of potential file
+types, including Markdown, PDFs, DOCX files, etc.. It&rsquo;s a nice
+collection and not terribly difficult to combine them into a single
+&lsquo;load any, depending on the type&rsquo; process. But, it&rsquo;s not quite as nice
+and not quite as easy as <code>LangChain</code>&rsquo;s integration with <code>Unstructured</code>
+(in my opinion).</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="Unstructured Python Package Logo" srcset="
+               /project/docs2chat/unstructured-logo_hu5474523b48220e7782b140bab60cb15b_3718_1219d4fb26456aedf16f52f01addd752.webp 400w,
+               /project/docs2chat/unstructured-logo_hu5474523b48220e7782b140bab60cb15b_3718_6bf8bb4ca25ae3787cefbc1530bdab48.webp 760w,
+               /project/docs2chat/unstructured-logo_hu5474523b48220e7782b140bab60cb15b_3718_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/project/docs2chat/unstructured-logo_hu5474523b48220e7782b140bab60cb15b_3718_1219d4fb26456aedf16f52f01addd752.webp"
+               width="364"
+               height="139"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p><code>Unstructured</code> is a Python package that &ldquo;provides open-source
+components for ingesting and preprocessing images and text documents,
+such as PDFs, HTML, Word docs, and many more.&rdquo; (17 more, currently).
+It&rsquo;s integration in <code>LangChain</code> makes for a simple loading interface via
+the <a href="https://api.python.langchain.com/en/latest/document_loaders/langchain.document_loaders.directory.DirectoryLoader.html?highlight=directoryloader#langchain.document_loaders.directory.DirectoryLoader" target="_blank" rel="noopener"><code>DirectoryLoader</code></a>
+object. Namely:</p>
+<div class="highlight"><pre tabindex="0" style="color:#1d2432;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#ff636f">from</span> <span style="color:#58a1dd">langchain.document_loaders</span> <span style="color:#ff636f">import</span> <span style="color:#58a1dd">DirectoryLoader</span>
+
+
+<span style="color:#58a1dd">loader</span> <span style="color:#ff636f">=</span> <span style="color:#58a1dd">DirectoryLoader</span>(<span style="color:#a6be9d">&#34;/path/to/our/docs/directory&#34;</span>)
+<span style="color:#58a1dd">documents</span> <span style="color:#ff636f">=</span> <span style="color:#58a1dd">loader</span><span style="color:#ff636f">.</span><span style="color:#58a1dd">load</span>()
+</code></pre></div><p>That&rsquo;s it; point it to the location of a documents-containing directory
+and, voila, no more hassle required. And, hence, why I said
+&ldquo;It depends.&rdquo; in reference to how I would rank the two frameworks.
+When it comes to document loading, I&rsquo;m personally inclined to go with
+<code>LangChain</code> over <code>Haystack</code>, especially because it seems like
+integration with <code>Unstructured</code> has been <a href="https://github.com/deepset-ai/haystack/issues/5410" target="_blank" rel="noopener">deprioritized</a>
+by the maintainers of <code>Haystack</code>. Furthermore, because document objects
+are so similar between the two frameworks, to later convert them into
+`Haystack`` documents is as simple as a single list comprehension:</p>
+<div class="highlight"><pre tabindex="0" style="color:#1d2432;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#ff636f">from</span> <span style="color:#58a1dd">haystack.schema</span> <span style="color:#ff636f">import</span> <span style="color:#58a1dd">Document</span> <span style="color:#ff636f">as</span> <span style="color:#58a1dd">HSDocument</span>
+
+
+<span style="color:#ff636f">def</span> <span style="color:#58a1dd">convert_langchain_to_haystack_docs</span>(<span style="color:#58a1dd">docs</span>):
+    <span style="color:#ff636f">return</span> [
+        <span style="color:#58a1dd">HSDocument</span>(<span style="color:#58a1dd">content</span><span style="color:#ff636f">=</span><span style="color:#58a1dd">doc</span><span style="color:#ff636f">.</span><span style="color:#58a1dd">page_content</span>, <span style="color:#58a1dd">meta</span><span style="color:#ff636f">=</span><span style="color:#58a1dd">doc</span><span style="color:#ff636f">.</span><span style="color:#58a1dd">metadata</span>)
+        <span style="color:#ff636f">for</span> <span style="color:#58a1dd">doc</span> <span style="color:#ff636f">in</span> <span style="color:#58a1dd">documents</span>
+    ]
+</code></pre></div><p>Before moving on, I should mention that Haystack <em>does</em>, in fact, have an
+integration with the &lsquo;Apache Tika toolkit&rsquo; which seems very powerful
+. (I haven&rsquo;t played around with it, yet, myself.) Use of
+<code>TikaConverter</code>s, however, requires running a Tika Docker container.
+It&rsquo;s a personal preference, but, for the sake of simplicity, I opted to
+install another Python package (and not one with terribly many
+dependencies, at that) over bringing an additional OS into the picture.</p>
+<h3 id="document-splitters">Document Splitters</h3>
+<p>Next in our preprocessing diagram comes the, aptly labeled,
+&ldquo;Document Splitter&rdquo;. Like the name suggests, this component is solely
+responsible for taking our existing documents and further chunking them
+into smaller pieces.</p>
+<p>You may wonder why we go through the trouble. Remember our use-case; we
+want to use LLMs to query our documents. We&rsquo;ll talk a little more about
+this in the <a href="#retrievers">Retrievers</a> section, but this means that,
+given a query, we need to be able to locate documents with relevant
+information. Having documents which are too large can hamper our ability
+to do that. For example, a fifty page long manual would likely span lots
+of different topics. That makes for a noisy signal. Splitting it into
+more granular sections means our information retrieval can be more
+nuanced.</p>
+<p>Of course, at the other extreme, it&rsquo;s possible to go too far
+and split documents into pieces that are too small to be meaningful:
+e.g. splitting by every character. That certainly isn&rsquo;t going to be
+helpful. In other words, there&rsquo;s a balance to strike. For <a href="https://github.com/BobbyLumpkin/docs2chat/tree/main" target="_blank" rel="noopener"><code>Docs2Chat</code></a>
+I set the targeted chunk size to 1000 characters, with an allotted
+overlap of 200 characters between chunks. That seems to work well for my
+purposes, but try experimenting for yourself!</p>
+<p>LangChain has a number of splitter implementataions, but the one I&rsquo;ve
+played with the most is the <a href="https://api.python.langchain.com/en/latest/text_splitter/langchain.text_splitter.CharacterTextSplitter.html?highlight=charactertextsplitter#langchain.text_splitter.CharacterTextSplitter" target="_blank" rel="noopener"><code>CharacterTextSplitter</code></a>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#1d2432;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#ff636f">from</span> <span style="color:#58a1dd">langchain.text_splitter</span> <span style="color:#ff636f">import</span> <span style="color:#58a1dd">CharacterTextSplitter</span>
+
+
+<span style="color:#58a1dd">text_splitter</span> <span style="color:#ff636f">=</span> <span style="color:#58a1dd">CharacterTextSplitter</span>(        
+    <span style="color:#58a1dd">separator</span><span style="color:#ff636f">=</span><span style="color:#a6be9d">&#34;</span><span style="color:#a6be9d">\n</span><span style="color:#a6be9d">&#34;</span>,
+    <span style="color:#58a1dd">chunk_size</span><span style="color:#ff636f">=</span><span style="color:#a6be9d">1000</span>,
+    <span style="color:#58a1dd">chunk_overlap</span><span style="color:#ff636f">=</span><span style="color:#a6be9d">200</span>,
+    <span style="color:#58a1dd">length_function</span><span style="color:#ff636f">=</span><span style="color:#58a1dd">len</span>,
+)
+<span style="color:#58a1dd">text_splitter</span><span style="color:#ff636f">.</span><span style="color:#58a1dd">split_documents</span>(<span style="color:#58a1dd">documents</span>)
+</code></pre></div><p>Ok, with that out of the way and our documents loaded &amp; split, let&rsquo;s
+move on to the next concept and preprocessing component: vector
+embeddings &amp; stores.</p>
+<h3 id="words-to-vectors-embeddings--vectorstores">Words to Vectors: Embeddings &amp; Vectorstores</h3>
+<p>One, particularly powerful, way of trying to get computers to
+&lsquo;understand&rsquo; natural langauge is to leverage modern advancements in
+compute hardware and machine learning (deep learning, in particular).
+But, machine learning algorithms don&rsquo;t work by manipulating text, they
+need numbers: vectors of numbers. That means we still need to solve for
+translating our document chunks into machine learning digestible form.</p>
+<p>There are a number of methods we could use. We&rsquo;ll start off discussing 
+&lsquo;naive&rsquo; methods and gradually build in complexity. Overall, we&rsquo;ll
+touch on three approaches:</p>
+<ol>
+<li>Bag-of-Words</li>
+<li>TF-IDF</li>
+<li>Dense Word Embeddings.</li>
+</ol>
+<h4 id="bag-of-words">Bag-of-Words</h4>
+<!-- <image align="right" src="bow-image.png" alt="bow-image" width="50%"> -->
+<p>Perhaps the most intuitive and straightforward approach is what is
+referred to as the &ldquo;bag-of-words&rdquo; method. If I locked you in a room and
+said you&rsquo;re not aloud to leave until you give me at least one method
+for converting a corpus (or collection) of documents of text into
+vectors, I&rsquo;d be willing to bet that you&rsquo;d reinvent some variation of it.
+Put simply, converting a document of text into a bag-of-words consists
+of two steps:</p>
+<ol>
+<li>Read through the entire corpus and take note of all words that
+appear, at least once. We&rsquo;ll refer to this list as the vocabulary
+and denote it $V$. For the sake of example, let&rsquo;s say we noted 3,000
+words.</li>
+<li>For a given document, $D_i$, we define the following map:
+$$D_i \in \text{Corpus} \mapsto v_i \in \mathbb{R}^{3000}$$
+where for $j \in \{1,&hellip;,3000\},
+$$v_i[j] = \begin{cases} 0 &amp;\text{ }D_i\text{ contains the ith word in }V \\
+1 &amp;\text{ Otherwise} \end{cases}
+$</li>
+</ol>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="bow-image" srcset="
+               /project/docs2chat/bow-image_hu77705e8982ca59135a22fc9be307c1a3_12664_9fd147b4e9e1f463d89e65504c13cf69.webp 400w,
+               /project/docs2chat/bow-image_hu77705e8982ca59135a22fc9be307c1a3_12664_701944271fc8544293baa2d659914f2a.webp 760w,
+               /project/docs2chat/bow-image_hu77705e8982ca59135a22fc9be307c1a3_12664_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/project/docs2chat/bow-image_hu77705e8982ca59135a22fc9be307c1a3_12664_9fd147b4e9e1f463d89e65504c13cf69.webp"
+               width="760"
+               height="281"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>Let&rsquo;s add another example to the one pictured above. Consider a corpus
+consisting of three documents:</p>
+<ol>
+<li><strong>Document1:</strong> &ldquo;Karma is my boyfriend.&rdquo;</li>
+<li><strong>Document2:</strong> &ldquo;Karma is a god.&rdquo;</li>
+<li><strong>Document3:</strong> &ldquo;Karma is the breeze in my hair on the weekend.&rdquo;</li>
+</ol>
+<p>Then, the vocablary ($V$) is defined as:
+$$V = \begin{align}[
+&amp;\text{&lsquo;a&rsquo;}, \text{&lsquo;boyfriend&rsquo;}, \text{&lsquo;breeze&rsquo;}, \text{&lsquo;god&rsquo;}, \text{&lsquo;hair&rsquo;}, \text{&lsquo;in&rsquo;}, \\
+&amp;\text{&lsquo;is&rsquo;}, \text{&lsquo;karma&rsquo;}, \text{&lsquo;my&rsquo;}, \text{&lsquo;on&rsquo;}, \text{&lsquo;the&rsquo;}, \text{&lsquo;weekend&rsquo;}
+]\end{align}$$</p>
+<p>Our vocabulary is of length $12$, meaning that each vector resulting
+from our conversion will be of dimension $12$. To construct $v_1$, for
+example, we start by finding the position of the first word: &lsquo;Karma&rsquo;.
+The position is $8$, so $v_1[8] = 1$. Continuing this way, we end up
+with the following vectors:</p>
+<p>$$
+\begin{align}
+v_1 &amp;= [0,1,0,0,0,0,1,1,1,0,0,0] \\
+v_2 &amp;= [1,0,0,1,0,0,1,1,0,0,0,0] \\
+v_3 &amp;= [0,0,1,0,1,1,1,1,1,1,1,1].
+\end{align}
+$$</p>
+<p>So, at this point, we&rsquo;ve achieved the goal we set for ourselves. We took
+text and converted it into machine learning digestible form. Mission
+accomplished. Why not call it a day? While simple and easy to implement,
+there are some clear drawbacks to what we did:</p>
+<ol>
+<li>Frequency of words is not captured.</li>
+<li>Not all words are created equal. We&rsquo;ve lost any measure of the
+relative importance of words.</li>
+<li>Some degree of semantics is lost.</li>
+</ol>
+<p>Each of these observations will help motivate us through the two
+remaining methods: TF-IDF and word embeddings.</p>
+<h4 id="term-frequency---inverse-document-frequency">Term Frequency - Inverse Document Frequency</h4>
+<p>An easy way to address the first identified drawback involves only a
+simple tweak to the process. Instead of creating each vector by marking
+ones and zeros, simply mark position $j$ with the number of times word
+$j$ appears in the document. For example, Document 3 from our &lsquo;Swifty&rsquo;
+example would now map to the following vector:</p>
+<p>$$
+v_3 = [0,0,1,0,1,1,1,1,1,1,2,1]
+$$</p>
+<p>Notice, we&rsquo;ve adjusted the entry corresponding to &lsquo;the&rsquo; to reflect it&rsquo;s
+frequency within the document. It&rsquo;s an improvement, but still lacking
+something important. Namely, we haven&rsquo;t addressed the second identified
+drawback; not all words are created equal! The word &lsquo;is&rsquo; appears in each
+of the three documents and so, in some sense, carries with it less
+information than the word, &lsquo;breeze&rsquo;, only appearing in Document 3.
+That&rsquo;s the key insight that motivates the approach aptly named &lsquo;term
+frequency - inverse document frequency&rsquo; or &lsquo;tf-idf&rsquo;.</p>
+<p>One way to formalize this is as follows:</p>
+<p>$$
+\text{tfidf}(t,D,C) = \frac{\frac{f_{t,D}}{\sum_{t^\prime \in D}f_{t^\prime,D}}}{\log\left(\frac{|C|}{|\{D \in C: t \in D\}|}\right)}
+$$</p>
+<p>where $t$, $D$ and $C$ symbolize terms, documents and a corpus,
+respectively. If that looks wonky, notice that the numerator is simply
+the relative within-document frequency of a term, while the denominator
+is a measure of the relative across-documents frequency. This gives us
+a leg up on simple, binary BoW vectors, but it still doesn&rsquo;t do anything
+to address any lost semantics.</p>
+<h4 id="word-embeddings">Word Embeddings</h4>
+<p>Synonyms exist; duh! Obvious, but, as of yet, missing from our
+formulations of $v_i$. More than that, words don&rsquo;t have to be synonyms
+to be related. &lsquo;King&rsquo; and &lsquo;Queen&rsquo; definitely represent related concepts,
+but they aren&rsquo;t synonymous, let alone the same word. Even using tf-idf,
+there&rsquo;s no avenue for that information to travel down. What to do?</p>
+<p>Well, certainly if words are synonymous, they&rsquo;ll likely be used in
+similar ways. Namely, the words surrounding them will tend to also be
+related. Context is key! That&rsquo;s an important insight that motivates 
+embedding models like <a href="https://arxiv.org/abs/1301.3781" target="_blank" rel="noopener">&lsquo;Word2Vec&rsquo;</a>.</p>
+<p>What does that mean in practice? Well, for Word2Vec, it could mean one
+of two things, each corresponding to a different model. In the first, 
+given a document, we slide a context window of fixed length (say nine
+words) throughout. We then train the model to predict the middle (fifth)
+word, given the surrounding words (four previous and four subsequent).
+This describes the &lsquo;Continuous Bag of Words&rsquo; (or CBOW) model.</p>
+<p>Flipping the CBOW on it&rsquo;s head gives us the second model, known as the
+&lsquo;Skipgram&rsquo;. Instead of predicting the word, given the context, we train
+a model to predict the context given the word. If that sounds strange,
+I&rsquo;d recommend referencing the image below from Mikolov et al. 2013  and
+checking out Jay Alammar&rsquo;s blog post: <a href="http://jalammar.github.io/illustrated-word2vec/" target="_blank" rel="noopener">The Illustrated Word2Vec</a>.</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="word2vec" srcset="
+               /project/docs2chat/word2vec_hu0ebb08158659aca5692459969bfb0f90_22870_5f1b2a650a835d85a39d1dd91500fdbb.webp 400w,
+               /project/docs2chat/word2vec_hu0ebb08158659aca5692459969bfb0f90_22870_129ca8877a7cb7bbec88c4103e220b15.webp 760w,
+               /project/docs2chat/word2vec_hu0ebb08158659aca5692459969bfb0f90_22870_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/project/docs2chat/word2vec_hu0ebb08158659aca5692459969bfb0f90_22870_5f1b2a650a835d85a39d1dd91500fdbb.webp"
+               width="612"
+               height="376"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>This works; i.e. it captures various different degrees of similarity
+and hence some level of semantics. Famously, we can take the
+embedding for the word &lsquo;King&rsquo;, subtract the embedding for the word
+&lsquo;man&rsquo;, add the embedding for the word &lsquo;woman&rsquo; and the resulting vector
+will be very close to the embedding for the word &lsquo;Queen&rsquo;. Two distinct
+words and their relationship captured.</p>
+<p>We can improve, still, upon Word2Vec. You&rsquo;ll notice that while context
+is considered during training, it&rsquo;s absent during scoring. In other
+words, if I score the same word three times, from three different
+sentences, Word2Vec will yield the same embedding. We call this being
+context independent. Since Word2Vec was published in 2013, further
+advancements have paved the way for context-dependent models like the
+RNN <a href="https://arxiv.org/abs/1802.05365" target="_blank" rel="noopener">ELMo</a>, and transformer based
+methods like <a href="https://arxiv.org/abs/1810.04805" target="_blank" rel="noopener">BERT</a>.</p>
+<p>Similar to words, entire documents can be embedded into dense vectors
+and those are going to be crucial for the rest of the pipeline. Because
+of that, we need some kind of storage vehicle for these vectors. That&rsquo;s
+exactly what vector stores are. In the next section, we&rsquo;ll look at an
+example and how it can be utilized for efficient document retrieval.</p>
+<h3 id="retrievers">Retrievers</h3>
+<p>Having done our preprocessing, we can now start to introduce the rest of
+the components within <code>Docs2Chat</code>&rsquo;s various QA pipelines.</p>
+
+
+<script src="https://unpkg.com/mermaid@10.3.1/dist/mermaid.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    mermaid.initialize({ 
+        theme: 'dark',
+        themeCSS: '',
+        cloneCssStyles: false,
+        useMaxWidth: true,
+        htmlLabels: false,
+        flowchart: { 
+                curve: 'basis' 
+        }
+    });
+</script>
+<pre class="mermaid" align="center">
+graph LR;
+    A[(Vectorstore: Embeddings)]
+    B[Retriever]
+    C[Ranker]
+    D[Reader]
+    E[Generative Pipeline]
+    F[Post-Processing]
+    G[Response]
+
+    A --> B
+
+    B -->|if chain_type=search| C
+    B -->|if chain_type=snip| D
+    B -->|if chain_type=generative| E
+
+    C & D & E --> F --> G
+
+</pre>
+<p>The third layer from the left (Reader, Ranker, Generative Pipeline) is
+where you might say &ldquo;the magic happens&rdquo;. That&rsquo;s where, given a user
+query, we generate or extract (depending on the user&rsquo;s <code>chain_type</code>
+specification) a response. But before we get to that, we have to go
+through the preceding layer. So what and why is a Retriever?</p>
+<h4 id="similarity-search">Similarity Search</h4>
+<p>Like the name suggests, a <em>Retriever</em> object <em>retrieves</em> documents
+thought to be relevant to a user query. We can think of it as a
+&ldquo;shortlist&rdquo; generator for our Reader/Ranker/Generative Pipeline. This is
+a common approach to designing what could potentially be very
+computationally intensive applications. Instead of running the complex
+algorithm on everything, we run a simpler one, first. The purpose of
+that being to generate a shortlist which we then run the more
+complicated algorithm on.</p>
+<p>To be a little more concrete, the Reader/Ranker/Generative Pipeline is
+the &ldquo;complicated algorithm&rdquo; in our case. The &ldquo;simple algorithm&rdquo; can be
+implemented in a number of ways. As an example, we could measure the
+cosine similarity between vectors. Other common similarity measures
+include the euclidean inner product and $l^2$ norm.</p>
+<p>$$
+\begin{align}
+&amp;\text{Euclidean Inner Product: }&lt;\vec{x}, \vec{y}&gt; &amp;&amp;= \sum x_i \cdot y_i \\
+&amp;\text{Cosine Similarity: }cos(\vec{x}, \vec{y}) &amp;&amp;= \frac{\vec{x} \cdot \vec{y}}{\lVert\vec{x}\rVert\lVert\vec{y}\rVert} \\
+&amp;l^2\text{ Norm: }d_{l^2}(\vec{x}, \vec{y}) &amp;&amp;= \sqrt{&lt;(\vec{x} - \vec{y}), (\vec{x} - \vec{y})&gt;}
+\end{align}
+$$</p>
+<p>So given a user query, a retriever might follow a procedure like the
+following:</p>
+<ol>
+<li>Generate a text embedding, $e$, for the query.</li>
+<li>Calculate the similarity between $e$ and every vector in our
+vectorstore.</li>
+<li>Return the vectors with the highest similarity scores.</li>
+</ol>
+<p>That&rsquo;s certainly an improvement over blindly applying the third layer
+of our diagram to every document, but it still doesn&rsquo;t scale well.
+Dealing with an exhaustive set of pairwise comparisons still places us
+in the realm of quadratic complexity: $\text{O}(n)^2$. In the next
+section, we&rsquo;ll briefly discuss a family of techniques that can help us
+do even better, making our vector retrieval still more efficient.</p>
+<h4 id="locality-sensitive-hashing">Locality Sensitive Hashing</h4>
+<p>I said it&rsquo;s common right? Case and point, we&rsquo;re going to rely on another
+&ldquo;shortlist&rdquo; generator to help us side-step an exhaustive search
+altogether. Namely, let&rsquo;s discuss &ldquo;locality sensitive hashing&rdquo;.</p>
+<p>Locality sensitive hashing (LSH) is a technique in which a hash function
+is developed that intentionally collides &ldquo;similar&rdquo; items with &ldquo;high&rdquo;
+probability. To be formal, consider the following:</p>
+<ul>
+<li>A collection of buckets, $S$.</li>
+<li>A metric space $\mathcal{M} = (M,d)$.</li>
+<li>A family of functions, $\mathcal{F}$ mapping $M \mapsto S$.</li>
+<li>Two real numbers $d_1 &lt; d_2 \in \mathbb{R}$.</li>
+<li>Two probabilities $p_1, p_2 \in [0,1]$.</li>
+</ul>
+<p>Then, we say $\mathcal{F}$ is $(d_1,d_2,p_1,p_2) - sensitive$ if for
+every $f \in \mathcal{F}$ and for all $x,y \in M$:</p>
+<ol>
+<li>If $d(x,y) \leq d_1$, then $\mathbb{P}(f(x) = f(y)) \geq p_1$.</li>
+<li>If $d(x,y) \geq d_2$, then $\mathbb{P}(f(x) = f(y)) \leq p_2$.</li>
+</ol>
+<p>To be less formal, the idea is that <em>more</em> similar items should collide
+<em>more</em> often and <em>less</em> similar items shoud collide <em>less</em> often. A
+common example is implemented via a technique known as &ldquo;MinHashing&rdquo;. To
+not widen our scope too far, we&rsquo;ll omit the technical details.</p>
+<p>Both <code>LangChain</code> and <code>Haystack</code> implement vector stores and retriever
+objects of various kinds like &ldquo;Elasticsearch&rdquo; and FAISS (Facebook AI
+Similarity Search). In the case of <code>Docs2Chat</code>, we utilized the latter.
+Here are some resources, if you&rsquo;re interested in diving deeper into the
+methodology and implementation:</p>
+<ul>
+<li>Paper: <a href="https://arxiv.org/abs/1702.08734" target="_blank" rel="noopener">&ldquo;Billion-scale similarity search with GPUs&rdquo;</a></li>
+<li>Python Implementation: <a href="https://github.com/kyamagu/faiss-wheels" target="_blank" rel="noopener"><code>faiss-cpu</code></a></li>
+<li>Doumentation: <a href="https://faiss.ai/index.html" target="_blank" rel="noopener">faiss.ai</a></li>
+</ul>
+<h3 id="rankers-bi-encoders-vs-cross-encoders">Rankers: Bi-Encoders vs Cross-Encoders</h3>
+<p>What happens after retrieval depends on the &lsquo;mode&rsquo; selected: namely, one
+of &lsquo;search&rsquo;, &lsquo;snip&rsquo;, or &lsquo;generative&rsquo;. In the case that the selected mode
+is &lsquo;search&rsquo;, we feed the retrieved documents to a &lsquo;ranker&rsquo; or
+&rsquo;re-ranker' model. The point of a ranker model is likely exactly what
+you would expect. Namely, given a set of retrieved documents, a ranker
+re-orders them according to an estimate of relevance to the given query.</p>
+<p>Naturally, you might wonder if this is duplicative; the whole point of a
+retriever was to return relevant documents using vector embeddings and
+similarity searches. At a high level, it <em>is</em> duplicative. The rationale
+for including it is simply for better performance. Rankers estimate
+relevancy using a different methodology than simple vector similarity
+search; one that tends to be more accurate, but also more
+computationally intensive. Putting this in more technical terms, the
+retrieval process described above is an example of a &lsquo;bi-encoder&rsquo;, while
+the ranking process will implement a &lsquo;cross-encoder&rsquo;.</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="Bi-Encoder vs Cross-Encoder Architecture" srcset="
+               /project/docs2chat/biencoder_vs_crossencoder_diagram_hu969c221b7779abee3a401f66ad79e9d3_37667_a96956ed4ea024162e7fb7368f524b09.webp 400w,
+               /project/docs2chat/biencoder_vs_crossencoder_diagram_hu969c221b7779abee3a401f66ad79e9d3_37667_b186f78dc0873412bc5a7dc64c0f8e13.webp 760w,
+               /project/docs2chat/biencoder_vs_crossencoder_diagram_hu969c221b7779abee3a401f66ad79e9d3_37667_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/project/docs2chat/biencoder_vs_crossencoder_diagram_hu969c221b7779abee3a401f66ad79e9d3_37667_a96956ed4ea024162e7fb7368f524b09.webp"
+               width="610"
+               height="342"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+
+<em>Bi-Encoder vs Cross-Encoder Architecture. Source: <a href="https://www.sbert.net/examples/applications/cross-encoder/README.html" target="_blank" rel="noopener">sbert.net</a></em></p>
+<p>Take a look at the architectural differences between the two approaches,
+pcitured above. Notice that with a cross-encoder, both documents must be
+passed into the model simultaneously, whereas, with bi-encoders,
+embeddings can be generated independently. That gives bi-encoders a huge
+computational advantage. Since we can generate embeddings for our
+repository of documents during preprocessing, that means at inference
+time, all that&rsquo;s left to do is to generate the query embeddings and
+compute a similarity measure. I.e. our LLM only performs inference once,
+per query. A cross-encoder, by comparison would require our LLM to
+perform inference $n$ times (assuming our repository contains $n$
+documents).</p>
+<p>Just like before when we were discussing retrievers, we have a
+relatively accurate process that is computationally intensive and a
+relatively computationally cheap process that may be less accurate.
+Thus, also like before, we&rsquo;ll utilize the computationally cheap option
+to generate a shortlist of answers and the accurate option to make a
+selection from said list. This is how and why we use both bi-encoders
+(retrievers) and cross-encoders (rankers).</p>
+<p>Check below for an example of how to instantiate a ranker object and
+add it to a pipeline in <code>Haystack</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#1d2432;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#ff636f">from</span> <span style="color:#58a1dd">haystack.nodes</span> <span style="color:#ff636f">import</span> <span style="color:#58a1dd">SentenceTransformersRanker</span>
+<span style="color:#ff636f">from</span> <span style="color:#58a1dd">haystack.pipelines</span> <span style="color:#ff636f">import</span> <span style="color:#58a1dd">ExtractiveQAPipeline</span>, <span style="color:#58a1dd">Pipeline</span>
+
+
+<span style="color:#828b96;font-style:italic"># Instantiate the Ranker.</span>
+<span style="color:#58a1dd">ranker</span> <span style="color:#ff636f">=</span> <span style="color:#58a1dd">SentenceTransformersRanker</span>(
+    <span style="color:#58a1dd">model_name_or_path</span><span style="color:#ff636f">=</span><span style="color:#a6be9d">&#34;cross-encoder/ms-marco-MiniLM-L-12-v2&#34;</span>,
+)
+
+<span style="color:#828b96;font-style:italic"># Create a pipeline consisting of a retriever and ranker.</span>
+<span style="color:#58a1dd">hs_pipeline</span> <span style="color:#ff636f">=</span> <span style="color:#58a1dd">Pipeline</span>()
+<span style="color:#58a1dd">hs_pipeline</span><span style="color:#ff636f">.</span><span style="color:#58a1dd">add_node</span>(
+    <span style="color:#58a1dd">component</span><span style="color:#ff636f">=</span><span style="color:#58a1dd">retriever</span>, <span style="color:#58a1dd">name</span><span style="color:#ff636f">=</span><span style="color:#a6be9d">&#34;Retriever&#34;</span>, <span style="color:#58a1dd">inputs</span><span style="color:#ff636f">=</span>[<span style="color:#a6be9d">&#34;Query&#34;</span>]
+)
+<span style="color:#58a1dd">hs_pipeline</span><span style="color:#ff636f">.</span><span style="color:#58a1dd">add_node</span>(
+    <span style="color:#58a1dd">component</span><span style="color:#ff636f">=</span><span style="color:#58a1dd">ranker</span>, <span style="color:#58a1dd">name</span><span style="color:#ff636f">=</span><span style="color:#a6be9d">&#34;Ranker&#34;</span>, <span style="color:#58a1dd">inputs</span><span style="color:#ff636f">=</span>[<span style="color:#a6be9d">&#34;Retriever&#34;</span>]
+)
+</code></pre></div><p>Once the retrieved documents are run through the ranker, we return the
+top scoring result as the &lsquo;search&rsquo; result. That means,&lsquo;search&rsquo; mode in
+<code>Docs2Chat</code> simply returns the document chunk with the highest estimated
+query relevance. Since we&rsquo;re returning an <em>extracted</em> portion of one of
+the source docuements, this is an example of an <em>extractive</em>
+pipeline (compared to generative). In the next section, we&rsquo;ll see
+another example of an extractive pipeline, before, finally discussing
+&lsquo;generative&rsquo; pipelines.</p>
+<h3 id="readers">Readers</h3>
+<p>If we want to be more precise than simply returning a premade document
+chunk, we can set the <code>chain_type</code> to &lsquo;snip&rsquo;. Instead of returning an
+entire chunk, this selects and returns a text span. In other words, it
+tries to &lsquo;snip&rsquo; out only the most relevant portion of a document chunk.</p>
+<p>In Haystack, readers are objects that use LLMs to implement <a href="https://arxiv.org/pdf/1606.05250.pdf" target="_blank" rel="noopener">SQuAD</a>
+and <a href="https://storage.googleapis.com/pub-tools-public-publication-data/pdf/1f7b46b5378d757553d3e92ead36bda2e4254244.pdf" target="_blank" rel="noopener">Google Natural Question</a> style QA. In particular, they support using <a href="https://arxiv.org/pdf/1810.04805.pdf" target="_blank" rel="noopener">BERT</a>-based
+models: BERT, RoBERTa, ALBERT, etc.. Of the three reader classes that
+Haystack offers (<code>FARMREader</code>, <code>TransformersReader</code> and <code>TableReader</code>),
+<code>Docs2Chat</code> uses the <code>FARMReader</code> and, in general, it seems like it is the
+easier of the two non-table readers to work with in Haystack.
+Fine-tuning, for example can be done relatively easily too, although, I
+admittedly haven&rsquo;t played much with this yet. To create a QA pipeline
+using a reader, we can use the <code>ExtractiveQAPipeline</code> object.</p>
+<div class="highlight"><pre tabindex="0" style="color:#1d2432;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#ff636f">from</span> <span style="color:#58a1dd">haystack.nodes</span> <span style="color:#ff636f">import</span> <span style="color:#58a1dd">FARMReader</span>
+<span style="color:#ff636f">from</span> <span style="color:#58a1dd">haystack.pipelines</span> <span style="color:#ff636f">import</span> <span style="color:#58a1dd">ExtractiveQAPipeline</span>
+
+
+<span style="color:#58a1dd">reader</span> <span style="color:#ff636f">=</span> <span style="color:#58a1dd">FARMReader</span>(<span style="color:#a6be9d">&#34;deepset/roberta-base-squad2&#34;</span>)
+<span style="color:#58a1dd">hs_pipeline</span> <span style="color:#ff636f">=</span> <span style="color:#58a1dd">ExtractiveQAPipeline</span>(<span style="color:#58a1dd">reader</span>, <span style="color:#58a1dd">retriever</span>)
+</code></pre></div><p>For more information, check the Haystack docs for <a href="https://docs.haystack.deepset.ai/docs/reader" target="_blank" rel="noopener">Readers</a>
+and <a href="https://docs.haystack.deepset.ai/reference/pipelines-api#extractiveqapipeline" target="_blank" rel="noopener"><code>ExtractiveQAPipeline</code></a>.</p>
+<h3 id="generative-pipelines">Generative Pipelines</h3>
+<p>While powerful and the natural fit for plenty of use-cases, extractive
+pipelines generally aren&rsquo;t the one&rsquo;s making most of today&rsquo;s headlines.
+Models like those that underpin ChatGPT and Bing Chat don&rsquo;t just rank or
+snip documents, they <em>generate</em> new content. This enables exchanges that
+feel conversational. When it&rsquo;s working well, it can seem like magic, but
+at it&rsquo;s core, all these models are doing is next-word (or, more
+accurately, next-token) prediction. In other words, consider the
+following text:</p>
+<p>&ldquo;Even though he wanted to be early, Kevin got a flat tire and wound up
+arriving &hellip;&rdquo;</p>
+<p>We know the next word should probably be &ldquo;late&rdquo; and it&rsquo;s precisely that
+type of knowledge that generates flashy feats like those generated by
+the aforementioned chat apps. The model guesses what the next word
+should be, uses that guess to then make a subsequent guess, uses that
+guess to make another subsequent guess and before you know it, you&rsquo;ve
+got a full response.</p>
+<p>In LangChain, we can utilize LLMs for generative pipelines by taking
+advantage of the <a href="https://api.python.langchain.com/en/latest/chains/langchain.chains.conversational_retrieval.base.ConversationalRetrievalChain.html" target="_blank" rel="noopener"><code>ConversationalRetrievalChain</code></a> object,
+for example.</p>
+<div class="highlight"><pre tabindex="0" style="color:#1d2432;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#ff636f">from</span> <span style="color:#58a1dd">langchain.memory</span> <span style="color:#ff636f">import</span> <span style="color:#58a1dd">ConversationBufferMemory</span>
+<span style="color:#ff636f">from</span> <span style="color:#58a1dd">langchain.chains</span> <span style="color:#ff636f">import</span> <span style="color:#58a1dd">ConversationalRetrievalChain</span>
+<span style="color:#ff636f">from</span> <span style="color:#58a1dd">langchain.llms</span> <span style="color:#ff636f">import</span> <span style="color:#58a1dd">LlamaCpp</span>
+
+
+<span style="color:#828b96;font-style:italic"># Load Llama2.</span>
+<span style="color:#58a1dd">llm</span> <span style="color:#ff636f">=</span> <span style="color:#58a1dd">LlamaCpp</span>(
+    <span style="color:#58a1dd">model_path</span><span style="color:#ff636f">=</span><span style="color:#58a1dd">config_obj</span><span style="color:#ff636f">.</span><span style="color:#58a1dd">MODEL_PATH</span>,
+    <span style="color:#58a1dd">n_ctx</span><span style="color:#ff636f">=</span><span style="color:#a6be9d">2048</span>,
+    <span style="color:#58a1dd">input</span><span style="color:#ff636f">=</span>{<span style="color:#a6be9d">&#34;temperature&#34;</span>: <span style="color:#a6be9d">0.75</span>, <span style="color:#a6be9d">&#34;max_length&#34;</span>: <span style="color:#a6be9d">2000</span>, <span style="color:#a6be9d">&#34;top_p&#34;</span>: <span style="color:#a6be9d">1</span>},
+    <span style="color:#58a1dd">verbose</span><span style="color:#ff636f">=</span><span style="color:#ff636f">False</span>
+)
+
+<span style="color:#828b96;font-style:italic"># Instantiate memory object.</span>
+<span style="color:#58a1dd">memory</span> <span style="color:#ff636f">=</span> <span style="color:#58a1dd">ConversationBufferMemory</span>(
+    <span style="color:#58a1dd">memory_key</span><span style="color:#ff636f">=</span><span style="color:#a6be9d">&#34;chat_history&#34;</span>,
+    <span style="color:#58a1dd">return_messages</span><span style="color:#ff636f">=</span><span style="color:#ff636f">True</span>,
+    <span style="color:#58a1dd">output_key</span><span style="color:#ff636f">=</span><span style="color:#a6be9d">&#34;answer&#34;</span>
+)
+
+<span style="color:#828b96;font-style:italic"># Define LLM pipeline.</span>
+<span style="color:#58a1dd">ConversationalRetrievalChain</span><span style="color:#ff636f">.</span><span style="color:#58a1dd">from_llm</span>(
+    <span style="color:#58a1dd">llm</span><span style="color:#ff636f">=</span><span style="color:#58a1dd">llm</span>,
+    <span style="color:#58a1dd">retriever</span><span style="color:#ff636f">=</span><span style="color:#58a1dd">vectorstore</span><span style="color:#ff636f">.</span><span style="color:#58a1dd">as_retriever</span>(),
+    <span style="color:#58a1dd">memory</span><span style="color:#ff636f">=</span><span style="color:#58a1dd">memory</span>, 
+    <span style="color:#58a1dd">return_source_documents</span><span style="color:#ff636f">=</span><span style="color:#ff636f">True</span>
+)
+</code></pre></div><p>In the above code-snippet, we&rsquo;re loading a Llama2 model as our llm,
+instantiating a memory object and creating a generative pipeline via the
+<code>ConversationalRetrievalChain.from_llm</code> method call. The memory object
+enables the model to reference previous exchanges when generating
+responses. Suppose I ask: &ldquo;Who is the fastest human being alive?&rdquo; and
+subsequent to the response, I ask &ldquo;What country are they from?&rdquo;. Adding
+memory gives the model the tools to figure out that when we use the
+pronoun &ldquo;they&rdquo;, we&rsquo;re referring to &ldquo;the fastest human being alive&rdquo;.</p>
+<p>And now, we have all of the pieces necessary to build some powerful
+LLM applications. We&rsquo;ve covered <code>LangChain</code> &amp; <code>Haystack</code>, document
+loading &amp; splitting, converting text to vectors, vectorstores &amp;
+retrievers and extractive and generative &ldquo;retriever-augmented&rdquo;
+pipelines. <code>Docs2Chat</code> combines all of this in the form of a CLI
+application and we&rsquo;ll take a look at how to use it, in the next section.</p>
+<hr>
+<h2 id="cli-application">CLI Application</h2>
+<p>Combining the components we&rsquo;ve outlined in the previous sections and
+bundling them in the form of a CLI app gives us <code>Docs2Chat</code>. The
+application is designed to allow users to query documents of their
+choosing without having to make any API calls to third parties. Here&rsquo;s a
+quick overview of how to set it up and run.</p>
+<ol>
+<li>
+<p>Clone the repository: <code>git clone https://github.com/BobbyLumpkin/docs2chat.git</code>.</p>
+</li>
+<li>
+<p>Create a <code>documents</code> directory at the main project level and add any
+and all documents you want the model to be able to access for it&rsquo;s
+responses.</p>
+</li>
+<li>
+<p>Install the <code>Docs2Chat</code> Python package: <code>python -m pip install .</code></p>
+</li>
+<li>
+<p>Run the application using the <code>docs2chat</code> entrypoint and specifying
+<code>chain_type</code>.</p>
+<ul>
+<li>The <code>chain_type</code> can be one of <code>search</code>, <code>snip</code> or <code>generative</code> and
+corresponds to the paradigms we&rsquo;ve discussed by the same name, in
+previous sections.</li>
+</ul>
+</li>
+</ol>
+<h3 id="search-docs2chat---chain_typesearch">Search (<code>docs2chat --chain_type=&quot;search&quot;</code>)</h3>
+<p>This implements the retriever-ranker design, returning the entire
+document chunks thought to be most relevant to the query.</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="docs2chat &amp;ndash;chain_type=&amp;ldquo;search&amp;rdquo;" srcset="
+               /project/docs2chat/docs2chat-search_hu92d6d8f5bea024b57f8dec57fecfb715_64363_0f2cfbf53de677182c54c51123e08b5f.webp 400w,
+               /project/docs2chat/docs2chat-search_hu92d6d8f5bea024b57f8dec57fecfb715_64363_6222d1e871df403e998a8c4eab87c490.webp 760w,
+               /project/docs2chat/docs2chat-search_hu92d6d8f5bea024b57f8dec57fecfb715_64363_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/project/docs2chat/docs2chat-search_hu92d6d8f5bea024b57f8dec57fecfb715_64363_0f2cfbf53de677182c54c51123e08b5f.webp"
+               width="760"
+               height="517"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<h3 id="snip-docs2chat---chain_typesnip">Snip (<code>docs2chat --chain_type=&quot;snip&quot;</code>)</h3>
+<p>This implements the retriever-reader design, returning a <em>snipped</em> out
+portion of a document chunk thought to contain the most query relevant
+content.</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="docs2chat &amp;ndash;chain_type=&amp;ldquo;snip&amp;rdquo;" srcset="
+               /project/docs2chat/docs2chat-snip_huf5b018e3b17428b75bf0b5401a1a2b41_47915_6d1879d633b93ba800e3101ce603eafc.webp 400w,
+               /project/docs2chat/docs2chat-snip_huf5b018e3b17428b75bf0b5401a1a2b41_47915_c97ab65ae8c1bb3f32db0e0a38a1e628.webp 760w,
+               /project/docs2chat/docs2chat-snip_huf5b018e3b17428b75bf0b5401a1a2b41_47915_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/project/docs2chat/docs2chat-snip_huf5b018e3b17428b75bf0b5401a1a2b41_47915_6d1879d633b93ba800e3101ce603eafc.webp"
+               width="760"
+               height="428"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<h3 id="generative-docs2chat---chain_typegenerative">Generative (<code>docs2chat --chain_type=&quot;generative&quot;</code>)</h3>
+<p>This implements retriever-augmented generation (or RAG), producing
+query responses in a conversational form.</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="docs2chat &amp;ndash;chain_type=&amp;ldquo;generative&amp;rdquo;" srcset="
+               /project/docs2chat/docs2chat-generative_hua629554243c72d917e5858c55338cdb8_38727_831c5ed578a387c24712d567d27d4e51.webp 400w,
+               /project/docs2chat/docs2chat-generative_hua629554243c72d917e5858c55338cdb8_38727_88119063d6edc27d5744d0d69035bbc4.webp 760w,
+               /project/docs2chat/docs2chat-generative_hua629554243c72d917e5858c55338cdb8_38727_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/project/docs2chat/docs2chat-generative_hua629554243c72d917e5858c55338cdb8_38727_831c5ed578a387c24712d567d27d4e51.webp"
+               width="722"
+               height="462"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>And if you&rsquo;ve made it this far, I hope you got something out of it and
+thanks for reading!</p>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/llms/">LLMs</a>
+  
+  <a class="badge badge-light" href="/tag/machine-learning/">Machine Learning</a>
+  
+  <a class="badge badge-light" href="/tag/nlp/">NLP</a>
+  
+  <a class="badge badge-light" href="/tag/langchain/">LangChain</a>
+  
+  <a class="badge badge-light" href="/tag/haystack/">Haystack</a>
+  
+  <a class="badge badge-light" href="/tag/deep-learning/">Deep Learning</a>
+  
+  <a class="badge badge-light" href="/tag/aws/">AWS</a>
+  
+</div>
+
+
+
+<div class="share-box">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://bobbylumpkin.com/project/docs2chat/&amp;text=Docs2Chat" target="_blank" rel="noopener" class="share-btn-twitter" aria-label="twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://bobbylumpkin.com/project/docs2chat/&amp;t=Docs2Chat" target="_blank" rel="noopener" class="share-btn-facebook" aria-label="facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Docs2Chat&amp;body=https://bobbylumpkin.com/project/docs2chat/" target="_blank" rel="noopener" class="share-btn-email" aria-label="envelope">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://bobbylumpkin.com/project/docs2chat/&amp;title=Docs2Chat" target="_blank" rel="noopener" class="share-btn-linkedin" aria-label="linkedin-in">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=Docs2Chat%20https://bobbylumpkin.com/project/docs2chat/" target="_blank" rel="noopener" class="share-btn-whatsapp" aria-label="whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https://bobbylumpkin.com/project/docs2chat/&amp;title=Docs2Chat" target="_blank" rel="noopener" class="share-btn-weibo" aria-label="weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <a href="https://bobbylumpkin.com/"><img class="avatar mr-3 avatar-circle" src="/author/bobby-lumpkin/avatar_huf6c4d4185a23831b0e4870f350f20595_311409_270x270_fill_q75_lanczos_center.jpg" alt="Bobby Lumpkin"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="https://bobbylumpkin.com/">Bobby Lumpkin</a></h5>
+      <h6 class="card-subtitle">he/him</h6>
+      <p class="card-text">A data scientist with a website.</p>
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/#contact" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/BobbyLumpkin" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/bobby-robert-lumpkin-b83279172/" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/static/uploads/resume.pdf" >
+        <i class="ai ai-cv"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/project/twitter-sentiment-analysis/">Twitter Sentiment Analysis</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+
+
+    <div class="project-related-pages content-widget-hr">
+      
+      
+
+      
+      
+      
+
+      
+      
+      
+
+      
+      
+      
+    </div>
+  </div>
+</article>
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      <footer class="site-footer">
+
+  
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-themes" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+    </div>
+    
+  </div>
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+
+    
+    <script src="/js/vendor-bundle.min.b73dfaac3b6499dc997741748a7c3fe2.js"></script>
+
+    
+    
+    
+      
+      
+        <script src="https://cdn.jsdelivr.net/gh/desandro/imagesloaded@v4.1.4/imagesloaded.pkgd.min.js" integrity="sha512-S5PZ9GxJZO16tT9r3WJp/Safn31eu8uWrzglMahDT4dsmgqWonRY9grk3j+3tfuPr9WJNsfooOR7Gi7HL5W2jw==" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/gh/metafizzy/isotope@v3.0.6/dist/isotope.pkgd.min.js" integrity="sha512-Zq2BOxyhvnRFXu0+WE6ojpZLOU2jdnqbrM1hmVdGzyeCa1DgM3X5Q4A/Is9xA1IkbUeDd7755dNNI/PzSf2Pew==" crossorigin="anonymous"></script>
+      
+
+      
+      
+
+      
+
+      
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/highlight.min.js" integrity="sha512-Ypjm0o7jOxAd4hpdoppSEN0TQOC19UtPAqD+4s5AlXmUvbmmS/YMxYqAqarQYyxTnB6/rqip9qcxlNB/3U9Wdg==" crossorigin="anonymous"></script>
+        
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/r.min.js" crossorigin="anonymous"></script>
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/python.min.js" crossorigin="anonymous"></script>
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/latex.min.js" crossorigin="anonymous"></script>
+        
+      
+
+    
+
+    
+    
+    
+      <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.js" integrity="" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    
+      
+      <script id="search-hit-fuse-template" type="text/x-template">
+        <div class="search-hit" id="summary-{{key}}">
+          <div class="search-hit-content">
+            <div class="search-hit-name">
+              <a href="{{relpermalink}}">{{title}}</a>
+              <div class="article-metadata search-hit-type">{{type}}</div>
+              <p class="search-hit-description">{{snippet}}</p>
+            </div>
+          </div>
+        </div>
+      </script>
+      
+        <script src="https://cdn.jsdelivr.net/gh/krisk/Fuse@v3.2.1/dist/fuse.min.js" integrity="sha512-o38bmzBGX+hD3JHWUFCDA09btWaqrNmoJ3RXLlrysA7PP01Kgs4UlE4MhelE1v5dJR3+cxlR4qQlotsW7jKsnw==" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/gh/julmot/mark.js@8.11.1/dist/jquery.mark.min.js" integrity="sha512-mhbv5DqBMgrWL+32MmsDOt/OAvqr/cHimk6B8y/bx/xS88MVkYGPiVv2ixKVrkywF2qHplNRUvFsAHUdxZ3Krg==" crossorigin="anonymous"></script>
+      
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+      
+      
+      
+      
+      
+      
+      
+    
+
+    
+
+    
+    
+    
+    <script id="page-data" type="application/json">{"use_headroom":true}</script>
+
+    
+    
+      <script src="/js/wowchemy-headroom.1cb9e2fc8399acee94eab837265b73bf.js" type="module"></script>
+    
+    
+    
+    
+    
+    
+    
+      
+      
+    
+    
+    <script src="/en/js/wowchemy.min.247fd8f54253895301106e3006f53f38.js"></script>
+
+    
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+
+
+
+</body>
+</html>

@@ -73,6 +73,9 @@
 
   
   
+    
+    <script src="/js/mathjax-config.js"></script>
+  
 
   
 
@@ -220,9 +223,9 @@
 
       
       
-        
-      
 
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
       
     
       
@@ -901,12 +904,11 @@
 </details>
 <details class="spoiler "  id="spoiler-3">
   <summary>Write Plotly code to render a bar chart</summary>
-  <p><pre><code class="language-python">import plotly.express as px
-data_canada = px.data.gapminder().query(&quot;country == 'Canada'&quot;)
-fig = px.bar(data_canada, x='year', y='pop')
-fig.show()
-</code></pre>
-</p>
+  <p><div class="highlight"><pre tabindex="0" style="color:#1d2432;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#ff636f">import</span> <span style="color:#58a1dd">plotly.express</span> <span style="color:#ff636f">as</span> <span style="color:#58a1dd">px</span>
+<span style="color:#58a1dd">data_canada</span> <span style="color:#ff636f">=</span> <span style="color:#58a1dd">px</span><span style="color:#ff636f">.</span><span style="color:#58a1dd">data</span><span style="color:#ff636f">.</span><span style="color:#58a1dd">gapminder</span>()<span style="color:#ff636f">.</span><span style="color:#58a1dd">query</span>(<span style="color:#a6be9d">&#34;country == &#39;Canada&#39;&#34;</span>)
+<span style="color:#58a1dd">fig</span> <span style="color:#ff636f">=</span> <span style="color:#58a1dd">px</span><span style="color:#ff636f">.</span><span style="color:#58a1dd">bar</span>(<span style="color:#58a1dd">data_canada</span>, <span style="color:#58a1dd">x</span><span style="color:#ff636f">=</span><span style="color:#a6be9d">&#39;year&#39;</span>, <span style="color:#58a1dd">y</span><span style="color:#ff636f">=</span><span style="color:#a6be9d">&#39;pop&#39;</span>)
+<span style="color:#58a1dd">fig</span><span style="color:#ff636f">.</span><span style="color:#58a1dd">show</span>()
+</code></pre></div></p>
 </details>
           </div>
 
