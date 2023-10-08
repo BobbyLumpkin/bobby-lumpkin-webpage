@@ -136,7 +136,7 @@ The variance of the distribution is $\sigma^{2}$.
 assistants that can write our emails and do our homework for us to
 reinvigorated conversations about AGI and what it means to be conscious,
 LLMs have truly transitioned to center stage in the year 2023. Heck,
-LLMs can even right blog post introductions: &amp;ldquo;In this post, we&amp;rsquo;ll look
+LLMs can even write blog post introductions: &amp;ldquo;In this post, we&amp;rsquo;ll look
 at an example of how LLMs can be leveraged to extract knowledge, glean
 insights and engage interactive dialogues with repositories of
 information, such as academic papers and legal documents.&amp;rdquo;. Get ready to
@@ -180,7 +180,7 @@ chat with your documents!&lt;/p&gt;
 human beings don&amp;rsquo;t speak binary to each other every day. How, then, do 
 people communicate with computers? From low-level languages like
 assembly to high-level abstractions like Python, computer science has
-produced a number of differnet paradigms that enable just that.  We call
+produced a number of different paradigms that enable just that.  We call
 them &lt;em&gt;programming languages&lt;/em&gt;. But the extent to which programming
 languages enable &amp;ldquo;communication&amp;rdquo; is restricted. Namely, communications
 &lt;em&gt;to&lt;/em&gt; the machine are required to follow strict rules (syntax) in order
@@ -707,11 +707,11 @@ through the preceding layer. So what and why is a Retriever?&lt;/p&gt;
 &lt;h4 id=&#34;similarity-search&#34;&gt;Similarity Search&lt;/h4&gt;
 &lt;p&gt;Like the name suggests, a &lt;em&gt;Retriever&lt;/em&gt; object &lt;em&gt;retrieves&lt;/em&gt; documents
 thought to be relevant to a user query. We can think of it as a
-&amp;ldquo;shortlist&amp;rdquo; generator for our Reader/Ranker/Generative Pipeline. This is
+&amp;ldquo;short list&amp;rdquo; generator for our Reader/Ranker/Generative Pipeline. This is
 a common approach to designing what could potentially be very
 computationally intensive applications. Instead of running the complex
 algorithm on everything, we run a simpler one, first. The purpose of
-that being to generate a shortlist which we then run the more
+that being to generate a short list which we then run the more
 complicated algorithm on.&lt;/p&gt;
 &lt;p&gt;To be a little more concrete, the Reader/Ranker/Generative Pipeline is
 the &amp;ldquo;complicated algorithm&amp;rdquo; in our case. The &amp;ldquo;simple algorithm&amp;rdquo; can be
@@ -740,8 +740,8 @@ in the realm of quadratic complexity: $\text{O}(n)^2$. In the next
 section, we&amp;rsquo;ll briefly discuss a family of techniques that can help us
 do even better, making our vector retrieval still more efficient.&lt;/p&gt;
 &lt;h4 id=&#34;locality-sensitive-hashing&#34;&gt;Locality Sensitive Hashing&lt;/h4&gt;
-&lt;p&gt;I said it&amp;rsquo;s common right? Case and point, we&amp;rsquo;re going to rely on another
-&amp;ldquo;shortlist&amp;rdquo; generator to help us side-step an exhaustive search
+&lt;p&gt;I said it&amp;rsquo;s common, right? Case in point, we&amp;rsquo;re going to rely on another
+&amp;ldquo;short list&amp;rdquo; generator to help us side-step an exhaustive search
 altogether. Namely, let&amp;rsquo;s discuss &amp;ldquo;locality sensitive hashing&amp;rdquo;.&lt;/p&gt;
 &lt;p&gt;Locality sensitive hashing (LSH) is a technique in which a hash function
 is developed that intentionally collides &amp;ldquo;similar&amp;rdquo; items with &amp;ldquo;high&amp;rdquo;
@@ -771,7 +771,7 @@ methodology and implementation:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Paper: &lt;a href=&#34;https://arxiv.org/abs/1702.08734&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&amp;ldquo;Billion-scale similarity search with GPUs&amp;rdquo;&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Python Implementation: &lt;a href=&#34;https://github.com/kyamagu/faiss-wheels&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;faiss-cpu&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Doumentation: &lt;a href=&#34;https://faiss.ai/index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;faiss.ai&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Documentation: &lt;a href=&#34;https://faiss.ai/index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;faiss.ai&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;rankers-bi-encoders-vs-cross-encoders&#34;&gt;Rankers: Bi-Encoders vs Cross-Encoders&lt;/h3&gt;
 &lt;p&gt;What happens after retrieval depends on the &amp;lsquo;mode&amp;rsquo; selected: namely, one
@@ -819,7 +819,7 @@ the ranking process will implement a &amp;lsquo;cross-encoder&amp;rsquo;.&lt;/p&
 
 &lt;em&gt;Bi-Encoder vs Cross-Encoder Architecture. Source: &lt;a href=&#34;https://www.sbert.net/examples/applications/cross-encoder/README.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;sbert.net&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Take a look at the architectural differences between the two approaches,
-pcitured above. Notice that with a cross-encoder, both documents must be
+pictured above. Notice that with a cross-encoder, both documents must be
 passed into the model simultaneously, whereas, with bi-encoders,
 embeddings can be generated independently. That gives bi-encoders a huge
 computational advantage. Since we can generate embeddings for our
@@ -833,7 +833,7 @@ documents).&lt;/p&gt;
 relatively accurate process that is computationally intensive and a
 relatively computationally cheap process that may be less accurate.
 Thus, also like before, we&amp;rsquo;ll utilize the computationally cheap option
-to generate a shortlist of answers and the accurate option to make a
+to generate a short list of answers and the accurate option to make a
 selection from said list. This is how and why we use both bi-encoders
 (retrievers) and cross-encoders (rankers).&lt;/p&gt;
 &lt;p&gt;Check below for an example of how to instantiate a ranker object and
