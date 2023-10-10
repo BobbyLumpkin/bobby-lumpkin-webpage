@@ -929,7 +929,9 @@ chat with your documents!</p>
 <li><a href="#generative-pipelines">Generative Pipelines</a></li>
 </ol>
 </li>
+<li><a href="#llm-pipeline-use-cases">LLM Pipeline Use-Cases</a></li>
 <li><a href="#cli-application">CLI Application</a></li>
+<li><a href="#references">References</a></li>
 </ol>
 <hr>
 <h2 id="introduction-to-llm-pipelines"><strong>Introduction to LLM Pipelines</strong></h2>
@@ -1702,8 +1704,33 @@ LLM applications. We&rsquo;ve covered <code>LangChain</code> &amp; <code>Haystac
 loading &amp; splitting, converting text to vectors, vectorstores &amp;
 retrievers and extractive and generative &ldquo;retriever-augmented&rdquo;
 pipelines. <code>Docs2Chat</code> combines all of this in the form of a CLI
-application and we&rsquo;ll take a look at how to use it, in the next section.</p>
+application and take a look at how to use it at the end of this post.</p>
 <hr>
+<!-- ## LLM Pipeline Use-Cases
+Why is it useful? Hopefully, you already thought or I managed to
+convince you that the modern NLP landscape is exciting and engaging
+simply in and of itself, but what *are* the practical applications? Why
+would someone want to adopt `Docs2Chat` or a similar type of application
+in their personal life, or for their business?
+
+Imagine boosting your and/or your organization's efficiency by enabling
+quick, robust search? In the age of information, knowledge itself is
+rarely the bottleneck for productivity. Instead, the impediment to quick
+progress is often *locating* the right pieces of knowledge. One way in
+which large language model pipelines like those we've discussed here is
+in the form of semantic search. That could apply to streamlining the
+onboarding process, to helping developers find the right best-practices
+documentation, to searching for the right legal documents, etc..
+
+When we have information and know where it is, sometimes the bottleneck
+becomes time. Reading through all relevant documents isn't always a
+feasible option. A RAG utilizing a summarization model can help distill
+crucial pieces of information from long documents while giving you back
+the time you need to do the rest of your job, hobbie, etc..
+
+
+
+<hr> -->
 <h2 id="cli-application">CLI Application</h2>
 <p>Combining the components we&rsquo;ve outlined in the previous sections and
 bundling them in the form of a CLI app gives us <code>Docs2Chat</code>. The
@@ -1828,6 +1855,30 @@ query responses in a conversational form.</p>
 </p>
 <p>And if you&rsquo;ve made it this far, I hope you got something out of it and
 thanks for reading!</p>
+<hr>
+<h2 id="references">References</h2>
+<p>[1]
+Alammar, J. (n.d.). The Illustrated Word2vec. Jalammar.github.io. <a href="http://jalammar.github.io/illustrated-word2vec/" target="_blank" rel="noopener">http://jalammar.github.io/illustrated-word2vec/</a></p>
+<p>[2]
+Devlin, J., Chang, M.-W., Lee, K., &amp; Toutanova, K. (2018, October 11). BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding. ArXiv.org. <a href="https://arxiv.org/abs/1810.04805" target="_blank" rel="noopener">https://arxiv.org/abs/1810.04805</a></p>
+<p>[3]
+Hu, Z. (n.d.). Question Answering on SQuAD with BERT. <a href="https://web.stanford.edu/class/archive/cs/cs224n/cs224n.1194/reports/default/15792151.pdf" target="_blank" rel="noopener">https://web.stanford.edu/class/archive/cs/cs224n/cs224n.1194/reports/default/15792151.pdf</a></p>
+<p>[4]
+Johnson, J., Douze, M., &amp; Jégou, H. (2017). Billion-scale similarity search with GPUs. ArXiv:1702.08734 [Cs]. <a href="https://arxiv.org/abs/1702.08734" target="_blank" rel="noopener">https://arxiv.org/abs/1702.08734</a></p>
+<p>[5]
+Kwiatkowski, T., Palomaki, J., Redfield, O., Collins, M., Parikh, A., Alberti, C., Epstein, D., Polosukhin, I., Devlin, J., Lee, K., Toutanova, K., Jones, L., Kelcey, M., Chang, M.-W., Dai, A. M., Uszkoreit, J., Le, Q., &amp; Petrov, S. (2019). Natural Questions: A Benchmark for Question Answering Research. Transactions of the Association for Computational Linguistics, 7, 453–466. <a href="https://doi.org/10.1162/tacl_a_00276" target="_blank" rel="noopener">https://doi.org/10.1162/tacl_a_00276</a></p>
+<p>[6]
+Mikolov, T., Chen, K., Corrado, G., &amp; Dean, J. (2013, September 7). Efficient Estimation of Word Representations in Vector Space. ArXiv.org. <a href="https://arxiv.org/abs/1301.3781" target="_blank" rel="noopener">https://arxiv.org/abs/1301.3781</a></p>
+<p>[7]
+Rajpurkar, P., Jia, R., &amp; Liang, P. (2018). Know What You Don’t Know: Unanswerable Questions for SQuAD. ArXiv:1806.03822 [Cs]. <a href="https://arxiv.org/abs/1806.03822" target="_blank" rel="noopener">https://arxiv.org/abs/1806.03822</a></p>
+<p>‌[8]
+Rajpurkar, P., Zhang, J., Lopyrev, K., &amp; Liang, P. (n.d.). SQuAD: 100,000+ Questions for Machine Comprehension of Text. <a href="https://arxiv.org/pdf/1606.05250.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1606.05250.pdf</a></p>
+<p>[9]
+Haystack. (n.d.). Haystack. <a href="https://haystack.deepset.ai/" target="_blank" rel="noopener">https://haystack.deepset.ai/</a></p>
+<p>‌[10]
+LangChain. (n.d.). Www.langchain.com. <a href="https://www.langchain.com/" target="_blank" rel="noopener">https://www.langchain.com/</a></p>
+<p>‌[11]
+SentenceTransformers Documentation — Sentence-Transformers documentation. (n.d.). Www.sbert.net. <a href="https://www.sbert.net/index.html" target="_blank" rel="noopener">https://www.sbert.net/index.html</a></p>
 
     </div>
 
