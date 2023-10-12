@@ -1706,31 +1706,33 @@ retrievers and extractive and generative &ldquo;retriever-augmented&rdquo;
 pipelines. <code>Docs2Chat</code> combines all of this in the form of a CLI
 application and take a look at how to use it at the end of this post.</p>
 <hr>
-<!-- ## LLM Pipeline Use-Cases
-Why is it useful? Hopefully, you already thought or I managed to
+<h2 id="llm-pipeline-use-cases">LLM Pipeline Use-Cases</h2>
+<p>Why is it useful? Hopefully, you already thought or I managed to
 convince you that the modern NLP landscape is exciting and engaging
-simply in and of itself, but what *are* the practical applications? Why
-would someone want to adopt `Docs2Chat` or a similar type of application
-in their personal life, or for their business?
-
-Imagine boosting your and/or your organization's efficiency by enabling
+simply in and of itself, but what <em>are</em> the practical applications? Why
+would someone want to adopt <code>Docs2Chat</code> or a similar type of application
+in their personal life, or for their business?</p>
+<p>Imagine boosting your and/or your organization&rsquo;s efficiency by enabling
 quick, robust search? In the age of information, knowledge itself is
 rarely the bottleneck for productivity. Instead, the impediment to quick
-progress is often *locating* the right pieces of knowledge. One way in
-which large language model pipelines like those we've discussed here is
-in the form of semantic search. That could apply to streamlining the
-onboarding process, to helping developers find the right best-practices
-documentation, to searching for the right legal documents, etc..
-
-When we have information and know where it is, sometimes the bottleneck
-becomes time. Reading through all relevant documents isn't always a
-feasible option. A RAG utilizing a summarization model can help distill
-crucial pieces of information from long documents while giving you back
-the time you need to do the rest of your job, hobbie, etc..
-
-
-
-<hr> -->
+progress is often <em>locating</em> the right pieces of knowledge. One way in
+which large language model pipelines showcase their utility is by
+enabling such robust semantic searches. Searchability streamlines the
+onboarding process, helps developers find the right documentation and
+tools, empowers quick sifting through legal documents, etc.. Not having
+to spend more time <em>finding</em> the information you need than you do 
+<em>using</em> that information frees time previously bogged down.</p>
+<p>When we have information and know where it is, sometimes the bottleneck
+becomes time. Reading through all relevant documents isn&rsquo;t always a
+feasible option. A RAG pipeline utilizing a model for summarization, for
+example, can help distill crucial pieces of information from long
+documents while giving you back the time you need to do the rest of your
+job, hobbie, etc..</p>
+<p>In summary, retrieval augmented LLM pipelines can be great tools for
+helping people and organizations navigate the flood of information that
+comes with living in the age of information. In the next section, we&rsquo;ll
+walk through the steps for installing and using <code>Docs2Chat</code>.</p>
+<hr>
 <h2 id="cli-application">CLI Application</h2>
 <p>Combining the components we&rsquo;ve outlined in the previous sections and
 bundling them in the form of a CLI app gives us <code>Docs2Chat</code>. The
@@ -1745,6 +1747,16 @@ quick overview of how to set it up and run.</p>
 <p>Create a <code>documents</code> directory at the main project level and add any
 and all documents you want the model to be able to access for it&rsquo;s
 responses.</p>
+</li>
+<li>
+<p>Create a <code>models</code> directory and download the appropriate models
+there. Example models:</p>
+<ul>
+<li>Embedding Model: <a href="https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2" target="_blank" rel="noopener">sentence-transformers/all-MiniLM-L6-v2</a></li>
+<li>Ranking Model: <a href="https://huggingface.co/cross-encoder/ms-marco-MiniLM-L-12-v2" target="_blank" rel="noopener">cross-encoder/ms-marco-MiniLM-L-12-v2</a></li>
+<li>Reader Model: <a href="https://huggingface.co/deepset/roberta-base-squad2" target="_blank" rel="noopener">deepset/roberta-base-squad2</a></li>
+<li>Generative Model: <a href="https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGML" target="_blank" rel="noopener">TheBloke/Llama-2-7B-Chat-GGML</a></li>
+</ul>
 </li>
 <li>
 <p>Install the <code>Docs2Chat</code> Python package: <code>python -m pip install .</code></p>
