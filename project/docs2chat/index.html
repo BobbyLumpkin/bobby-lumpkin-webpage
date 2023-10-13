@@ -1494,10 +1494,12 @@ vectorstore.</li>
 </ol>
 <p>That&rsquo;s certainly an improvement over blindly applying the third layer
 of our diagram to every document, but it still doesn&rsquo;t scale well.
-Dealing with an exhaustive set of pairwise comparisons still places us
-in the realm of quadratic complexity: $\text{O}(n)^2$. In the next
-section, we&rsquo;ll briefly discuss a family of techniques that can help us
-do even better, making our vector retrieval still more efficient.</p>
+Dealing with an exhaustive set of comparisons for every query still
+gets us linear complexity with respect to the number of document chunks.
+In the next section, we&rsquo;ll briefly discuss a family of techniques that
+can help us do even better, making our vector retrieval still more
+efficient and reducing the complexity from: $\text{O}(n)$ to
+$\text{O}(1)$.</p>
 <h4 id="locality-sensitive-hashing">Locality Sensitive Hashing</h4>
 <p>I said it&rsquo;s common, right? Case in point, we&rsquo;re going to rely on another
 &ldquo;short list&rdquo; generator to help us side-step an exhaustive search
