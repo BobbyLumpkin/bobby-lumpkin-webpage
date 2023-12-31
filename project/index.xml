@@ -5,12 +5,483 @@
     <link>https://bobbylumpkin.com/project/</link>
       <atom:link href="https://bobbylumpkin.com/project/index.xml" rel="self" type="application/rss+xml" />
     <description>Projects</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Wed, 16 Aug 2023 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sat, 14 Oct 2023 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://bobbylumpkin.com/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_512x512_fill_lanczos_center_3.png</url>
       <title>Projects</title>
       <link>https://bobbylumpkin.com/project/</link>
     </image>
+    
+    <item>
+      <title>Make it &#39;Byte&#39;-Sized</title>
+      <link>https://bobbylumpkin.com/project/tokenization/</link>
+      <pubDate>Sat, 14 Oct 2023 00:00:00 +0000</pubDate>
+      <guid>https://bobbylumpkin.com/project/tokenization/</guid>
+      <description>&lt;h1 id=&#34;uoverview-and-table-of-contentsu&#34;&gt;&lt;strong&gt;&lt;u&gt;Overview and Table of Contents&lt;/u&gt;&lt;/strong&gt;&lt;/h1&gt;
+&lt;p&gt;With the shattering of performance benchmarks and the development of 
+applications like ChatGPT and Bing Chat, lot&amp;rsquo;s of time and writing has
+been dedicated to demystifying advancements in neural network
+architectures. But advancements in tokenization, a necessary
+preprocessing step often take place with less publicity. In this post,
+we&amp;rsquo;ll lend a little love and spotlight to the topic. We&amp;rsquo;ll review what
+tokenization is, why it&amp;rsquo;s done and walk through the details behind both
+simple and more complex, recent developments and approaches.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;#tokenization-what-it-is-and-why-its-done&#34;&gt;Tokenization: What It Is and Why It&amp;rsquo;s Done&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#word--character-level-methods&#34;&gt;Word &amp;amp; Subword Level Methods&lt;/a&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;#word-level-methods&#34;&gt;Word-Level Methods&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#subword-level-methods&#34;&gt;Subword-Level Methods&lt;/a&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;#byte-pair-encoding&#34;&gt;Byte Pair Encoding&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#wordpiece&#34;&gt;WordPiece&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#byte-level-byte-pair-encoding&#34;&gt;Byte-Level Byte Pair Encoding&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#references&#34;&gt;References&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;tokenization-what-it-is-and-why-its-done&#34;&gt;Tokenization: What It Is and Why It&amp;rsquo;s Done&lt;/h2&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;tokenization visualization&#34; srcset=&#34;
+               /project/tokenization/images/tokenization_visualization_hubdc66e6057e9db44d08e50f17dab7c86_34543_8579cfae6495f6d406265e4a49bbc172.webp 400w,
+               /project/tokenization/images/tokenization_visualization_hubdc66e6057e9db44d08e50f17dab7c86_34543_127a77947c29c18798fc4986ddcaeccb.webp 760w,
+               /project/tokenization/images/tokenization_visualization_hubdc66e6057e9db44d08e50f17dab7c86_34543_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://bobbylumpkin.com/project/tokenization/images/tokenization_visualization_hubdc66e6057e9db44d08e50f17dab7c86_34543_8579cfae6495f6d406265e4a49bbc172.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;326&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;Tokenization is the splitting up of a text into some concept of &amp;lsquo;atomic&amp;rsquo;
+units: words or sub-word units, for example. In order to utilize
+advancements in neural networks for NLP, we first need a way to convert
+text into a machine learning digestible format. Tokenization is the
+first step in this process; it allows us to break a text into
+contributing components. Those components are then typically mapped to
+vectors, through an embedding layer, and can be fed into a neural
+network.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;How&lt;/em&gt; text should be decomposed isn&amp;rsquo;t obvious and lots of differing
+approaches exist. The example pictured above is a simple example:
+namely, splitting at every space character. While such methods do have
+use-cases, many modern NLP pipelines also utilize more sophisticated
+methods. We&amp;rsquo;ll touch on some of these in the upcoming sections, looking
+at methods on the word, subword and byte levels, culminating with an
+introduction to the approach used in models like RoBERTa and GPT 3.5 &amp;amp;
+4.&lt;/p&gt;
+&lt;h2 id=&#34;word--character-level-methods&#34;&gt;Word &amp;amp; Character Level Methods&lt;/h2&gt;
+&lt;h3 id=&#34;word-level-methods&#34;&gt;Word-Level Methods&lt;/h3&gt;
+&lt;p&gt;Why not separate characters by spaces? Let&amp;rsquo;s think about what typically
+happens after tokenization, namely, embedding. For every token in our 
+vocabulary, we&amp;rsquo;ll generate&#39; an embedding vector. That means that the
+size of our embedding matrix or model will scale with the size of our
+vocabulary. You&amp;rsquo;ll notice that, in splitting by spaces, punctuation gets
+lumped in with words. Do we really want to include all of &amp;ldquo;share&amp;rdquo;,
+&amp;ldquo;share!&amp;rdquo;, &amp;ldquo;share?&amp;rdquo; and any other punctuation combinations in the corpus
+as separate tokens? Not dealing with punctuation could lead to massive
+inefficiencies.&lt;/p&gt;
+&lt;p&gt;As an improvement, we could try to additionally split around
+punctuation. In other words, our initial example would get tokenized as&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#1d2432;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#ff636f&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#58a1dd&#34;&gt;re&lt;/span&gt;
+
+
+&lt;span style=&#34;color:#58a1dd&#34;&gt;TEXT&lt;/span&gt; &lt;span style=&#34;color:#ff636f&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;Rico, Barry and Alexandra have something to share!&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#58a1dd&#34;&gt;re&lt;/span&gt;&lt;span style=&#34;color:#ff636f&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#58a1dd&#34;&gt;findall&lt;/span&gt;( &lt;span style=&#34;color:#a6be9d&#34;&gt;r&lt;/span&gt;&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;\w+|[^\s\w]+&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#58a1dd&#34;&gt;TEXT&lt;/span&gt;)
+
+[&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;Rico&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;,&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;Barry&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;and&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;Alexandra&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;have&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;something&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;to&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;share&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;!&amp;#39;&lt;/span&gt;]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;A different example might highlight some lingering deficiencies, though.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#1d2432;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#58a1dd&#34;&gt;TEXT&lt;/span&gt; &lt;span style=&#34;color:#ff636f&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;I don&amp;#39;t wanna keep secrets just to keep you.&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#58a1dd&#34;&gt;re&lt;/span&gt;&lt;span style=&#34;color:#ff636f&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#58a1dd&#34;&gt;findall&lt;/span&gt;( &lt;span style=&#34;color:#a6be9d&#34;&gt;r&lt;/span&gt;&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;\w+|[^\s\w]+&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#58a1dd&#34;&gt;TEXT&lt;/span&gt;)
+
+[&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;I&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;don&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;&amp;#39;&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;t&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;wanna&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;keep&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;secrets&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;just&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;to&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;keep&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;you&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;.&amp;#34;&lt;/span&gt;]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;There&amp;rsquo;s something unintuitive about the way &amp;ldquo;don&amp;rsquo;t&amp;rdquo; was split. We know
+&amp;ldquo;don&amp;rsquo;t&amp;rdquo; stands for &amp;ldquo;do not&amp;rdquo; and so, it might be better to tokenize it as&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#1d2432;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;[&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;I&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;do&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;n&amp;#39;t&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;wanna&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;keep&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;secrets&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;just&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;to&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;keep&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;you&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;.&amp;#34;&lt;/span&gt;]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Here&amp;rsquo;s another one:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#1d2432;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#58a1dd&#34;&gt;TEXT&lt;/span&gt; &lt;span style=&#34;color:#ff636f&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;The Labour party currently holds 199 seats in the U.K. parliament.&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#58a1dd&#34;&gt;re&lt;/span&gt;&lt;span style=&#34;color:#ff636f&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#58a1dd&#34;&gt;findall&lt;/span&gt;( &lt;span style=&#34;color:#a6be9d&#34;&gt;r&lt;/span&gt;&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;\w+|[^\s\w]+&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#58a1dd&#34;&gt;TEXT&lt;/span&gt;)
+
+[&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;The&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;Labour&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;party&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;currently&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;holds&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;199&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;seats&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;in&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;the&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;U&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;.&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;K&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;.&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;parliament&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;.&amp;#34;&lt;/span&gt;]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We know that the &amp;ldquo;U.K.&amp;rdquo; is an abbreviation, representing a single entity
+so splitting it by punctuation doesn&amp;rsquo;t make much sense. What we&amp;rsquo;re
+getting at with these examples is that there are additional rules and
+rule-exceptions that a simple punctuation and/or space based approach
+doesn&amp;rsquo;t take into account.&lt;/p&gt;
+&lt;p&gt;With that in mind, there are a number of popular rule-based, word-level
+tokenizers, like those in &lt;a href=&#34;https://spacy.io/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;spaCy&lt;/code&gt;&lt;/a&gt; that can
+accomodate for these exceptions and others. In short, &lt;code&gt;spaCy&lt;/code&gt;&amp;rsquo;s
+documentation describes their tokenization algorithms broadly as first
+splitting on white space and then, processing from left to right,
+performing the two following checks:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Does the substring match a tokenizer exception rule?&lt;/li&gt;
+&lt;li&gt;Can a prefix, suffix or infix be split off?&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&amp;lt;code&amp;gt;spaCy&amp;lt;/code&amp;gt; tokenization example&#34; srcset=&#34;
+               /project/tokenization/images/spacy-tokenizer-example_hu22a0918f2f471ef037544a5a472e165a_56241_4ae820113cc5fed7d886483effdfd289.webp 400w,
+               /project/tokenization/images/spacy-tokenizer-example_hu22a0918f2f471ef037544a5a472e165a_56241_6b695755293a1a7ff09c360302083a5a.webp 760w,
+               /project/tokenization/images/spacy-tokenizer-example_hu22a0918f2f471ef037544a5a472e165a_56241_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://bobbylumpkin.com/project/tokenization/images/spacy-tokenizer-example_hu22a0918f2f471ef037544a5a472e165a_56241_4ae820113cc5fed7d886483effdfd289.webp&#34;
+               width=&#34;641&#34;
+               height=&#34;420&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+
+&lt;em&gt;Visual example of &lt;code&gt;spaCy&lt;/code&gt; tokenization.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Revisiting the last code example, we can use &lt;code&gt;spaCy&lt;/code&gt;&amp;rsquo;s rule-based
+tokenizer as follows:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#1d2432;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#ff636f&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#58a1dd&#34;&gt;spacy&lt;/span&gt;
+
+
+&lt;span style=&#34;color:#58a1dd&#34;&gt;TEXT&lt;/span&gt; &lt;span style=&#34;color:#ff636f&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;The Labour party currently holds 199 seats in the U.K. parliament.&amp;#34;&lt;/span&gt;
+
+&lt;span style=&#34;color:#58a1dd&#34;&gt;nlp&lt;/span&gt; &lt;span style=&#34;color:#ff636f&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#58a1dd&#34;&gt;spacy&lt;/span&gt;&lt;span style=&#34;color:#ff636f&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#58a1dd&#34;&gt;load&lt;/span&gt;(&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;en_core_web_sm&amp;#34;&lt;/span&gt;)
+&lt;span style=&#34;color:#58a1dd&#34;&gt;doc&lt;/span&gt; &lt;span style=&#34;color:#ff636f&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#58a1dd&#34;&gt;nlp&lt;/span&gt;(&lt;span style=&#34;color:#58a1dd&#34;&gt;TEXT&lt;/span&gt;)
+&lt;span style=&#34;color:#58a1dd&#34;&gt;print&lt;/span&gt;([&lt;span style=&#34;color:#58a1dd&#34;&gt;token&lt;/span&gt;&lt;span style=&#34;color:#ff636f&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#58a1dd&#34;&gt;text&lt;/span&gt; &lt;span style=&#34;color:#ff636f&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#58a1dd&#34;&gt;token&lt;/span&gt; &lt;span style=&#34;color:#ff636f&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#58a1dd&#34;&gt;doc&lt;/span&gt;])
+
+[&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;The&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;Labour&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;party&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;currently&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;holds&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;199&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;seats&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;in&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;the&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;U.K.&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;parliament&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;.&amp;#39;&lt;/span&gt;]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;subword-level-methods&#34;&gt;Subword-Level Methods&lt;/h3&gt;
+&lt;p&gt;In some cases, especially when the text corpus is large, the language
+model has a fixed size vocabulary and/or handling of rare or novel words
+(relative to the training set) is necessary (either as input or for
+generation), subword-level tokenization offers potential advantages. In
+fact, because of the revitalized modern interest in subword-level
+tokenization, typographically based tokenizers like those discussed in
+the previous section are sometimes referred to as &amp;lsquo;pre-tokenizers&amp;rsquo;;
+they are often applied prior to tokenization as a preprocessing step. In
+addition to &lt;code&gt;spaCy&lt;/code&gt;, a number of implementations can be found in the
+&lt;a href=&#34;https://huggingface.co/docs/tokenizers/api/pre-tokenizers&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;pre_tokenizers&lt;/code&gt;&lt;/a&gt;
+module of the HuggingFace &lt;a href=&#34;https://huggingface.co/docs/tokenizers/index&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;tokenizers&lt;/code&gt;&lt;/a&gt;
+Python package.&lt;/p&gt;
+&lt;p&gt;A lage text corpus, fixed vocabulary size and/or out of vocablary (OOV)
+tokens: &lt;em&gt;why&lt;/em&gt; might subword-level tokenizers show relative advantges
+given these restrictions? Let&amp;rsquo;s assume we&amp;rsquo;re still working at
+the word level. A large text corpus means a potentially
+prohibitively large vocabulary. A fixed vocabulary means potentially being
+highly susceptible to poor OOV handling. And, in the same vein, an
+ability to handle OOV well would potentially require a prohibitively
+large vocabulary. Clearly, all of these scenarios are related and
+subword-level tokenization can help address each of them via the
+following obvious fact: words can be decomposed into subwords. As an
+example, consider the BERT tokenizer:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#1d2432;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#ff636f&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#58a1dd&#34;&gt;transformers&lt;/span&gt; &lt;span style=&#34;color:#ff636f&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#58a1dd&#34;&gt;BertTokenizer&lt;/span&gt;
+
+
+&lt;span style=&#34;color:#58a1dd&#34;&gt;TEXT&lt;/span&gt; &lt;span style=&#34;color:#ff636f&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;Tokenizers&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#58a1dd&#34;&gt;tokenizer&lt;/span&gt; &lt;span style=&#34;color:#ff636f&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#58a1dd&#34;&gt;BertTokenizer&lt;/span&gt;&lt;span style=&#34;color:#ff636f&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#58a1dd&#34;&gt;from_pretrained&lt;/span&gt;(&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#34;bert-base-uncased&amp;#34;&lt;/span&gt;)
+&lt;span style=&#34;color:#58a1dd&#34;&gt;tokenizer&lt;/span&gt;&lt;span style=&#34;color:#ff636f&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#58a1dd&#34;&gt;tokenize&lt;/span&gt;(&lt;span style=&#34;color:#58a1dd&#34;&gt;TEXT&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;subword-level tokenization visualization&#34; srcset=&#34;
+               /project/tokenization/images/subword_tokenization_visualization_hub40869d4d4e33111adc7593a9bb234a5_13380_50b8c1ff4e18d8eefd855618f96d0918.webp 400w,
+               /project/tokenization/images/subword_tokenization_visualization_hub40869d4d4e33111adc7593a9bb234a5_13380_5fa8754d615f0ed2401bfa57b95b032a.webp 760w,
+               /project/tokenization/images/subword_tokenization_visualization_hub40869d4d4e33111adc7593a9bb234a5_13380_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://bobbylumpkin.com/project/tokenization/images/subword_tokenization_visualization_hub40869d4d4e33111adc7593a9bb234a5_13380_50b8c1ff4e18d8eefd855618f96d0918.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;284&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;Consider the challenge of having a large text corpus. If sub-word units
+are chosedn intelligently, we can take advantage of the fact that
+lots of words tend to be decomposable into a set of shared units. In
+other words, tokenizing at the subword level has the potential to
+drastically shrink the vocabulary size. By the same reasoning, in some
+sense, more information can be captured into a fixed vocabulary at the
+subword level than at the word level. And lastly, presented with novel
+words, assuming their subword components have been seen before, those
+words can still be processed and/or generated directly.&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s concretize this with some examples.&lt;/p&gt;
+&lt;h3 id=&#34;byte-pair-encoding&#34;&gt;Byte Pair Encoding&lt;/h3&gt;
+&lt;p&gt;Byte Pair Encoding (or BPE) originates from the world of data compression
+(&lt;a href=&#34;http://www.pennelynn.com/Documents/CUJ/HTML/94HTML/19940045.HTM&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Philip Gage, 1994&lt;/a&gt;).
+The main idea is simple. Given a sequence of bytes to be streamed:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Identify the byte-pair that appears most frequently.&lt;/li&gt;
+&lt;li&gt;Replace said byte-pair with a single byte, not observed in the
+original sequence.&lt;/li&gt;
+&lt;li&gt;Take note of this substitution in a table, call it $T$.&lt;/li&gt;
+&lt;li&gt;Repeat steps 1-3 until the data has been sufficiently compressed.&lt;/li&gt;
+&lt;li&gt;Send $T$ ahead of the resulting, compressed byte sequence.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The application of BPE to tokenization (to my knowledge) was first due
+to (&lt;a href=&#34;https://arxiv.org/abs/1508.07909&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Senrich et al., 2016&lt;/a&gt;) and is a
+fairly straightforward modification. Namely, The method as described in
+the 2016 roughly boils down to the following algorithm:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Initialize the vocabulary with the set of symbols making up the
+corpus.&lt;/li&gt;
+&lt;li&gt;Represent each word as a sequence of these characters.&lt;/li&gt;
+&lt;li&gt;Extract a dictionary of these word-based character sequences,
+weighted by the frequency of each word&amp;rsquo;s occurrence in the corpus.&lt;/li&gt;
+&lt;li&gt;Iteratively count all symbol pairs and replace each occurrence of
+the most frequent pair (‘A’, ‘B’) with a new symbol ‘AB’.&lt;/li&gt;
+&lt;li&gt;Repeat step 4 until the desired vocabulary size is reached.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The resulting vocabulary will have a size equal to cardinality of the
+initial character set plus the number of implemented merge operations
+(which can be treated as a hyperparameter). Senrich et al. provide the
+following minimal implementationl of BPE in Python:&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;BPE Minimal Python Implementation&#34; srcset=&#34;
+               /project/tokenization/images/bpe-python-senrich_hu2ffe9bc3700aff8bb9c68302f479207d_56669_9f3d432efb50fe7d4161128b76c0bbd3.webp 400w,
+               /project/tokenization/images/bpe-python-senrich_hu2ffe9bc3700aff8bb9c68302f479207d_56669_1b7be7dde9faebb69876c8f98e10dc91.webp 760w,
+               /project/tokenization/images/bpe-python-senrich_hu2ffe9bc3700aff8bb9c68302f479207d_56669_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://bobbylumpkin.com/project/tokenization/images/bpe-python-senrich_hu2ffe9bc3700aff8bb9c68302f479207d_56669_9f3d432efb50fe7d4161128b76c0bbd3.webp&#34;
+               width=&#34;433&#34;
+               height=&#34;585&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;Using BPE in this way became somewhat of a standard in sub-word
+tokenization because it enables one to learn a balance between
+character and word-level tokens and makes progress in addressing
+vocabulary size and OOV problems. Still, these are potential problems, 
+especially in the subdomain of neural machine translation where the
+potential character sets among all relevant languages could be
+prohibitively large, yet.&lt;/p&gt;
+&lt;p&gt;The algorithm implemented by ChatGPT models
+and others take advantage of modern character encoding methods to
+modify BPE in a way that accounts for these challenges. But, before we
+pull that thread further, let&amp;rsquo;s look at another (similar) sub-word
+level tokenization algorith: &amp;lsquo;WordPiece&amp;rsquo;.&lt;/p&gt;
+&lt;h3 id=&#34;wordpiece&#34;&gt;WordPiece&lt;/h3&gt;
+&lt;p&gt;WordPiece is brought to us by two former employees at Google: Mike
+Schuster and Kaisuke Nakajima via &lt;a href=&#34;https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/37842.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Japanese and Korean Voice Search&lt;/a&gt;
+(2012). Similar to BPE, WordPiece is a data-driven, greedy algorithm
+designed to intelligently construct subword units from a corpus of text.
+Where the methods differ is stictly related to &lt;em&gt;how&lt;/em&gt; they define that
+locally optimal merge at each step; what does it mean for a pair of
+tokens to be the &amp;lsquo;best&amp;rsquo; merge pair? With BPE, it was simply frequency.
+In the case of WordPiece, it&amp;rsquo;s likelihood.&lt;/p&gt;
+&lt;p&gt;What likelihood, you might ask? The likelihood of the training data,
+according to some language model (say unigram on tokens, for example).
+Intuitively, what we&amp;rsquo;re doing is prioritizing merges where the resultant
+unit occurrs frequently, relative to it&amp;rsquo;s constituent units. Here&amp;rsquo;s the
+algorithm, as presented by Schuster and Nakajima:&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;WordPiece Algorithm&#34; srcset=&#34;
+               /project/tokenization/images/wordpiece-algorithm_huc69eaf2b79d3261363a96ea55e90ad4f_50148_b47d02e18c7fbb4bb5d126d3e0ef14d3.webp 400w,
+               /project/tokenization/images/wordpiece-algorithm_huc69eaf2b79d3261363a96ea55e90ad4f_50148_0af6fe3b7ab31b63d0c04bf266c1093e.webp 760w,
+               /project/tokenization/images/wordpiece-algorithm_huc69eaf2b79d3261363a96ea55e90ad4f_50148_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://bobbylumpkin.com/project/tokenization/images/wordpiece-algorithm_huc69eaf2b79d3261363a96ea55e90ad4f_50148_b47d02e18c7fbb4bb5d126d3e0ef14d3.webp&#34;
+               width=&#34;448&#34;
+               height=&#34;285&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;Just as was the case with BPE, WordPiece improves, but still doesn&amp;rsquo;t
+solve all vocabulary size restrictions and OOV problems. In the next
+section, we&amp;rsquo;ll see how some modifications to BPE can get us closer.&lt;/p&gt;
+&lt;h2 id=&#34;byte-level-byte-pair-encoding&#34;&gt;Byte-Level Byte Pair Encoding&lt;/h2&gt;
+&lt;p&gt;Earlier, we mentioned leveraging modern character encoding processes.
+Recall that using the Unicode standard, every written character, spanning
+all languages, can be uniquely represented as numbers (or codepoints).
+Encoding algorithms, like UTF-8, for example, take those numbers and
+represent them as byte sequences.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;UTF-8 Encoding&#34; srcset=&#34;
+               /project/tokenization/images/utf8_hub10dcf9061760a98ee148b0b536c26e0_8356_a9ff158ad917fc4381f87ee0dc95b002.webp 400w,
+               /project/tokenization/images/utf8_hub10dcf9061760a98ee148b0b536c26e0_8356_f0f02bfdac7f16911ab9e77ae76bd830.webp 760w,
+               /project/tokenization/images/utf8_hub10dcf9061760a98ee148b0b536c26e0_8356_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://bobbylumpkin.com/project/tokenization/images/utf8_hub10dcf9061760a98ee148b0b536c26e0_8356_a9ff158ad917fc4381f87ee0dc95b002.webp&#34;
+               width=&#34;554&#34;
+               height=&#34;172&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;That every character can be translated into a sequence of bytes is an
+observation we can use to our advantage. Namely, instead of applying
+the BPE algorithm to characters, as previously illustrated, Byte-Level
+BPE (as the name suggests) applies the same algorithm to bytes. That&amp;rsquo;s
+it!&lt;/p&gt;
+&lt;p&gt;What makes this appealing? Well, there are only $2^8=256$ possible bytes
+, resulting in a small base vocabulary and because &lt;em&gt;every&lt;/em&gt; character
+can be represented as a byte sequence, this means that we&amp;rsquo;ve
+side-stepped the OOV problem. In other words, we get incredible scope
+with a relatively small vocabulary. To put this in perspective, to
+accomplish the same scope using characters would require a base
+vocabulary of $~150,000$.&lt;/p&gt;
+&lt;p&gt;But it&amp;rsquo;s not all good news. Decomposing characters to work at the level
+of bytes means longer token sequences, resulting in longer training and
+inference times. That said, for many use casese, the tradeoff is worth
+it. Indeed, Models like RoBERTa and GPT$\geq2$ use Byte-Level BPE
+implementations.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;RoBERTa Tokenizer&#34; srcset=&#34;
+               /project/tokenization/images/roberta-blbpe_hub292a7a39dc26598d5f5deb65d80751e_9097_a38a13048855413783e48d60a04e7a05.webp 400w,
+               /project/tokenization/images/roberta-blbpe_hub292a7a39dc26598d5f5deb65d80751e_9097_41bedbbb3c8da237eb1d52f2bec46697.webp 760w,
+               /project/tokenization/images/roberta-blbpe_hub292a7a39dc26598d5f5deb65d80751e_9097_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://bobbylumpkin.com/project/tokenization/images/roberta-blbpe_hub292a7a39dc26598d5f5deb65d80751e_9097_a38a13048855413783e48d60a04e7a05.webp&#34;
+               width=&#34;528&#34;
+               height=&#34;168&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;GPT-3.5-turbo and GPT-4.0 Tokenizer&#34; srcset=&#34;
+               /project/tokenization/images/gpt-blbpe_hu369cc0225b71f14cfac9d7ab0b10de6e_9006_f882cbb069807e5cd530634e41304d06.webp 400w,
+               /project/tokenization/images/gpt-blbpe_hu369cc0225b71f14cfac9d7ab0b10de6e_9006_d713eec01f3c98e538ba0e8dc4b64538.webp 760w,
+               /project/tokenization/images/gpt-blbpe_hu369cc0225b71f14cfac9d7ab0b10de6e_9006_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://bobbylumpkin.com/project/tokenization/images/gpt-blbpe_hu369cc0225b71f14cfac9d7ab0b10de6e_9006_f882cbb069807e5cd530634e41304d06.webp&#34;
+               width=&#34;482&#34;
+               height=&#34;173&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;To read more about the GPT models implementation, see section $2.2$ of
+&lt;a href=&#34;https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Language Models are Unsupervised Multitask Learners (Radford et al.)&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&#34;references&#34;&gt;References&lt;/h1&gt;
+&lt;p&gt;[1] &lt;a href=&#34;https://arxiv.org/abs/2112.10508&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Mielke, Sabrina J, et al. &amp;ldquo;Between Words and Characters: A Brief
+History of Open-Vocabulary Modeling and Tokenization in NLP&amp;rdquo; &lt;em&gt;arXiv.Org&lt;/em&gt;,
+20 Dec. 2021, arxiv.orgs/abs/2112.10508&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[2] &lt;a href=&#34;https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Radford, Alec, et al. &lt;em&gt;Languagte Models Are Unsupervised Multitask Learners&lt;/em&gt;,
+2019&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[3] &lt;a href=&#34;https://arxiv.org/abs/1508.07909&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Senrich, Rico, et al. &amp;ldquo;Neural Machine Translation of Rare Words with
+Subword Units.&amp;rdquo; &lt;em&gt;arXiv.Org&lt;/em&gt;, 10 June 2016, arxiv.org/abs/1508.07909.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[4] &lt;a href=&#34;https://spacy.io/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Spacy · industrial-strength natural language processing in python.
+· Industrial-strength Natural Language Processing in Python. (n.d.).
+https://spacy.io/&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Docs2Chat</title>

@@ -1,0 +1,1757 @@
+<!DOCTYPE html><html lang="en-us" >
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.4.0 for Hugo" />
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Bobby Lumpkin" />
+
+  
+  
+  
+    
+  
+  <meta name="description" content="An Introduction to Tokenization methods in modern NLP." />
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://bobbylumpkin.com/project/tokenization/" />
+
+  
+  
+  
+    <meta name="theme-color" content="#1565c0" />
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.f1ecf783c14edc00c9320c205831ad8e.css" media="print" onload="this.media='all'">
+
+  
+  
+  
+    
+    
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/styles/github.min.css" crossorigin="anonymous" title="hl-light" media="print" onload="this.media='all'">
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" media="print" onload="this.media='all'" disabled>
+        
+      
+    
+
+    
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.css" integrity="" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.512574799414e7d36471486881070b0f.css" />
+
+  
+
+
+
+  
+
+  
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+    <link rel="manifest" href="/manifest.webmanifest" />
+  
+
+  <link rel="icon" type="image/png" href="/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_32x32_fill_lanczos_center_3.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_180x180_fill_lanczos_center_3.png" />
+
+  <link rel="canonical" href="https://bobbylumpkin.com/project/tokenization/" />
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+
+  
+  
+    
+    
+  
+  <meta property="twitter:card" content="summary_large_image" />
+  
+  <meta property="og:site_name" content="Bobby Lumpkin" />
+  <meta property="og:url" content="https://bobbylumpkin.com/project/tokenization/" />
+  <meta property="og:title" content="Make it &#39;Byte&#39;-Sized | Bobby Lumpkin" />
+  <meta property="og:description" content="An Introduction to Tokenization methods in modern NLP." /><meta property="og:image" content="https://bobbylumpkin.com/project/tokenization/featured.png" />
+    <meta property="twitter:image" content="https://bobbylumpkin.com/project/tokenization/featured.png" /><meta property="og:locale" content="en-us" />
+  
+    
+      <meta
+        property="article:published_time"
+        content="2023-10-14T00:00:00&#43;00:00"
+      />
+    
+    <meta property="article:modified_time" content="2023-10-14T00:00:00&#43;00:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://bobbylumpkin.com/project/tokenization/"
+  },
+  "headline": "Make it 'Byte'-Sized",
+  
+  "image": [
+    "https://bobbylumpkin.com/project/tokenization/featured.png"
+  ],
+  
+  "datePublished": "2023-10-14T00:00:00Z",
+  "dateModified": "2023-10-14T00:00:00Z",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Bobby Lumpkin"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Bobby Lumpkin",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://bobbylumpkin.com/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_192x192_fill_lanczos_center_3.png"
+    }
+  },
+  "description": "An Introduction to Tokenization methods in modern NLP."
+}
+</script>
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+  <title>Make it &#39;Byte&#39;-Sized | Bobby Lumpkin</title>
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="88daed02c1dad6c0a48426ba9876c37c" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.8f76bdc9e086322ed5147724ebba3d06.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="header--fixed">
+  <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+    <div class="container-xl">
+
+      
+      <div class="d-none d-lg-inline-flex">
+        <a class="navbar-brand" href="/">Bobby Lumpkin</a>
+      </div>
+      
+
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+      
+      <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+        <a class="navbar-brand" href="/">Bobby Lumpkin</a>
+      </div>
+      
+
+      
+      
+      <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+        
+        <ul class="navbar-nav d-md-inline-flex">
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#intro"><span>Welcome</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#about"><span>About Me</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#projects"><span>Projects</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#posts"><span>Posts</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#publications"><span>Publications</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#contact"><span>Contact</span></a>
+          </li>
+
+          
+          
+
+        
+
+          
+        </ul>
+      </div>
+
+      <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+        
+        
+          
+        
+
+        
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+        
+        <li class="nav-item dropdown theme-dropdown">
+          <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </a>
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item js-set-theme-light">
+              <span>Light</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-dark">
+              <span>Dark</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-auto">
+              <span>Automatic</span>
+            </a>
+          </div>
+        </li>
+        
+
+        
+        
+
+      </ul>
+
+    </div>
+  </nav>
+</header>
+
+
+  </div>
+
+  <div class="page-body">
+    <article class="article article-project">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<div class="article-container pt-3">
+  <h1>Make it &#39;Byte&#39;-Sized</h1>
+
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Oct 14, 2023
+  </span>
+  
+
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+  
+
+</div>
+
+  
+
+
+
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 315px;">
+  <div style="position: relative">
+    <img src="/project/tokenization/featured_hua23bca693a9df501fed1d5a3d839f946_49922_720x2500_fit_q75_h2_lanczos_3.webp" width="720" height="315" alt="" class="featured-image">
+    
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <h1 id="uoverview-and-table-of-contentsu"><strong><u>Overview and Table of Contents</u></strong></h1>
+<p>With the shattering of performance benchmarks and the development of 
+applications like ChatGPT and Bing Chat, lot&rsquo;s of time and writing has
+been dedicated to demystifying advancements in neural network
+architectures. But advancements in tokenization, a necessary
+preprocessing step often take place with less publicity. In this post,
+we&rsquo;ll lend a little love and spotlight to the topic. We&rsquo;ll review what
+tokenization is, why it&rsquo;s done and walk through the details behind both
+simple and more complex, recent developments and approaches.</p>
+<ol>
+<li><a href="#tokenization-what-it-is-and-why-its-done">Tokenization: What It Is and Why It&rsquo;s Done</a></li>
+<li><a href="#word--character-level-methods">Word &amp; Subword Level Methods</a>
+<ol>
+<li><a href="#word-level-methods">Word-Level Methods</a></li>
+<li><a href="#subword-level-methods">Subword-Level Methods</a>
+<ol>
+<li><a href="#byte-pair-encoding">Byte Pair Encoding</a></li>
+<li><a href="#wordpiece">WordPiece</a></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a href="#byte-level-byte-pair-encoding">Byte-Level Byte Pair Encoding</a></li>
+<li><a href="#references">References</a></li>
+</ol>
+<hr>
+<h2 id="tokenization-what-it-is-and-why-its-done">Tokenization: What It Is and Why It&rsquo;s Done</h2>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="tokenization visualization" srcset="
+               /project/tokenization/images/tokenization_visualization_hubdc66e6057e9db44d08e50f17dab7c86_34543_8579cfae6495f6d406265e4a49bbc172.webp 400w,
+               /project/tokenization/images/tokenization_visualization_hubdc66e6057e9db44d08e50f17dab7c86_34543_127a77947c29c18798fc4986ddcaeccb.webp 760w,
+               /project/tokenization/images/tokenization_visualization_hubdc66e6057e9db44d08e50f17dab7c86_34543_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/project/tokenization/images/tokenization_visualization_hubdc66e6057e9db44d08e50f17dab7c86_34543_8579cfae6495f6d406265e4a49bbc172.webp"
+               width="760"
+               height="326"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>Tokenization is the splitting up of a text into some concept of &lsquo;atomic&rsquo;
+units: words or sub-word units, for example. In order to utilize
+advancements in neural networks for NLP, we first need a way to convert
+text into a machine learning digestible format. Tokenization is the
+first step in this process; it allows us to break a text into
+contributing components. Those components are then typically mapped to
+vectors, through an embedding layer, and can be fed into a neural
+network.</p>
+<p><em>How</em> text should be decomposed isn&rsquo;t obvious and lots of differing
+approaches exist. The example pictured above is a simple example:
+namely, splitting at every space character. While such methods do have
+use-cases, many modern NLP pipelines also utilize more sophisticated
+methods. We&rsquo;ll touch on some of these in the upcoming sections, looking
+at methods on the word, subword and byte levels, culminating with an
+introduction to the approach used in models like RoBERTa and GPT 3.5 &amp;
+4.</p>
+<h2 id="word--character-level-methods">Word &amp; Character Level Methods</h2>
+<h3 id="word-level-methods">Word-Level Methods</h3>
+<p>Why not separate characters by spaces? Let&rsquo;s think about what typically
+happens after tokenization, namely, embedding. For every token in our 
+vocabulary, we&rsquo;ll generate' an embedding vector. That means that the
+size of our embedding matrix or model will scale with the size of our
+vocabulary. You&rsquo;ll notice that, in splitting by spaces, punctuation gets
+lumped in with words. Do we really want to include all of &ldquo;share&rdquo;,
+&ldquo;share!&rdquo;, &ldquo;share?&rdquo; and any other punctuation combinations in the corpus
+as separate tokens? Not dealing with punctuation could lead to massive
+inefficiencies.</p>
+<p>As an improvement, we could try to additionally split around
+punctuation. In other words, our initial example would get tokenized as</p>
+<div class="highlight"><pre tabindex="0" style="color:#1d2432;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#ff636f">import</span> <span style="color:#58a1dd">re</span>
+
+
+<span style="color:#58a1dd">TEXT</span> <span style="color:#ff636f">=</span> <span style="color:#a6be9d">&#34;Rico, Barry and Alexandra have something to share!&#34;</span>
+<span style="color:#58a1dd">re</span><span style="color:#ff636f">.</span><span style="color:#58a1dd">findall</span>( <span style="color:#a6be9d">r</span><span style="color:#a6be9d">&#39;\w+|[^\s\w]+&#39;</span>, <span style="color:#58a1dd">TEXT</span>)
+
+[<span style="color:#a6be9d">&#39;Rico&#39;</span>,<span style="color:#a6be9d">&#39;,&#39;</span>,<span style="color:#a6be9d">&#39;Barry&#39;</span>,<span style="color:#a6be9d">&#39;and&#39;</span>,<span style="color:#a6be9d">&#39;Alexandra&#39;</span>,<span style="color:#a6be9d">&#39;have&#39;</span>,<span style="color:#a6be9d">&#39;something&#39;</span>,<span style="color:#a6be9d">&#39;to&#39;</span>,<span style="color:#a6be9d">&#39;share&#39;</span>,<span style="color:#a6be9d">&#39;!&#39;</span>]
+</code></pre></div><p>A different example might highlight some lingering deficiencies, though.</p>
+<div class="highlight"><pre tabindex="0" style="color:#1d2432;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#58a1dd">TEXT</span> <span style="color:#ff636f">=</span> <span style="color:#a6be9d">&#34;I don&#39;t wanna keep secrets just to keep you.&#34;</span>
+<span style="color:#58a1dd">re</span><span style="color:#ff636f">.</span><span style="color:#58a1dd">findall</span>( <span style="color:#a6be9d">r</span><span style="color:#a6be9d">&#39;\w+|[^\s\w]+&#39;</span>, <span style="color:#58a1dd">TEXT</span>)
+
+[<span style="color:#a6be9d">&#34;I&#34;</span>, <span style="color:#a6be9d">&#34;don&#34;</span>,<span style="color:#a6be9d">&#34;&#39;&#34;</span>,<span style="color:#a6be9d">&#34;t&#34;</span>,<span style="color:#a6be9d">&#34;wanna&#34;</span>,<span style="color:#a6be9d">&#34;keep&#34;</span>,<span style="color:#a6be9d">&#34;secrets&#34;</span>,<span style="color:#a6be9d">&#34;just&#34;</span>,<span style="color:#a6be9d">&#34;to&#34;</span>,<span style="color:#a6be9d">&#34;keep&#34;</span>,<span style="color:#a6be9d">&#34;you&#34;</span>,<span style="color:#a6be9d">&#34;.&#34;</span>]
+</code></pre></div><p>There&rsquo;s something unintuitive about the way &ldquo;don&rsquo;t&rdquo; was split. We know
+&ldquo;don&rsquo;t&rdquo; stands for &ldquo;do not&rdquo; and so, it might be better to tokenize it as</p>
+<div class="highlight"><pre tabindex="0" style="color:#1d2432;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">[<span style="color:#a6be9d">&#34;I&#34;</span>,<span style="color:#a6be9d">&#34;do&#34;</span>,<span style="color:#a6be9d">&#34;n&#39;t&#34;</span>,<span style="color:#a6be9d">&#34;wanna&#34;</span>,<span style="color:#a6be9d">&#34;keep&#34;</span>,<span style="color:#a6be9d">&#34;secrets&#34;</span>,<span style="color:#a6be9d">&#34;just&#34;</span>,<span style="color:#a6be9d">&#34;to&#34;</span>,<span style="color:#a6be9d">&#34;keep&#34;</span>,<span style="color:#a6be9d">&#34;you&#34;</span>,<span style="color:#a6be9d">&#34;.&#34;</span>]
+</code></pre></div><p>Here&rsquo;s another one:</p>
+<div class="highlight"><pre tabindex="0" style="color:#1d2432;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#58a1dd">TEXT</span> <span style="color:#ff636f">=</span> <span style="color:#a6be9d">&#34;The Labour party currently holds 199 seats in the U.K. parliament.&#34;</span>
+<span style="color:#58a1dd">re</span><span style="color:#ff636f">.</span><span style="color:#58a1dd">findall</span>( <span style="color:#a6be9d">r</span><span style="color:#a6be9d">&#39;\w+|[^\s\w]+&#39;</span>, <span style="color:#58a1dd">TEXT</span>)
+
+[<span style="color:#a6be9d">&#34;The&#34;</span>, <span style="color:#a6be9d">&#34;Labour&#34;</span>,<span style="color:#a6be9d">&#34;party&#34;</span>,<span style="color:#a6be9d">&#34;currently&#34;</span>,<span style="color:#a6be9d">&#34;holds&#34;</span>,<span style="color:#a6be9d">&#34;199&#34;</span>,<span style="color:#a6be9d">&#34;seats&#34;</span>,<span style="color:#a6be9d">&#34;in&#34;</span>,<span style="color:#a6be9d">&#34;the&#34;</span>,<span style="color:#a6be9d">&#34;U&#34;</span>,<span style="color:#a6be9d">&#34;.&#34;</span>,<span style="color:#a6be9d">&#34;K&#34;</span>,<span style="color:#a6be9d">&#34;.&#34;</span>,<span style="color:#a6be9d">&#34;parliament&#34;</span>,<span style="color:#a6be9d">&#34;.&#34;</span>]
+</code></pre></div><p>We know that the &ldquo;U.K.&rdquo; is an abbreviation, representing a single entity
+so splitting it by punctuation doesn&rsquo;t make much sense. What we&rsquo;re
+getting at with these examples is that there are additional rules and
+rule-exceptions that a simple punctuation and/or space based approach
+doesn&rsquo;t take into account.</p>
+<p>With that in mind, there are a number of popular rule-based, word-level
+tokenizers, like those in <a href="https://spacy.io/" target="_blank" rel="noopener"><code>spaCy</code></a> that can
+accomodate for these exceptions and others. In short, <code>spaCy</code>&rsquo;s
+documentation describes their tokenization algorithms broadly as first
+splitting on white space and then, processing from left to right,
+performing the two following checks:</p>
+<ol>
+<li>Does the substring match a tokenizer exception rule?</li>
+<li>Can a prefix, suffix or infix be split off?</li>
+</ol>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="&lt;code&gt;spaCy&lt;/code&gt; tokenization example" srcset="
+               /project/tokenization/images/spacy-tokenizer-example_hu22a0918f2f471ef037544a5a472e165a_56241_4ae820113cc5fed7d886483effdfd289.webp 400w,
+               /project/tokenization/images/spacy-tokenizer-example_hu22a0918f2f471ef037544a5a472e165a_56241_6b695755293a1a7ff09c360302083a5a.webp 760w,
+               /project/tokenization/images/spacy-tokenizer-example_hu22a0918f2f471ef037544a5a472e165a_56241_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/project/tokenization/images/spacy-tokenizer-example_hu22a0918f2f471ef037544a5a472e165a_56241_4ae820113cc5fed7d886483effdfd289.webp"
+               width="641"
+               height="420"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+
+<em>Visual example of <code>spaCy</code> tokenization.</em></p>
+<p>Revisiting the last code example, we can use <code>spaCy</code>&rsquo;s rule-based
+tokenizer as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#1d2432;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#ff636f">import</span> <span style="color:#58a1dd">spacy</span>
+
+
+<span style="color:#58a1dd">TEXT</span> <span style="color:#ff636f">=</span> <span style="color:#a6be9d">&#34;The Labour party currently holds 199 seats in the U.K. parliament.&#34;</span>
+
+<span style="color:#58a1dd">nlp</span> <span style="color:#ff636f">=</span> <span style="color:#58a1dd">spacy</span><span style="color:#ff636f">.</span><span style="color:#58a1dd">load</span>(<span style="color:#a6be9d">&#34;en_core_web_sm&#34;</span>)
+<span style="color:#58a1dd">doc</span> <span style="color:#ff636f">=</span> <span style="color:#58a1dd">nlp</span>(<span style="color:#58a1dd">TEXT</span>)
+<span style="color:#58a1dd">print</span>([<span style="color:#58a1dd">token</span><span style="color:#ff636f">.</span><span style="color:#58a1dd">text</span> <span style="color:#ff636f">for</span> <span style="color:#58a1dd">token</span> <span style="color:#ff636f">in</span> <span style="color:#58a1dd">doc</span>])
+
+[<span style="color:#a6be9d">&#39;The&#39;</span>,<span style="color:#a6be9d">&#39;Labour&#39;</span>,<span style="color:#a6be9d">&#39;party&#39;</span>,<span style="color:#a6be9d">&#39;currently&#39;</span>,<span style="color:#a6be9d">&#39;holds&#39;</span>,<span style="color:#a6be9d">&#39;199&#39;</span>,<span style="color:#a6be9d">&#39;seats&#39;</span>,<span style="color:#a6be9d">&#39;in&#39;</span>,<span style="color:#a6be9d">&#39;the&#39;</span>,<span style="color:#a6be9d">&#39;U.K.&#39;</span>,<span style="color:#a6be9d">&#39;parliament&#39;</span>,<span style="color:#a6be9d">&#39;.&#39;</span>]
+</code></pre></div><h3 id="subword-level-methods">Subword-Level Methods</h3>
+<p>In some cases, especially when the text corpus is large, the language
+model has a fixed size vocabulary and/or handling of rare or novel words
+(relative to the training set) is necessary (either as input or for
+generation), subword-level tokenization offers potential advantages. In
+fact, because of the revitalized modern interest in subword-level
+tokenization, typographically based tokenizers like those discussed in
+the previous section are sometimes referred to as &lsquo;pre-tokenizers&rsquo;;
+they are often applied prior to tokenization as a preprocessing step. In
+addition to <code>spaCy</code>, a number of implementations can be found in the
+<a href="https://huggingface.co/docs/tokenizers/api/pre-tokenizers" target="_blank" rel="noopener"><code>pre_tokenizers</code></a>
+module of the HuggingFace <a href="https://huggingface.co/docs/tokenizers/index" target="_blank" rel="noopener"><code>tokenizers</code></a>
+Python package.</p>
+<p>A lage text corpus, fixed vocabulary size and/or out of vocablary (OOV)
+tokens: <em>why</em> might subword-level tokenizers show relative advantges
+given these restrictions? Let&rsquo;s assume we&rsquo;re still working at
+the word level. A large text corpus means a potentially
+prohibitively large vocabulary. A fixed vocabulary means potentially being
+highly susceptible to poor OOV handling. And, in the same vein, an
+ability to handle OOV well would potentially require a prohibitively
+large vocabulary. Clearly, all of these scenarios are related and
+subword-level tokenization can help address each of them via the
+following obvious fact: words can be decomposed into subwords. As an
+example, consider the BERT tokenizer:</p>
+<div class="highlight"><pre tabindex="0" style="color:#1d2432;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#ff636f">from</span> <span style="color:#58a1dd">transformers</span> <span style="color:#ff636f">import</span> <span style="color:#58a1dd">BertTokenizer</span>
+
+
+<span style="color:#58a1dd">TEXT</span> <span style="color:#ff636f">=</span> <span style="color:#a6be9d">&#34;Tokenizers&#34;</span>
+<span style="color:#58a1dd">tokenizer</span> <span style="color:#ff636f">=</span> <span style="color:#58a1dd">BertTokenizer</span><span style="color:#ff636f">.</span><span style="color:#58a1dd">from_pretrained</span>(<span style="color:#a6be9d">&#34;bert-base-uncased&#34;</span>)
+<span style="color:#58a1dd">tokenizer</span><span style="color:#ff636f">.</span><span style="color:#58a1dd">tokenize</span>(<span style="color:#58a1dd">TEXT</span>)
+</code></pre></div><p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="subword-level tokenization visualization" srcset="
+               /project/tokenization/images/subword_tokenization_visualization_hub40869d4d4e33111adc7593a9bb234a5_13380_50b8c1ff4e18d8eefd855618f96d0918.webp 400w,
+               /project/tokenization/images/subword_tokenization_visualization_hub40869d4d4e33111adc7593a9bb234a5_13380_5fa8754d615f0ed2401bfa57b95b032a.webp 760w,
+               /project/tokenization/images/subword_tokenization_visualization_hub40869d4d4e33111adc7593a9bb234a5_13380_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/project/tokenization/images/subword_tokenization_visualization_hub40869d4d4e33111adc7593a9bb234a5_13380_50b8c1ff4e18d8eefd855618f96d0918.webp"
+               width="760"
+               height="284"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>Consider the challenge of having a large text corpus. If sub-word units
+are chosedn intelligently, we can take advantage of the fact that
+lots of words tend to be decomposable into a set of shared units. In
+other words, tokenizing at the subword level has the potential to
+drastically shrink the vocabulary size. By the same reasoning, in some
+sense, more information can be captured into a fixed vocabulary at the
+subword level than at the word level. And lastly, presented with novel
+words, assuming their subword components have been seen before, those
+words can still be processed and/or generated directly.</p>
+<p>Let&rsquo;s concretize this with some examples.</p>
+<h3 id="byte-pair-encoding">Byte Pair Encoding</h3>
+<p>Byte Pair Encoding (or BPE) originates from the world of data compression
+(<a href="http://www.pennelynn.com/Documents/CUJ/HTML/94HTML/19940045.HTM" target="_blank" rel="noopener">Philip Gage, 1994</a>).
+The main idea is simple. Given a sequence of bytes to be streamed:</p>
+<ol>
+<li>Identify the byte-pair that appears most frequently.</li>
+<li>Replace said byte-pair with a single byte, not observed in the
+original sequence.</li>
+<li>Take note of this substitution in a table, call it $T$.</li>
+<li>Repeat steps 1-3 until the data has been sufficiently compressed.</li>
+<li>Send $T$ ahead of the resulting, compressed byte sequence.</li>
+</ol>
+<p>The application of BPE to tokenization (to my knowledge) was first due
+to (<a href="https://arxiv.org/abs/1508.07909" target="_blank" rel="noopener">Senrich et al., 2016</a>) and is a
+fairly straightforward modification. Namely, The method as described in
+the 2016 roughly boils down to the following algorithm:</p>
+<ol>
+<li>Initialize the vocabulary with the set of symbols making up the
+corpus.</li>
+<li>Represent each word as a sequence of these characters.</li>
+<li>Extract a dictionary of these word-based character sequences,
+weighted by the frequency of each word&rsquo;s occurrence in the corpus.</li>
+<li>Iteratively count all symbol pairs and replace each occurrence of
+the most frequent pair (‘A’, ‘B’) with a new symbol ‘AB’.</li>
+<li>Repeat step 4 until the desired vocabulary size is reached.</li>
+</ol>
+<p>The resulting vocabulary will have a size equal to cardinality of the
+initial character set plus the number of implemented merge operations
+(which can be treated as a hyperparameter). Senrich et al. provide the
+following minimal implementationl of BPE in Python:</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="BPE Minimal Python Implementation" srcset="
+               /project/tokenization/images/bpe-python-senrich_hu2ffe9bc3700aff8bb9c68302f479207d_56669_9f3d432efb50fe7d4161128b76c0bbd3.webp 400w,
+               /project/tokenization/images/bpe-python-senrich_hu2ffe9bc3700aff8bb9c68302f479207d_56669_1b7be7dde9faebb69876c8f98e10dc91.webp 760w,
+               /project/tokenization/images/bpe-python-senrich_hu2ffe9bc3700aff8bb9c68302f479207d_56669_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/project/tokenization/images/bpe-python-senrich_hu2ffe9bc3700aff8bb9c68302f479207d_56669_9f3d432efb50fe7d4161128b76c0bbd3.webp"
+               width="433"
+               height="585"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>Using BPE in this way became somewhat of a standard in sub-word
+tokenization because it enables one to learn a balance between
+character and word-level tokens and makes progress in addressing
+vocabulary size and OOV problems. Still, these are potential problems, 
+especially in the subdomain of neural machine translation where the
+potential character sets among all relevant languages could be
+prohibitively large, yet.</p>
+<p>The algorithm implemented by ChatGPT models
+and others take advantage of modern character encoding methods to
+modify BPE in a way that accounts for these challenges. But, before we
+pull that thread further, let&rsquo;s look at another (similar) sub-word
+level tokenization algorith: &lsquo;WordPiece&rsquo;.</p>
+<h3 id="wordpiece">WordPiece</h3>
+<p>WordPiece is brought to us by two former employees at Google: Mike
+Schuster and Kaisuke Nakajima via <a href="https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/37842.pdf" target="_blank" rel="noopener">Japanese and Korean Voice Search</a>
+(2012). Similar to BPE, WordPiece is a data-driven, greedy algorithm
+designed to intelligently construct subword units from a corpus of text.
+Where the methods differ is stictly related to <em>how</em> they define that
+locally optimal merge at each step; what does it mean for a pair of
+tokens to be the &lsquo;best&rsquo; merge pair? With BPE, it was simply frequency.
+In the case of WordPiece, it&rsquo;s likelihood.</p>
+<p>What likelihood, you might ask? The likelihood of the training data,
+according to some language model (say unigram on tokens, for example).
+Intuitively, what we&rsquo;re doing is prioritizing merges where the resultant
+unit occurrs frequently, relative to it&rsquo;s constituent units. Here&rsquo;s the
+algorithm, as presented by Schuster and Nakajima:</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="WordPiece Algorithm" srcset="
+               /project/tokenization/images/wordpiece-algorithm_huc69eaf2b79d3261363a96ea55e90ad4f_50148_b47d02e18c7fbb4bb5d126d3e0ef14d3.webp 400w,
+               /project/tokenization/images/wordpiece-algorithm_huc69eaf2b79d3261363a96ea55e90ad4f_50148_0af6fe3b7ab31b63d0c04bf266c1093e.webp 760w,
+               /project/tokenization/images/wordpiece-algorithm_huc69eaf2b79d3261363a96ea55e90ad4f_50148_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/project/tokenization/images/wordpiece-algorithm_huc69eaf2b79d3261363a96ea55e90ad4f_50148_b47d02e18c7fbb4bb5d126d3e0ef14d3.webp"
+               width="448"
+               height="285"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>Just as was the case with BPE, WordPiece improves, but still doesn&rsquo;t
+solve all vocabulary size restrictions and OOV problems. In the next
+section, we&rsquo;ll see how some modifications to BPE can get us closer.</p>
+<h2 id="byte-level-byte-pair-encoding">Byte-Level Byte Pair Encoding</h2>
+<p>Earlier, we mentioned leveraging modern character encoding processes.
+Recall that using the Unicode standard, every written character, spanning
+all languages, can be uniquely represented as numbers (or codepoints).
+Encoding algorithms, like UTF-8, for example, take those numbers and
+represent them as byte sequences.</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="UTF-8 Encoding" srcset="
+               /project/tokenization/images/utf8_hub10dcf9061760a98ee148b0b536c26e0_8356_a9ff158ad917fc4381f87ee0dc95b002.webp 400w,
+               /project/tokenization/images/utf8_hub10dcf9061760a98ee148b0b536c26e0_8356_f0f02bfdac7f16911ab9e77ae76bd830.webp 760w,
+               /project/tokenization/images/utf8_hub10dcf9061760a98ee148b0b536c26e0_8356_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/project/tokenization/images/utf8_hub10dcf9061760a98ee148b0b536c26e0_8356_a9ff158ad917fc4381f87ee0dc95b002.webp"
+               width="554"
+               height="172"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>That every character can be translated into a sequence of bytes is an
+observation we can use to our advantage. Namely, instead of applying
+the BPE algorithm to characters, as previously illustrated, Byte-Level
+BPE (as the name suggests) applies the same algorithm to bytes. That&rsquo;s
+it!</p>
+<p>What makes this appealing? Well, there are only $2^8=256$ possible bytes
+, resulting in a small base vocabulary and because <em>every</em> character
+can be represented as a byte sequence, this means that we&rsquo;ve
+side-stepped the OOV problem. In other words, we get incredible scope
+with a relatively small vocabulary. To put this in perspective, to
+accomplish the same scope using characters would require a base
+vocabulary of $~150,000$.</p>
+<p>But it&rsquo;s not all good news. Decomposing characters to work at the level
+of bytes means longer token sequences, resulting in longer training and
+inference times. That said, for many use casese, the tradeoff is worth
+it. Indeed, Models like RoBERTa and GPT$\geq2$ use Byte-Level BPE
+implementations.</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="RoBERTa Tokenizer" srcset="
+               /project/tokenization/images/roberta-blbpe_hub292a7a39dc26598d5f5deb65d80751e_9097_a38a13048855413783e48d60a04e7a05.webp 400w,
+               /project/tokenization/images/roberta-blbpe_hub292a7a39dc26598d5f5deb65d80751e_9097_41bedbbb3c8da237eb1d52f2bec46697.webp 760w,
+               /project/tokenization/images/roberta-blbpe_hub292a7a39dc26598d5f5deb65d80751e_9097_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/project/tokenization/images/roberta-blbpe_hub292a7a39dc26598d5f5deb65d80751e_9097_a38a13048855413783e48d60a04e7a05.webp"
+               width="528"
+               height="168"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="GPT-3.5-turbo and GPT-4.0 Tokenizer" srcset="
+               /project/tokenization/images/gpt-blbpe_hu369cc0225b71f14cfac9d7ab0b10de6e_9006_f882cbb069807e5cd530634e41304d06.webp 400w,
+               /project/tokenization/images/gpt-blbpe_hu369cc0225b71f14cfac9d7ab0b10de6e_9006_d713eec01f3c98e538ba0e8dc4b64538.webp 760w,
+               /project/tokenization/images/gpt-blbpe_hu369cc0225b71f14cfac9d7ab0b10de6e_9006_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/project/tokenization/images/gpt-blbpe_hu369cc0225b71f14cfac9d7ab0b10de6e_9006_f882cbb069807e5cd530634e41304d06.webp"
+               width="482"
+               height="173"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>To read more about the GPT models implementation, see section $2.2$ of
+<a href="https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf" target="_blank" rel="noopener">Language Models are Unsupervised Multitask Learners (Radford et al.)</a></p>
+<h1 id="references">References</h1>
+<p>[1] <a href="https://arxiv.org/abs/2112.10508" target="_blank" rel="noopener">Mielke, Sabrina J, et al. &ldquo;Between Words and Characters: A Brief
+History of Open-Vocabulary Modeling and Tokenization in NLP&rdquo; <em>arXiv.Org</em>,
+20 Dec. 2021, arxiv.orgs/abs/2112.10508</a></p>
+<p>[2] <a href="https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf" target="_blank" rel="noopener">Radford, Alec, et al. <em>Languagte Models Are Unsupervised Multitask Learners</em>,
+2019</a></p>
+<p>[3] <a href="https://arxiv.org/abs/1508.07909" target="_blank" rel="noopener">Senrich, Rico, et al. &ldquo;Neural Machine Translation of Rare Words with
+Subword Units.&rdquo; <em>arXiv.Org</em>, 10 June 2016, arxiv.org/abs/1508.07909.</a></p>
+<p>[4] <a href="https://spacy.io/" target="_blank" rel="noopener">Spacy · industrial-strength natural language processing in python.
+· Industrial-strength Natural Language Processing in Python. (n.d.).
+https://spacy.io/</a></p>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/llms/">LLMs</a>
+  
+  <a class="badge badge-light" href="/tag/machine-learning/">Machine Learning</a>
+  
+  <a class="badge badge-light" href="/tag/nlp/">NLP</a>
+  
+  <a class="badge badge-light" href="/tag/tokenize/">tokenize</a>
+  
+  <a class="badge badge-light" href="/tag/deep-learning/">Deep Learning</a>
+  
+</div>
+
+
+
+<div class="share-box">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://bobbylumpkin.com/project/tokenization/&amp;text=Make%20it%20&amp;#39;Byte&amp;#39;-Sized" target="_blank" rel="noopener" class="share-btn-twitter" aria-label="twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://bobbylumpkin.com/project/tokenization/&amp;t=Make%20it%20&amp;#39;Byte&amp;#39;-Sized" target="_blank" rel="noopener" class="share-btn-facebook" aria-label="facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Make%20it%20&amp;#39;Byte&amp;#39;-Sized&amp;body=https://bobbylumpkin.com/project/tokenization/" target="_blank" rel="noopener" class="share-btn-email" aria-label="envelope">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://bobbylumpkin.com/project/tokenization/&amp;title=Make%20it%20&amp;#39;Byte&amp;#39;-Sized" target="_blank" rel="noopener" class="share-btn-linkedin" aria-label="linkedin-in">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=Make%20it%20&amp;#39;Byte&amp;#39;-Sized%20https://bobbylumpkin.com/project/tokenization/" target="_blank" rel="noopener" class="share-btn-whatsapp" aria-label="whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https://bobbylumpkin.com/project/tokenization/&amp;title=Make%20it%20&amp;#39;Byte&amp;#39;-Sized" target="_blank" rel="noopener" class="share-btn-weibo" aria-label="weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <a href="https://bobbylumpkin.com/"><img class="avatar mr-3 avatar-circle" src="/author/bobby-lumpkin/avatar_huf6c4d4185a23831b0e4870f350f20595_311409_270x270_fill_q75_lanczos_center.jpg" alt="Bobby Lumpkin"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="https://bobbylumpkin.com/">Bobby Lumpkin</a></h5>
+      <h6 class="card-subtitle">he/him</h6>
+      <p class="card-text">A data scientist with a website.</p>
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/#contact" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/BobbyLumpkin" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/bobby-robert-lumpkin-b83279172/" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/static/uploads/resume.pdf" >
+        <i class="ai ai-cv"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/project/docs2chat/">Docs2Chat</a></li>
+      
+      <li><a href="/project/twitter-sentiment-analysis/">Twitter Sentiment Analysis</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+
+
+    <div class="project-related-pages content-widget-hr">
+      
+      
+
+      
+      
+      
+
+      
+      
+      
+
+      
+      
+      
+    </div>
+  </div>
+</article>
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      <footer class="site-footer">
+
+  
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-themes" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+    </div>
+    
+  </div>
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+
+    
+    <script src="/js/vendor-bundle.min.b73dfaac3b6499dc997741748a7c3fe2.js"></script>
+
+    
+    
+    
+      
+      
+        <script src="https://cdn.jsdelivr.net/gh/desandro/imagesloaded@v4.1.4/imagesloaded.pkgd.min.js" integrity="sha512-S5PZ9GxJZO16tT9r3WJp/Safn31eu8uWrzglMahDT4dsmgqWonRY9grk3j+3tfuPr9WJNsfooOR7Gi7HL5W2jw==" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/gh/metafizzy/isotope@v3.0.6/dist/isotope.pkgd.min.js" integrity="sha512-Zq2BOxyhvnRFXu0+WE6ojpZLOU2jdnqbrM1hmVdGzyeCa1DgM3X5Q4A/Is9xA1IkbUeDd7755dNNI/PzSf2Pew==" crossorigin="anonymous"></script>
+      
+
+      
+      
+
+      
+
+      
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/highlight.min.js" integrity="sha512-Ypjm0o7jOxAd4hpdoppSEN0TQOC19UtPAqD+4s5AlXmUvbmmS/YMxYqAqarQYyxTnB6/rqip9qcxlNB/3U9Wdg==" crossorigin="anonymous"></script>
+        
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/r.min.js" crossorigin="anonymous"></script>
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/python.min.js" crossorigin="anonymous"></script>
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/latex.min.js" crossorigin="anonymous"></script>
+        
+      
+
+    
+
+    
+    
+    
+      <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.js" integrity="" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    
+      
+      <script id="search-hit-fuse-template" type="text/x-template">
+        <div class="search-hit" id="summary-{{key}}">
+          <div class="search-hit-content">
+            <div class="search-hit-name">
+              <a href="{{relpermalink}}">{{title}}</a>
+              <div class="article-metadata search-hit-type">{{type}}</div>
+              <p class="search-hit-description">{{snippet}}</p>
+            </div>
+          </div>
+        </div>
+      </script>
+      
+        <script src="https://cdn.jsdelivr.net/gh/krisk/Fuse@v3.2.1/dist/fuse.min.js" integrity="sha512-o38bmzBGX+hD3JHWUFCDA09btWaqrNmoJ3RXLlrysA7PP01Kgs4UlE4MhelE1v5dJR3+cxlR4qQlotsW7jKsnw==" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/gh/julmot/mark.js@8.11.1/dist/jquery.mark.min.js" integrity="sha512-mhbv5DqBMgrWL+32MmsDOt/OAvqr/cHimk6B8y/bx/xS88MVkYGPiVv2ixKVrkywF2qHplNRUvFsAHUdxZ3Krg==" crossorigin="anonymous"></script>
+      
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+      
+      
+      
+      
+      
+      
+      
+    
+
+    
+
+    
+    
+    
+    <script id="page-data" type="application/json">{"use_headroom":true}</script>
+
+    
+    
+      <script src="/js/wowchemy-headroom.1cb9e2fc8399acee94eab837265b73bf.js" type="module"></script>
+    
+    
+    
+    
+    
+    
+    
+      
+      
+    
+    
+    <script src="/en/js/wowchemy.min.247fd8f54253895301106e3006f53f38.js"></script>
+
+    
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+
+
+
+</body>
+</html>
