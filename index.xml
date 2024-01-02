@@ -133,7 +133,7 @@ The variance of the distribution is $\sigma^{2}$.
       <guid>https://bobbylumpkin.com/project/tokenization/</guid>
       <description>&lt;h1 id=&#34;uoverview-and-table-of-contentsu&#34;&gt;&lt;strong&gt;&lt;u&gt;Overview and Table of Contents&lt;/u&gt;&lt;/strong&gt;&lt;/h1&gt;
 &lt;p&gt;With the shattering of performance benchmarks and the development of 
-applications like ChatGPT and Bing Chat, lot&amp;rsquo;s of time and writing has
+applications like ChatGPT and Bing Chat, lots of time and writing has
 been dedicated to demystifying advancements in neural network
 architectures. But advancements in tokenization, a necessary
 preprocessing step often take place with less publicity. In this post,
@@ -188,12 +188,12 @@ simple and more complex, recent developments and approaches.&lt;/p&gt;
 &lt;/p&gt;
 &lt;p&gt;Tokenization is the splitting up of a text into some concept of &amp;lsquo;atomic&amp;rsquo;
 units: words or sub-word units, for example. In order to utilize
-advancements in neural networks for NLP, we first need a way to convert
-text into a machine learning digestible format. Tokenization is the
-first step in this process; it allows us to break a text into
-contributing components. Those components are then typically mapped to
-vectors, through an embedding layer, and can be fed into a neural
-network.&lt;/p&gt;
+advancements in neural networks for natural language processing (NLP),
+we first need a way to convert text into a machine learning digestible
+format. Tokenization is the first step in this process; it allows us to
+break a text into contributing components. Those components are then
+typically mapped to vectors, through an embedding layer, and can be fed
+into a neural network.&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;How&lt;/em&gt; text should be decomposed isn&amp;rsquo;t obvious and lots of differing
 approaches exist. The example pictured above is a simple example:
 namely, splitting at every space character. While such methods do have
@@ -304,8 +304,8 @@ addition to &lt;code&gt;spaCy&lt;/code&gt;, a number of implementations can be f
 &lt;a href=&#34;https://huggingface.co/docs/tokenizers/api/pre-tokenizers&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;pre_tokenizers&lt;/code&gt;&lt;/a&gt;
 module of the HuggingFace &lt;a href=&#34;https://huggingface.co/docs/tokenizers/index&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;tokenizers&lt;/code&gt;&lt;/a&gt;
 Python package.&lt;/p&gt;
-&lt;p&gt;A lage text corpus, fixed vocabulary size and/or out of vocablary (OOV)
-tokens: &lt;em&gt;why&lt;/em&gt; might subword-level tokenizers show relative advantges
+&lt;p&gt;A lage text corpus, fixed vocabulary size and/or out of vocabulary (OOV)
+tokens: &lt;em&gt;why&lt;/em&gt; might subword-level tokenizers show relative advantages
 given these restrictions? Let&amp;rsquo;s assume we&amp;rsquo;re still working at
 the word level. A large text corpus means a potentially
 prohibitively large vocabulary. A fixed vocabulary means potentially being
@@ -373,8 +373,8 @@ original sequence.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;The application of BPE to tokenization (to my knowledge) was first due
 to (&lt;a href=&#34;https://arxiv.org/abs/1508.07909&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Senrich et al., 2016&lt;/a&gt;) and is a
-fairly straightforward modification. Namely, The method as described in
-the 2016 roughly boils down to the following algorithm:&lt;/p&gt;
+fairly straightforward modification. Namely, the method, as described in
+the 2016 paper, roughly boils down to the following algorithm:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Initialize the vocabulary with the set of symbols making up the
 corpus.&lt;/li&gt;
@@ -388,7 +388,7 @@ the most frequent pair (‘A’, ‘B’) with a new symbol ‘AB’.&lt;/li&gt;
 &lt;p&gt;The resulting vocabulary will have a size equal to cardinality of the
 initial character set plus the number of implemented merge operations
 (which can be treated as a hyperparameter). Senrich et al. provide the
-following minimal implementationl of BPE in Python:&lt;/p&gt;
+following minimal implementation of BPE in Python:&lt;/p&gt;
 &lt;p&gt;
 
 
@@ -422,13 +422,13 @@ tokenization because it enables one to learn a balance between
 character and word-level tokens and makes progress in addressing
 vocabulary size and OOV problems. Still, these are potential problems, 
 especially in the subdomain of neural machine translation where the
-potential character sets among all relevant languages could be
-prohibitively large, yet.&lt;/p&gt;
+potential character sets among all relevant languages may, yet, be
+prohibitively large.&lt;/p&gt;
 &lt;p&gt;The algorithm implemented by ChatGPT models
 and others take advantage of modern character encoding methods to
 modify BPE in a way that accounts for these challenges. But, before we
 pull that thread further, let&amp;rsquo;s look at another (similar) sub-word
-level tokenization algorith: &amp;lsquo;WordPiece&amp;rsquo;.&lt;/p&gt;
+level tokenization algorithm: &amp;lsquo;WordPiece&amp;rsquo;.&lt;/p&gt;
 &lt;h3 id=&#34;wordpiece&#34;&gt;WordPiece&lt;/h3&gt;
 &lt;p&gt;WordPiece is brought to us by two former employees at Google: Mike
 Schuster and Kaisuke Nakajima via &lt;a href=&#34;https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/37842.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Japanese and Korean Voice Search&lt;/a&gt;
@@ -522,7 +522,7 @@ accomplish the same scope using characters would require a base
 vocabulary of $~150,000$.&lt;/p&gt;
 &lt;p&gt;But it&amp;rsquo;s not all good news. Decomposing characters to work at the level
 of bytes means longer token sequences, resulting in longer training and
-inference times. That said, for many use casese, the tradeoff is worth
+inference times. That said, for many use cases, the tradeoff is worth
 it. Indeed, Models like RoBERTa and GPT$\geq2$ use Byte-Level BPE
 implementations.&lt;/p&gt;
 &lt;p&gt;
