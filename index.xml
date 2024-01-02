@@ -292,16 +292,16 @@ tokenizer as follows:&lt;/p&gt;
 
 [&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;The&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;Labour&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;party&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;currently&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;holds&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;199&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;seats&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;in&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;the&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;U.K.&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;parliament&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#a6be9d&#34;&gt;&amp;#39;.&amp;#39;&lt;/span&gt;]
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;subword-level-methods&#34;&gt;Subword-Level Methods&lt;/h3&gt;
-&lt;p&gt;In some cases, especially when the text corpus is large, the language
+&lt;p&gt;In some cases, subword-level tokenization offers potential advantages. 
+This is especially true when the text corpus is large, the language
 model has a fixed size vocabulary and/or handling of rare or novel words
 (relative to the training set) is necessary (either as input or for
-generation), subword-level tokenization offers potential advantages. In
-fact, because of the revitalized modern interest in subword-level
-tokenization, typographically based tokenizers like those discussed in
-the previous section are sometimes referred to as &amp;lsquo;pre-tokenizers&amp;rsquo;;
-they are often applied prior to tokenization as a preprocessing step. In
-addition to &lt;code&gt;spaCy&lt;/code&gt;, a number of implementations can be found in the
-&lt;a href=&#34;https://huggingface.co/docs/tokenizers/api/pre-tokenizers&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;pre_tokenizers&lt;/code&gt;&lt;/a&gt;
+generation). In fact, because of the revitalized modern interest in
+subword-level tokenization, typographically based tokenizers like those
+discussed in the previous section are sometimes referred to as
+&amp;lsquo;pre-tokenizers&amp;rsquo;; they are often applied prior to tokenization as a
+preprocessing step. In addition to &lt;code&gt;spaCy&lt;/code&gt;, a number of implementations
+can be found in the &lt;a href=&#34;https://huggingface.co/docs/tokenizers/api/pre-tokenizers&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;pre_tokenizers&lt;/code&gt;&lt;/a&gt;
 module of the HuggingFace &lt;a href=&#34;https://huggingface.co/docs/tokenizers/index&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;tokenizers&lt;/code&gt;&lt;/a&gt;
 Python package.&lt;/p&gt;
 &lt;p&gt;A lage text corpus, fixed vocabulary size and/or out of vocabulary (OOV)
@@ -418,7 +418,7 @@ following minimal implementation of BPE in Python:&lt;/p&gt;
   &lt;/div&gt;&lt;/figure&gt;
 &lt;/p&gt;
 &lt;p&gt;Using BPE in this way became somewhat of a standard in sub-word
-tokenization because it enables one to learn a balance between
+tokenization because it enables a tokenizer to learn a balance between
 character and word-level tokens and makes progress in addressing
 vocabulary size and OOV problems. Still, these are potential problems, 
 especially in the subdomain of neural machine translation where the
