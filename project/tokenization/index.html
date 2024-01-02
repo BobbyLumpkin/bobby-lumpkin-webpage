@@ -1060,7 +1060,7 @@ example, consider the BERT tokenizer:</p>
   </div></figure>
 </p>
 <p>Consider the challenge of having a large text corpus. If sub-word units
-are chosedn intelligently, we can take advantage of the fact that
+are chosen intelligently, we can take advantage of the fact that
 lots of words tend to be decomposable into a set of shared units. In
 other words, tokenizing at the subword level has the potential to
 drastically shrink the vocabulary size. By the same reasoning, in some
@@ -1229,7 +1229,7 @@ can be represented as a byte sequence, this means that we&rsquo;ve
 side-stepped the OOV problem. In other words, we get incredible scope
 with a relatively small vocabulary. To put this in perspective, to
 accomplish the same scope using characters would require a base
-vocabulary of $~150,000$.</p>
+vocabulary of $\approx150,000$.</p>
 <p>But it&rsquo;s not all good news. Decomposing characters to work at the level
 of bytes means longer token sequences, resulting in longer training and
 inference times. That said, for many use cases, the tradeoff is worth
