@@ -1,0 +1,1687 @@
+<!DOCTYPE html><html lang="en-us" >
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.4.0 for Hugo" />
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Bobby Lumpkin" />
+
+  
+  
+  
+    
+  
+  <meta name="description" content="An automated system to alert users when arbitrage opportunities arise across sports-betting books." />
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://bobbylumpkin.com/project/sports-betting-arbitrage-system/" />
+
+  
+  
+  
+    <meta name="theme-color" content="#1565c0" />
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.f1ecf783c14edc00c9320c205831ad8e.css" media="print" onload="this.media='all'">
+
+  
+  
+  
+    
+    
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/styles/github.min.css" crossorigin="anonymous" title="hl-light" media="print" onload="this.media='all'">
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" media="print" onload="this.media='all'" disabled>
+        
+      
+    
+
+    
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.css" integrity="" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.512574799414e7d36471486881070b0f.css" />
+
+  
+
+
+
+  
+
+  
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+    <link rel="manifest" href="/manifest.webmanifest" />
+  
+
+  <link rel="icon" type="image/png" href="/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_32x32_fill_lanczos_center_3.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_180x180_fill_lanczos_center_3.png" />
+
+  <link rel="canonical" href="https://bobbylumpkin.com/project/sports-betting-arbitrage-system/" />
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+
+  
+  
+    
+    
+  
+  <meta property="twitter:card" content="summary_large_image" />
+  
+  <meta property="og:site_name" content="Bobby Lumpkin" />
+  <meta property="og:url" content="https://bobbylumpkin.com/project/sports-betting-arbitrage-system/" />
+  <meta property="og:title" content="Beating the Vig with AWS | Bobby Lumpkin" />
+  <meta property="og:description" content="An automated system to alert users when arbitrage opportunities arise across sports-betting books." /><meta property="og:image" content="https://bobbylumpkin.com/project/sports-betting-arbitrage-system/featured.png" />
+    <meta property="twitter:image" content="https://bobbylumpkin.com/project/sports-betting-arbitrage-system/featured.png" /><meta property="og:locale" content="en-us" />
+  
+    
+      <meta
+        property="article:published_time"
+        content="2025-08-03T00:00:00&#43;00:00"
+      />
+    
+    <meta property="article:modified_time" content="2025-08-03T00:00:00&#43;00:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://bobbylumpkin.com/project/sports-betting-arbitrage-system/"
+  },
+  "headline": "Beating the Vig with AWS",
+  
+  "image": [
+    "https://bobbylumpkin.com/project/sports-betting-arbitrage-system/featured.png"
+  ],
+  
+  "datePublished": "2025-08-03T00:00:00Z",
+  "dateModified": "2025-08-03T00:00:00Z",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Bobby Lumpkin"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Bobby Lumpkin",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://bobbylumpkin.com/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_192x192_fill_lanczos_center_3.png"
+    }
+  },
+  "description": "An automated system to alert users when arbitrage opportunities arise across sports-betting books."
+}
+</script>
+
+  
+
+  
+
+  
+
+  <link rel="icon" type="image/png" href="/media/icon_378x378.PNG">
+
+  <title>Beating the Vig with AWS | Bobby Lumpkin</title>
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="bcdfe09e0b27bf7f1978627a73288d70" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.8f76bdc9e086322ed5147724ebba3d06.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="header--fixed">
+  <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+    <div class="container-xl">
+
+      
+      <div class="d-none d-lg-inline-flex">
+        <a class="navbar-brand" href="/">Bobby Lumpkin</a>
+      </div>
+      
+
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+      
+      <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+        <a class="navbar-brand" href="/">Bobby Lumpkin</a>
+      </div>
+      
+
+      
+      
+      <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+        
+        <ul class="navbar-nav d-md-inline-flex">
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#intro"><span>Welcome</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#about"><span>About Me</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#projects"><span>Projects</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#posts"><span>Posts</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#publications"><span>Publications</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#contact"><span>Contact</span></a>
+          </li>
+
+          
+          
+
+        
+
+          
+        </ul>
+      </div>
+
+      <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+        
+        
+          
+        
+
+        
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+        
+        <li class="nav-item dropdown theme-dropdown">
+          <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </a>
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item js-set-theme-light">
+              <span>Light</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-dark">
+              <span>Dark</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-auto">
+              <span>Automatic</span>
+            </a>
+          </div>
+        </li>
+        
+
+        
+        
+
+      </ul>
+
+    </div>
+  </nav>
+</header>
+
+
+  </div>
+
+  <div class="page-body">
+    <article class="article article-project">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<div class="article-container pt-3">
+  <h1>Beating the Vig with AWS</h1>
+
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Aug 3, 2025
+  </span>
+  
+
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+  
+
+</div>
+
+  
+
+
+
+
+<div class="btn-links mb-3">
+  
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  
+  
+    
+  
+  <a class="btn btn-outline-primary btn-page-header" href="https://github.com/BobbyLumpkin/sports-betting-arbitrage-system/tree/main" target="_blank" rel="noopener">
+    <i class="fab fa-github mr-1"></i>source code</a>
+
+
+</div>
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 720px;">
+  <div style="position: relative">
+    <img src="/project/sports-betting-arbitrage-system/featured_huf60346707d0169e2f92da19cb7c5e321_1751071_720x2500_fit_q75_h2_lanczos_3.webp" width="720" height="720" alt="" class="featured-image">
+    
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <h1 id="beating-the-vig-with-aws">Beating the Vig with AWS</h1>
+<p>Arbitrage is a term that originates from the world of finance and refers to the practice of taking advantage of price discrepancies in different markets to guarantee a risk-free profit. At its core, it involves buying an asset in one market where the price is low and simultaneously selling it in another market where the price is higher. This principle relies on the assumption that markets are not perfectly efficient, and temporary mispricing can occur. For example, if a stock is trading for 100 dollars on one exchange and 102 dollars on another, an arbitrageur could buy the stock on the cheaper exchange and sell it on the more expensive one, pocketing the 2 dollar difference, all while assuming little to no risk.</p>
+<p>Now, imagine applying this concept to sports betting, a world where odds vary across different sportsbooks. We can exploit misaligned prices across different markets just the same. Namely, we can identify mismatched odds between different bookmakers and place multiple bets on the same event, guaranteeing a profit regardless of the outcome.</p>
+<p>In this post, I&rsquo;ll walk through the details of sports-betting arbitrage as well as discuss  how I architected an automated system to scan for these opportunities across multiple sportsbooks, alerting subscribers when they arise.</p>
+<hr>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#beating-the-vig-with-aws">Beating the Vig with AWS</a>
+<ul>
+<li><a href="#table-of-contents">Table of Contents</a></li>
+<li><a href="#sports-betting-fundamentals">Sports Betting: Fundamentals</a>
+<ul>
+<li><a href="#decimal-odds">Decimal Odds</a></li>
+<li><a href="#fractional-odds">Fractional Odds</a></li>
+<li><a href="#american-odds">American Odds</a></li>
+</ul>
+</li>
+<li><a href="#sports-betting-arbitrage">Sports Betting: Arbitrage</a>
+<ul>
+<li><a href="#implied-probabilities">Implied Probabilities</a></li>
+<li><a href="#necessary--sufficient-conditions-for-arbitrage">Necessary &amp; Sufficient Conditions for Arbitrage</a></li>
+</ul>
+</li>
+<li><a href="#architecting-an-arbitrage-notification-system-in-aws">Architecting An Arbitrage Notification System in AWS</a>
+<ul>
+<li><a href="#lambda-query-api">Lambda: Query API</a></li>
+<li><a href="#lambda-search-for-arbitrage-opportunities">Lambda: Search for Arbitrage Opportunities</a></li>
+<li><a href="#lambda-publish-new-opportunities">Lambda: Publish New Opportunities</a></li>
+<li><a href="#step-function-orchestrating-the-workflow">Step Function: Orchestrating the Workflow</a></li>
+<li><a href="#simple-notification-service-sns-pubsub">Simple Notification Service (SNS): Pub/Sub</a></li>
+</ul>
+</li>
+<li><a href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="sports-betting-fundamentals">Sports Betting: Fundamentals</h2>
+<p>When it comes to sports betting, odds are the key factor in determining potential payouts. They&rsquo;re related to the probability of a particular outcome and dictate how much money you can win if that outcome occurs. Books differ in how they convey odds, but three popular formats appear most frequently: decimal, fractional, and American.</p>
+<h3 id="decimal-odds">Decimal Odds</h3>
+<p>Decimal odds are commonly used in Europe, Canada and Australia. They represent the total payout (stake &amp; profit) for every dollar wagered. The formula to calculate your total payout is:</p>
+<p>$$
+\text{Payout} = \text{Stake} \times \text{Odds}.
+$$</p>
+<p>For example, if the odds for a bet are $2.50$ and we bet $10$ dollars, our payout will be:</p>
+<p>$$
+\text{Payout} = 10 \times 2.50 = 25,
+$$</p>
+<p>meaning that we would win $15$ dollars in profit.</p>
+<h3 id="fractional-odds">Fractional Odds</h3>
+<p>More common in the UK, fractional odds are presented as a fraction, like $5/1$ or $10/3$. The numerator represents the amount of profit you will make for every unit staked, while the denominator represents the stake required to win that profit. The formula to calculate the profit is:</p>
+<p>$$
+\text{Profit} = \text{Stake} \times \text{Odds}.
+$$</p>
+<p>For instance, with $10/3$ odds, if we bet $60$ dollars, our profit would be:</p>
+<p>$$
+\text{Profit} = 60 \times \left(\frac{10}{3}\right) = 200.
+$$</p>
+<p>Thus, we would receive a total payout of $260$ dollars ($200$ dollar profit plus our $60$ dollar stake).</p>
+<h3 id="american-odds">American Odds</h3>
+<p>As is American tradition, American Odds (also referred to as &ldquo;Moneyline Odds&rdquo;) are often found to be the least intuitive and straightforward units of measurement for new-comers. Popular in the United States, they can either be positive or negative and revolve around a $100$ dollar baseline. Positive odds (assigned to the underdog) show how much profit we would make on a $100$ dollar bet, while negative odds (assigned to the favorite) show how much we need to bet in order to win $100$ dollars.</p>
+<ul>
+<li>
+<p><strong>Positive Odds (e.g. $+200$):</strong> This means we make a profit of $200$ dollars for every $100$ wagered and:</p>
+<p>$$
+\text{Profit} = \frac{\text{Stake} \times 200}{100}.
+$$</p>
+<p>For example, a $50$ dollar bet on $+200$ odds would give</p>
+<p>$$
+\text{Profit} = \frac{50 \times 200}{100} = 100.
+$$</p>
+</li>
+<li>
+<p><strong>Negative Odds (e.g. $-150$):</strong> This means we need to wager $150$ dollars in order to win $100$ dollars and:</p>
+<p>$$
+\text{Profit} = \frac{\text{Stake}}{|-150|} \times 100.
+$$</p>
+<p>For example, a $75$ dollar bet on $-150$ odds would yield:</p>
+<p>$$
+\text{Profit} = \frac{75}{150} \times 100 = 50.
+$$</p>
+</li>
+</ul>
+<p>Remembering how to read and interpret the different conventions for odds formatting may well be the most irritating part of the sports-betting initiation process and to muddy the waters even further: for those those statistically-minded individuals out there, you&rsquo;ll notice that none of these formats directly mirrors what we refer to formally as odds, in the technical sense. Only out of due-diligence did we present three formats here; we&rsquo;ll choose one to work with throughout the rest of the post. While Moneyline odds are common in th US, we will not be utilizing them nor fractional odds. For their simplicity and convenience with calculations in future sections, we will adopt decimal odds as our convention.</p>
+<hr>
+<h2 id="sports-betting-arbitrage">Sports Betting: Arbitrage</h2>
+<p>Now that we know how to interpret and manipulate odds (the cornerstone of determining payouts, profits and arbitrage opportunities) we may naturally ask how odds are determined and what the necessary &amp; sufficient conditions are for arbitrage opportunities. In order to answer these questions, we must talk about the relationship between betting odds and probabilities.</p>
+<h3 id="implied-probabilities">Implied Probabilities</h3>
+<p>Let&rsquo;s take a step back and consider how bookmaker&rsquo;s make money. Suppose we wan&rsquo;t to manage a book to take bets on Team A vs Team B and that we know the true probability of Team A winning is $0.60$. What goes wrong if we set the decimal odds for this line to $2.00$ and $2.00$? A savvy bettor would notice that they can risk a dollar to make a dollar and that more than half of the time, their bet will hit. Thus, their <em>expected</em> profit is:</p>
+<p>$$
+\mathbb{E}[\text{Profit}] = 0.6 \times 1 + 0.4 \times (-1) = 0.2.
+$$</p>
+<p>In other words, if we were to continue to set odds on $0.60 - 0.40$ probability events equally and this savvy bettor continued to place their bet, they would eventually wind up taking a profit from us. To ensure this doesn&rsquo;t happen we, instead, set our odds so that the expected profit for bettor and bookmaker is zero. Namely:</p>
+<p>$$
+\mathbb{E}[\text{Profit}] = P \times (O - 1) + (1 - P) \times (-1) = 0
+$$</p>
+<p>$$
+\implies P \times O - P - 1 + P = 0 
+$$</p>
+<p>$$
+\implies P \times O = 1
+$$</p>
+<p>$$
+\implies O = \frac{1}{P}
+$$</p>
+<p>where $P$ is the probability of team A winning and $O$ are the listed odds for team A. Thus, we would set our odds to be $\frac{5}{3} = 1.67$ and $\frac{5}{2} = 2.5$. In reality, we want to make a non-zero profit over time. Suppose we collect a total of $1$ dollar in bets on each side (for both team A and B victories). Let&rsquo;s see what happens if we inflate our probabilities by a factor of $1.05$. Then, team A&rsquo;s odds become $O_A \approx 1.59$ and team B&rsquo;s odds become $O_B \approx 2.38$. This means that the expected payout becomes:</p>
+<p>$$
+\mathbb{E}[\text{Payout}] = 0.6 \times 1.59 + 0.4 \times 2.38
+$$</p>
+<p>$$
+= 1.906 &lt; 2.
+$$</p>
+<p>Thus, we expect to make a profit of $2 - 1.906 = 0.094$, essentially collecting a $9$ cents fee from the pool of bettors. This fee is what is referred to as the &ldquo;vigorish&rdquo;, &ldquo;vig&rdquo; for short, or, colloquially, the &ldquo;juice&rdquo; and is how bookmakers make their money. It is a fee that is built into the odds, rather than charged directly.</p>
+<h3 id="necessary--sufficient-conditions-for-arbitrage">Necessary &amp; Sufficient Conditions for Arbitrage</h3>
+<p>And now, we turn to the heart of the matter: how do we quantify the necessary &amp; sufficient conditions for a sports betting arbitrage opportunity? Let&rsquo;s intuit based on our conversation about the vig, in the previous section. If scaling up the implied probabilities yields a profit for the bookmaker, we may expect that scaling them down will yield a profit for the bettor. This, in fact, is the case.</p>
+<p><strong><u>Theorem</u>:</strong> Assume a sporting event&rsquo;s outcomes can be partitioned $n$-ways (i.e. there are $n$ mutually exclusive and exhaustive outcomes). Let</p>
+<ul>
+<li>$O_i = $ decimal odds for outcome $i$, where $i = 1, 2, &hellip;, n$</li>
+<li>$p_i = $ the implied probability of outcome $i$ occurring</li>
+<li>$S = \sum_{i=1}^n p_i = \sum_{i=1}^n \frac{1}{O_i}$.</li>
+</ul>
+<p>Then, there exists an arbitrage opportunity if and only if $S &lt; 1$.</p>
+<p>In short, we are looking for instances where the implied probabilities sum to less than $1$.</p>
+<p><strong><u>proof (of Theorem)</u></strong> <br>
+<strong>Forward Direction</strong> <br>
+Assume an arbitrage opportunity exists. Without loss of generality, let the total amount of money invested be $1$ dollar and let $x_i$ be the fraction of money bet on outcome $i$ so that $\sum_{i=1}^n x_i = 1$.</p>
+<p>By definition, if outcome $i$ occurs, the return is:</p>
+<p>$$
+\text{Payout} = x_i \times O_i.
+$$</p>
+<p>Since this is an arbitrage opportunity, the payout for each outcome must be greater than $1$. Namely:</p>
+<p>$$
+x_i \times O_i &gt; 1
+$$</p>
+<p>$$
+\implies x_i &gt; \frac{1}{O_i}
+$$</p>
+<p>for all $i$. Summing both sides of the inequality over $i$ gives:</p>
+<p>$$
+1 = \sum_{i=1}^n x_i &gt; \sum_{i=1}^n \frac{1}{O_i} = S.
+$$</p>
+<p><strong>Reverse Direction</strong> <br>
+Now, assume:</p>
+<p>$$
+\sum_{i=1}^n \frac{1}{O_i} = S &lt; 1.
+$$</p>
+<p>We need to show that there exists a way to bet on the $n$ outcomes such that the total return is greater than $1$, regardless of the observed outcome. Define</p>
+<p>$$
+x_i = \frac{\frac{1}{O_i}}{S}.
+$$</p>
+<p>This defines a betting strategy where:</p>
+<p>$$
+\sum_{i=1}^n x_i = \sum_{i=1}^n \frac{1/O_i}{S} = \frac{1}{S} \times \sum_{i=1}^n \frac{1}{O_i} = 1
+$$</p>
+<p>so that the total amount bet is equal to $1$. Then, if outcome $i$ occurs, the return in:</p>
+<p>$$
+x_i \times O_i = \left(\frac{1/O_i}{S}\right) \times O_i = \frac{1}{S} &gt; 1
+$$</p>
+<p>where the inequality follows from our assumption that $S &lt; 1$.$\blacksquare$</p>
+<p>Suppose the odds on Team A vs Team B are $2.10$ and $2.10$ respectively. Then, the implied probabilities would be $\frac{1}{2.10}$ and $\frac{1}{2.10}$, respectively, the sum of which $\approx 0.95 &lt; 1$ and is, thus an arbitrage opportunity. Using the betting strategy outlined in the reverse direction of the above proof, we put:</p>
+<p>$$
+\frac{\frac{1}{2.10}}{\frac{1}{2.10} + \frac{1}{2.10}} = 0.5
+$$</p>
+<p>on each team. As expected, this ensures a profit, regardless of the victor, since:</p>
+<p>$$
+\text{Payout} = 2.10 \times 0.5 = 1.05
+$$</p>
+<p>which is larger than $1$: the total stake wagered across both bets.</p>
+<hr>
+<h2 id="architecting-an-arbitrage-notification-system-in-aws">Architecting An Arbitrage Notification System in AWS</h2>
+<p>Having established the theory behind arbitrage in sports betting, we can now detail how we used cloud resources (specifically in Amazon Web Services) to construct a fully automated detection and notification system.</p>
+<p>We utilized the following AWS services:</p>
+<ul>
+<li><strong>Lambda Functions:</strong> Three lambda functions with distinct responsibilities.</li>
+<li><strong>Step Function:</strong> A step function to orchestrate the execution of the lambda functions.</li>
+<li><strong>Amazon Simple Notification Service (SNS):</strong> Pub/Sub service to publish notifications to all subscribers in real-time.</li>
+<li><strong>Amazon EventBridge:</strong> Trigger the pipeline to run once every six hours.</li>
+<li><strong>Amazon S3:</strong> Durable store for raw API responses and computed arbitrage opportunities.</li>
+<li><strong>AWS Secrets Manager:</strong> Securely store API key.</li>
+</ul>
+<p>The high-level execution flow is as follows:</p>
+<ol>
+<li>EventBridge fires once every six hours, triggering the <code>sports-betting-arbitrage-system-express</code> step function.</li>
+<li>The step function runs three states, in sequence:
+<ol>
+<li><strong><code>sports_betting_arbitrage_query_api</code>:</strong> Fetches sportsbook lines and saves the raw JSON response to S3.</li>
+<li><strong><code>sports_betting_arbitrage_search_for_arbitrage_opportunity</code>:</strong> Processes the API response, checks for opportunities and stores any findings in S3.</li>
+<li><strong><code>sports_betting_arbitrage_publish_opportunities</code>:</strong> Compares new opportunities with previously published ones and sends notifications via SNS for <em>new</em> opportunities only.</li>
+</ol>
+</li>
+<li>SNS pushes notifications to all subscribers (in this case, via email).</li>
+</ol>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="Sports Betting Arbitrage System Architecture Diagram" srcset="
+               /project/sports-betting-arbitrage-system/sports-betting-arbitrage-system-architecture-diagram_hu4c0a768ca752d2a5c7e4cf56750659f4_94127_d59bdce3483507de11d82647cf488385.webp 400w,
+               /project/sports-betting-arbitrage-system/sports-betting-arbitrage-system-architecture-diagram_hu4c0a768ca752d2a5c7e4cf56750659f4_94127_105f097eff798d88d5bb0df68a9916ba.webp 760w,
+               /project/sports-betting-arbitrage-system/sports-betting-arbitrage-system-architecture-diagram_hu4c0a768ca752d2a5c7e4cf56750659f4_94127_1200x1200_fit_q75_h2_lanczos.webp 1200w"
+               src="/project/sports-betting-arbitrage-system/sports-betting-arbitrage-system-architecture-diagram_hu4c0a768ca752d2a5c7e4cf56750659f4_94127_d59bdce3483507de11d82647cf488385.webp"
+               width="760"
+               height="634"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>For a detailed view of the source code for each lambda and step function, reference this repository: <a href="https://github.com/BobbyLumpkin/sports-betting-arbitrage-system/tree/main" target="_blank" rel="noopener">sports-betting-arbitrage-system</a> (also linked at the top of this page).</p>
+<h3 id="lambda-query-api">Lambda: Query API</h3>
+<p>As the name suggests, the first Lambda (<code>sports_betting_arbitrage_query_api</code>) is responsible for pulling the latest betting lines from <a href="https://the-odds-api.com/" target="_blank" rel="noopener">The Odds API</a>.</p>
+<p>Key details:</p>
+<ul>
+<li>Secrets Manager stores the API key securely; it is retrieved at runtime.</li>
+<li>Multiple sports and regions can be queried in a single run.</li>
+<li>All requests use decimal odds to simplify downstream calculations.</li>
+<li>The raw API response is timestamped and saved to S3 as JSON.</li>
+</ul>
+<p>By storing unprocessed data, we ensure that the system can be re-run or audited at a later date without making additional API calls.</p>
+<h3 id="lambda-search-for-arbitrage-opportunities">Lambda: Search for Arbitrage Opportunities</h3>
+<p>The second Lambda (<code>sports_betting_arbitrage_seaerch_for_arbitrage_opportunity</code>) consumes the API response from the first lambda and looks for opportunities using the necessary and sufficient condition derived earlier:</p>
+<p>$$
+\sum_{i=1}^n \frac{1}{O_i} &lt; 1
+$$</p>
+<div class="highlight"><pre tabindex="0" style="color:#1d2432;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#ff636f">def</span> <span style="color:#58a1dd">is_arbitrage_opportunity</span>(
+        <span style="color:#58a1dd">decimal_odds_list</span>: <span style="color:#58a1dd">list</span>[<span style="color:#58a1dd">float</span>]
+    ) <span style="color:#ff636f">-&gt;</span> <span style="color:#58a1dd">bool</span>:
+    <span style="color:#58a1dd">implied_probabilities_list</span> <span style="color:#ff636f">=</span> [
+        <span style="color:#a6be9d">1</span> <span style="color:#ff636f">/</span> <span style="color:#58a1dd">odds</span>
+        <span style="color:#ff636f">for</span> <span style="color:#58a1dd">odds</span> <span style="color:#ff636f">in</span> <span style="color:#58a1dd">decimal_odds_list</span>
+    ]
+    <span style="color:#58a1dd">total_implied_probabilities</span> <span style="color:#ff636f">=</span> <span style="color:#58a1dd">sum</span>(<span style="color:#58a1dd">implied_probabilities_list</span>)
+    <span style="color:#ff636f">if</span> <span style="color:#58a1dd">total_implied_probabilities</span> <span style="color:#ff636f">&lt;</span> <span style="color:#a6be9d">1</span>:
+        <span style="color:#ff636f">return</span> <span style="color:#ff636f">True</span>
+    <span style="color:#ff636f">return</span> <span style="color:#ff636f">False</span>
+
+
+<span style="color:#ff636f">def</span> <span style="color:#58a1dd">calculate_stake_proportions</span>(
+        <span style="color:#58a1dd">decimal_odds_list</span>: <span style="color:#58a1dd">list</span>[<span style="color:#58a1dd">float</span>]
+    ) <span style="color:#ff636f">-&gt;</span> <span style="color:#58a1dd">list</span>[<span style="color:#58a1dd">float</span>]:
+    <span style="color:#58a1dd">implied_probabilities_list</span> <span style="color:#ff636f">=</span> [
+        <span style="color:#a6be9d">1</span> <span style="color:#ff636f">/</span> <span style="color:#58a1dd">odds</span>
+        <span style="color:#ff636f">for</span> <span style="color:#58a1dd">odds</span> <span style="color:#ff636f">in</span> <span style="color:#58a1dd">decimal_odds_list</span>
+    ]
+    <span style="color:#58a1dd">total_implied_probabilities</span> <span style="color:#ff636f">=</span> <span style="color:#58a1dd">sum</span>(<span style="color:#58a1dd">implied_probabilities_list</span>)
+    <span style="color:#ff636f">return</span> [
+        (<span style="color:#a6be9d">1</span> <span style="color:#ff636f">/</span> <span style="color:#58a1dd">odds</span>) <span style="color:#ff636f">/</span> <span style="color:#58a1dd">total_implied_probabilities</span>
+        <span style="color:#ff636f">for</span> <span style="color:#58a1dd">odds</span> <span style="color:#ff636f">in</span> <span style="color:#58a1dd">decimal_odds_list</span>
+    ]
+</code></pre></div><p>Key details:</p>
+<ul>
+<li>Pairwise comparisons are made between books for the same matchup.</li>
+<li>If an arbitrage condition is met, optimal stake proportions are calculated so that the payout is equal regardless of the observed outcome.</li>
+<li>Each opportunity is timestamped and saved to S3 for future reference.</li>
+</ul>
+<h3 id="lambda-publish-new-opportunities">Lambda: Publish New Opportunities</h3>
+<p>The third and final Lambda (<code>sports_betting_arbitrage_publish_opportunities</code>) determines which opportunities are <em>new</em> relative to the last run, formats them into an email message and publishes this message to the <code>VigVanquisher</code> SNS topic.</p>
+<p>Key details:</p>
+<ul>
+<li>AWS S3 is queried for the second-most recent opportunities file. The opportunities therein are compared with the current run&rsquo;s opportunity list and any net new opportunities are noted.</li>
+<li>Net new opportunities are formatted into an email message, including the bookmaker, matchup, odds, stake proportion, an &ldquo;as of&rdquo; date and the calculated payout multiplier. For example, a payout multiplier of $1.10$ means that for every dollar bet on the opportunity, $1.10$ dollars in payout is guaranteed.</li>
+<li>An SNS topic broadcasts the message to all subscribers via email.</li>
+</ul>
+<h3 id="step-function-orchestrating-the-workflow">Step Function: Orchestrating the Workflow</h3>
+<p>AWS Step Functions is a serverless workflow orchestration service that enables developers to coordinate multi-step application workflows by defining state machines. These state machines are composed of individual &ldquo;states&rdquo; that represent tasks, choices, or other control flow elements. We created a Step Function to operate as the backbone of our system, ensuring that Lambda executes in order and that data flows smoothly from one step to the next.</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="Sports Betting Arbitrage System Step Function" srcset="
+               /project/sports-betting-arbitrage-system/sports-betting-arbitrage-system-step-function_hu78594dd244bd658bd33d308e7ee00938_36808_1302759374e41c6f5b2e223871408714.webp 400w,
+               /project/sports-betting-arbitrage-system/sports-betting-arbitrage-system-step-function_hu78594dd244bd658bd33d308e7ee00938_36808_10a1819a237dfe96b788b6fdc729de88.webp 760w,
+               /project/sports-betting-arbitrage-system/sports-betting-arbitrage-system-step-function_hu78594dd244bd658bd33d308e7ee00938_36808_1200x1200_fit_q75_h2_lanczos.webp 1200w"
+               src="/project/sports-betting-arbitrage-system/sports-betting-arbitrage-system-step-function_hu78594dd244bd658bd33d308e7ee00938_36808_1302759374e41c6f5b2e223871408714.webp"
+               width="338"
+               height="409"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>Key details:</p>
+<ul>
+<li>The constraints of our process allow for the use of a Step Function of type &ldquo;Express&rdquo; as opposed to &ldquo;Standard&rdquo;, introducing significant cost-savings.</li>
+<li>We use JSONata expressions to pass specific fields from one Lambda&rsquo;s output into the next.</li>
+<li>Includes automatic retries with exponential backoff for transient errors, ensuring resilience.</li>
+</ul>
+<p>Step Functions are represented in a JSON-based, structured language called &ldquo;Amazon States Language&rdquo; or ASL. The ASL definition is included in the repository here: <a href="https://github.com/BobbyLumpkin/sports-betting-arbitrage-system/blob/main/step_function/sports-betting-arbitrage-system-asl.json" target="_blank" rel="noopener">step_function/sports-betting-arbitrage-system-asl.json</a>.</p>
+<h3 id="simple-notification-service-sns-pubsub">Simple Notification Service (SNS): Pub/Sub</h3>
+<p>Finally, a quick word on Amazon SNS, the service we utilize to handle the distribution of arbitrage alerts. Amazon SNS is a fully managed service that provides message delivery from publishers (producers) to subscribers (consumers). Publishers communicate asynchronously with subscribers by sending messages to a topic, which is a logical access point and communication channel.</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="SNS Pub/Sub Model Diagram" srcset="
+               /project/sports-betting-arbitrage-system/introducing_sns_message_filtering_image_hu38a229bca3192361c99011441ee67646_30164_32c806dc0ec69098b7e79a18344d9af6.webp 400w,
+               /project/sports-betting-arbitrage-system/introducing_sns_message_filtering_image_hu38a229bca3192361c99011441ee67646_30164_ba465bfa4fae723f338c92aa2ff775b4.webp 760w,
+               /project/sports-betting-arbitrage-system/introducing_sns_message_filtering_image_hu38a229bca3192361c99011441ee67646_30164_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/project/sports-betting-arbitrage-system/introducing_sns_message_filtering_image_hu38a229bca3192361c99011441ee67646_30164_32c806dc0ec69098b7e79a18344d9af6.webp"
+               width="539"
+               height="340"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>By taking advantage of this Pub/Sub pattern, we decouple the production and consumption components of our pipeline and allow for easy future scaling - both in number of consumers and in forms of notification (SMS, Lambda triggers, webhooks, etc.) - without the need to change upstream logic. Adding users, for example, amounts to a few clicks and entering the recipient address. The recipient will be sent an email prompting them to confirm their subscription, after which they will receive any future publishes messages.</p>
+<hr>
+<h2 id="conclusion">Conclusion</h2>
+<p>Building the <code>VigVanquisher</code> system was a rewarding exercise in blending applied statistics, sports analytics, and cloud engineering. By automating the process of fetching odds, detecting arbitrage opportunities, and instantly alerting subscribers, the system demonstrates how modern cloud architectures can turn a theoretical concept into a practical, real-world tool.</p>
+<p>While the current implementation focuses on two-outcome arbitrage opportunities in select sports, the foundation is flexible. Future enhancements could include scanning a wider variety of sports, monitoring odds changes closer to real time, generalizing to $n$-outcome opportunities and expanding beyond pure arbitrage by applying machine learning models for odds prediction. These improvements would not only broaden the system’s scope but also deepen its analytical capabilities.</p>
+<p>In the end, whether you view it as slaying the “vig” or simply applying statistical rigor to gain an edge, this project highlights the power of combining domain expertise with cloud-based automation. The thrill lies not just in finding opportunities, but in building the tools that make finding them possible.</p>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/data-science/">Data Science</a>
+  
+  <a class="badge badge-light" href="/tag/lambda-functions/">Lambda Functions</a>
+  
+  <a class="badge badge-light" href="/tag/step-functions/">Step Functions</a>
+  
+  <a class="badge badge-light" href="/tag/sns/">SNS</a>
+  
+  <a class="badge badge-light" href="/tag/automation/">Automation</a>
+  
+  <a class="badge badge-light" href="/tag/aws/">AWS</a>
+  
+</div>
+
+
+
+<div class="share-box">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://bobbylumpkin.com/project/sports-betting-arbitrage-system/&amp;text=Beating%20the%20Vig%20with%20AWS" target="_blank" rel="noopener" class="share-btn-twitter" aria-label="twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://bobbylumpkin.com/project/sports-betting-arbitrage-system/&amp;t=Beating%20the%20Vig%20with%20AWS" target="_blank" rel="noopener" class="share-btn-facebook" aria-label="facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Beating%20the%20Vig%20with%20AWS&amp;body=https://bobbylumpkin.com/project/sports-betting-arbitrage-system/" target="_blank" rel="noopener" class="share-btn-email" aria-label="envelope">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://bobbylumpkin.com/project/sports-betting-arbitrage-system/&amp;title=Beating%20the%20Vig%20with%20AWS" target="_blank" rel="noopener" class="share-btn-linkedin" aria-label="linkedin-in">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=Beating%20the%20Vig%20with%20AWS%20https://bobbylumpkin.com/project/sports-betting-arbitrage-system/" target="_blank" rel="noopener" class="share-btn-whatsapp" aria-label="whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https://bobbylumpkin.com/project/sports-betting-arbitrage-system/&amp;title=Beating%20the%20Vig%20with%20AWS" target="_blank" rel="noopener" class="share-btn-weibo" aria-label="weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <a href="https://bobbylumpkin.com/"><img class="avatar mr-3 avatar-circle" src="/author/bobby-lumpkin/avatar_hu50ee03ce2d6db509f76e6b649ac647d1_2165339_270x270_fill_q75_lanczos_center.jpg" alt="Bobby Lumpkin"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="https://bobbylumpkin.com/">Bobby Lumpkin</a></h5>
+      <h6 class="card-subtitle">he/him</h6>
+      <p class="card-text">A data scientist with a website.</p>
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/#contact" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/BobbyLumpkin" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/bobby-robert-lumpkin-b83279172/" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/static/uploads/resume.pdf" >
+        <i class="ai ai-cv"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/project/docs2chat/">Docs2Chat</a></li>
+      
+      <li><a href="/project/twitter-sentiment-analysis/">Twitter Sentiment Analysis</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+
+
+    <div class="project-related-pages content-widget-hr">
+      
+      
+
+      
+      
+      
+
+      
+      
+      
+
+      
+      
+      
+    </div>
+  </div>
+</article>
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      <footer class="site-footer">
+
+  
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-themes" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+    </div>
+    
+  </div>
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+
+    
+    <script src="/js/vendor-bundle.min.b73dfaac3b6499dc997741748a7c3fe2.js"></script>
+
+    
+    
+    
+      
+      
+        <script src="https://cdn.jsdelivr.net/gh/desandro/imagesloaded@v4.1.4/imagesloaded.pkgd.min.js" integrity="sha512-S5PZ9GxJZO16tT9r3WJp/Safn31eu8uWrzglMahDT4dsmgqWonRY9grk3j+3tfuPr9WJNsfooOR7Gi7HL5W2jw==" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/gh/metafizzy/isotope@v3.0.6/dist/isotope.pkgd.min.js" integrity="sha512-Zq2BOxyhvnRFXu0+WE6ojpZLOU2jdnqbrM1hmVdGzyeCa1DgM3X5Q4A/Is9xA1IkbUeDd7755dNNI/PzSf2Pew==" crossorigin="anonymous"></script>
+      
+
+      
+      
+
+      
+
+      
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/highlight.min.js" integrity="sha512-Ypjm0o7jOxAd4hpdoppSEN0TQOC19UtPAqD+4s5AlXmUvbmmS/YMxYqAqarQYyxTnB6/rqip9qcxlNB/3U9Wdg==" crossorigin="anonymous"></script>
+        
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/r.min.js" crossorigin="anonymous"></script>
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/python.min.js" crossorigin="anonymous"></script>
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/latex.min.js" crossorigin="anonymous"></script>
+        
+      
+
+    
+
+    
+    
+    
+      <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.js" integrity="" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    
+      
+      <script id="search-hit-fuse-template" type="text/x-template">
+        <div class="search-hit" id="summary-{{key}}">
+          <div class="search-hit-content">
+            <div class="search-hit-name">
+              <a href="{{relpermalink}}">{{title}}</a>
+              <div class="article-metadata search-hit-type">{{type}}</div>
+              <p class="search-hit-description">{{snippet}}</p>
+            </div>
+          </div>
+        </div>
+      </script>
+      
+        <script src="https://cdn.jsdelivr.net/gh/krisk/Fuse@v3.2.1/dist/fuse.min.js" integrity="sha512-o38bmzBGX+hD3JHWUFCDA09btWaqrNmoJ3RXLlrysA7PP01Kgs4UlE4MhelE1v5dJR3+cxlR4qQlotsW7jKsnw==" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/gh/julmot/mark.js@8.11.1/dist/jquery.mark.min.js" integrity="sha512-mhbv5DqBMgrWL+32MmsDOt/OAvqr/cHimk6B8y/bx/xS88MVkYGPiVv2ixKVrkywF2qHplNRUvFsAHUdxZ3Krg==" crossorigin="anonymous"></script>
+      
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+      
+      
+      
+      
+      
+      
+      
+    
+
+    
+
+    
+    
+    
+    <script id="page-data" type="application/json">{"use_headroom":true}</script>
+
+    
+    
+      <script src="/js/wowchemy-headroom.1cb9e2fc8399acee94eab837265b73bf.js" type="module"></script>
+    
+    
+    
+    
+    
+    
+    
+      
+      
+    
+    
+    <script src="/en/js/wowchemy.min.247fd8f54253895301106e3006f53f38.js"></script>
+
+    
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+
+
+
+</body>
+</html>

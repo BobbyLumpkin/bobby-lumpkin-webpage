@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Automation | Bobby Lumpkin</title>
+    <link>https://bobbylumpkin.com/tag/automation/</link>
+      <atom:link href="https://bobbylumpkin.com/tag/automation/index.xml" rel="self" type="application/rss+xml" />
+    <description>Automation</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sun, 03 Aug 2025 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://bobbylumpkin.com/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_512x512_fill_lanczos_center_3.png</url>
+      <title>Automation</title>
+      <link>https://bobbylumpkin.com/tag/automation/</link>
+    </image>
+    
+    <item>
+      <title>Beating the Vig with AWS</title>
+      <link>https://bobbylumpkin.com/project/sports-betting-arbitrage-system/</link>
+      <pubDate>Sun, 03 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>https://bobbylumpkin.com/project/sports-betting-arbitrage-system/</guid>
+      <description>&lt;h1 id=&#34;beating-the-vig-with-aws&#34;&gt;Beating the Vig with AWS&lt;/h1&gt;
+&lt;p&gt;Arbitrage is a term that originates from the world of finance and refers to the practice of taking advantage of price discrepancies in different markets to guarantee a risk-free profit. At its core, it involves buying an asset in one market where the price is low and simultaneously selling it in another market where the price is higher. This principle relies on the assumption that markets are not perfectly efficient, and temporary mispricing can occur. For example, if a stock is trading for 100 dollars on one exchange and 102 dollars on another, an arbitrageur could buy the stock on the cheaper exchange and sell it on the more expensive one, pocketing the 2 dollar difference, all while assuming little to no risk.&lt;/p&gt;
+&lt;p&gt;Now, imagine applying this concept to sports betting, a world where odds vary across different sportsbooks. We can exploit misaligned prices across different markets just the same. Namely, we can identify mismatched odds between different bookmakers and place multiple bets on the same event, guaranteeing a profit regardless of the outcome.&lt;/p&gt;
+&lt;p&gt;In this post, I&amp;rsquo;ll walk through the details of sports-betting arbitrage as well as discuss  how I architected an automated system to scan for these opportunities across multiple sportsbooks, alerting subscribers when they arise.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;table-of-contents&#34;&gt;Table of Contents&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#beating-the-vig-with-aws&#34;&gt;Beating the Vig with AWS&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#table-of-contents&#34;&gt;Table of Contents&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#sports-betting-fundamentals&#34;&gt;Sports Betting: Fundamentals&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#decimal-odds&#34;&gt;Decimal Odds&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#fractional-odds&#34;&gt;Fractional Odds&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#american-odds&#34;&gt;American Odds&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#sports-betting-arbitrage&#34;&gt;Sports Betting: Arbitrage&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#implied-probabilities&#34;&gt;Implied Probabilities&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#necessary--sufficient-conditions-for-arbitrage&#34;&gt;Necessary &amp;amp; Sufficient Conditions for Arbitrage&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#architecting-an-arbitrage-notification-system-in-aws&#34;&gt;Architecting An Arbitrage Notification System in AWS&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#lambda-query-api&#34;&gt;Lambda: Query API&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#lambda-search-for-arbitrage-opportunities&#34;&gt;Lambda: Search for Arbitrage Opportunities&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#lambda-publish-new-opportunities&#34;&gt;Lambda: Publish New Opportunities&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#step-function-orchestrating-the-workflow&#34;&gt;Step Function: Orchestrating the Workflow&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#simple-notification-service-sns-pubsub&#34;&gt;Simple Notification Service (SNS): Pub/Sub&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#conclusion&#34;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;sports-betting-fundamentals&#34;&gt;Sports Betting: Fundamentals&lt;/h2&gt;
+&lt;p&gt;When it comes to sports betting, odds are the key factor in determining potential payouts. They&amp;rsquo;re related to the probability of a particular outcome and dictate how much money you can win if that outcome occurs. Books differ in how they convey odds, but three popular formats appear most frequently: decimal, fractional, and American.&lt;/p&gt;
+&lt;h3 id=&#34;decimal-odds&#34;&gt;Decimal Odds&lt;/h3&gt;
+&lt;p&gt;Decimal odds are commonly used in Europe, Canada and Australia. They represent the total payout (stake &amp;amp; profit) for every dollar wagered. The formula to calculate your total payout is:&lt;/p&gt;
+&lt;p&gt;$$
+\text{Payout} = \text{Stake} \times \text{Odds}.
+$$&lt;/p&gt;
+&lt;p&gt;For example, if the odds for a bet are $2.50$ and we bet $10$ dollars, our payout will be:&lt;/p&gt;
+&lt;p&gt;$$
+\text{Payout} = 10 \times 2.50 = 25,
+$$&lt;/p&gt;
+&lt;p&gt;meaning that we would win $15$ dollars in profit.&lt;/p&gt;
+&lt;h3 id=&#34;fractional-odds&#34;&gt;Fractional Odds&lt;/h3&gt;
+&lt;p&gt;More common in the UK, fractional odds are presented as a fraction, like $5/1$ or $10/3$. The numerator represents the amount of profit you will make for every unit staked, while the denominator represents the stake required to win that profit. The formula to calculate the profit is:&lt;/p&gt;
+&lt;p&gt;$$
+\text{Profit} = \text{Stake} \times \text{Odds}.
+$$&lt;/p&gt;
+&lt;p&gt;For instance, with $10/3$ odds, if we bet $60$ dollars, our profit would be:&lt;/p&gt;
+&lt;p&gt;$$
+\text{Profit} = 60 \times \left(\frac{10}{3}\right) = 200.
+$$&lt;/p&gt;
+&lt;p&gt;Thus, we would receive a total payout of $260$ dollars ($200$ dollar profit plus our $60$ dollar stake).&lt;/p&gt;
+&lt;h3 id=&#34;american-odds&#34;&gt;American Odds&lt;/h3&gt;
+&lt;p&gt;As is American tradition, American Odds (also referred to as &amp;ldquo;Moneyline Odds&amp;rdquo;) are often found to be the least intuitive and straightforward units of measurement for new-comers. Popular in the United States, they can either be positive or negative and revolve around a $100$ dollar baseline. Positive odds (assigned to the underdog) show how much profit we would make on a $100$ dollar bet, while negative odds (assigned to the favorite) show how much we need to bet in order to win $100$ dollars.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Positive Odds (e.g. $+200$):&lt;/strong&gt; This means we make a profit of $200$ dollars for every $100$ wagered and:&lt;/p&gt;
+&lt;p&gt;$$
+\text{Profit} = \frac{\text{Stake} \times 200}{100}.
+$$&lt;/p&gt;
+&lt;p&gt;For example, a $50$ dollar bet on $+200$ odds would give&lt;/p&gt;
+&lt;p&gt;$$
+\text{Profit} = \frac{50 \times 200}{100} = 100.
+$$&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Negative Odds (e.g. $-150$):&lt;/strong&gt; This means we need to wager $150$ dollars in order to win $100$ dollars and:&lt;/p&gt;
+&lt;p&gt;$$
+\text{Profit} = \frac{\text{Stake}}{|-150|} \times 100.
+$$&lt;/p&gt;
+&lt;p&gt;For example, a $75$ dollar bet on $-150$ odds would yield:&lt;/p&gt;
+&lt;p&gt;$$
+\text{Profit} = \frac{75}{150} \times 100 = 50.
+$$&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Remembering how to read and interpret the different conventions for odds formatting may well be the most irritating part of the sports-betting initiation process and to muddy the waters even further: for those those statistically-minded individuals out there, you&amp;rsquo;ll notice that none of these formats directly mirrors what we refer to formally as odds, in the technical sense. Only out of due-diligence did we present three formats here; we&amp;rsquo;ll choose one to work with throughout the rest of the post. While Moneyline odds are common in th US, we will not be utilizing them nor fractional odds. For their simplicity and convenience with calculations in future sections, we will adopt decimal odds as our convention.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;sports-betting-arbitrage&#34;&gt;Sports Betting: Arbitrage&lt;/h2&gt;
+&lt;p&gt;Now that we know how to interpret and manipulate odds (the cornerstone of determining payouts, profits and arbitrage opportunities) we may naturally ask how odds are determined and what the necessary &amp;amp; sufficient conditions are for arbitrage opportunities. In order to answer these questions, we must talk about the relationship between betting odds and probabilities.&lt;/p&gt;
+&lt;h3 id=&#34;implied-probabilities&#34;&gt;Implied Probabilities&lt;/h3&gt;
+&lt;p&gt;Let&amp;rsquo;s take a step back and consider how bookmaker&amp;rsquo;s make money. Suppose we wan&amp;rsquo;t to manage a book to take bets on Team A vs Team B and that we know the true probability of Team A winning is $0.60$. What goes wrong if we set the decimal odds for this line to $2.00$ and $2.00$? A savvy bettor would notice that they can risk a dollar to make a dollar and that more than half of the time, their bet will hit. Thus, their &lt;em&gt;expected&lt;/em&gt; profit is:&lt;/p&gt;
+&lt;p&gt;$$
+\mathbb{E}[\text{Profit}] = 0.6 \times 1 + 0.4 \times (-1) = 0.2.
+$$&lt;/p&gt;
+&lt;p&gt;In other words, if we were to continue to set odds on $0.60 - 0.40$ probability events equally and this savvy bettor continued to place their bet, they would eventually wind up taking a profit from us. To ensure this doesn&amp;rsquo;t happen we, instead, set our odds so that the expected profit for bettor and bookmaker is zero. Namely:&lt;/p&gt;
+&lt;p&gt;$$
+\mathbb{E}[\text{Profit}] = P \times (O - 1) + (1 - P) \times (-1) = 0
+$$&lt;/p&gt;
+&lt;p&gt;$$
+\implies P \times O - P - 1 + P = 0 
+$$&lt;/p&gt;
+&lt;p&gt;$$
+\implies P \times O = 1
+$$&lt;/p&gt;
+&lt;p&gt;$$
+\implies O = \frac{1}{P}
+$$&lt;/p&gt;
+&lt;p&gt;where $P$ is the probability of team A winning and $O$ are the listed odds for team A. Thus, we would set our odds to be $\frac{5}{3} = 1.67$ and $\frac{5}{2} = 2.5$. In reality, we want to make a non-zero profit over time. Suppose we collect a total of $1$ dollar in bets on each side (for both team A and B victories). Let&amp;rsquo;s see what happens if we inflate our probabilities by a factor of $1.05$. Then, team A&amp;rsquo;s odds become $O_A \approx 1.59$ and team B&amp;rsquo;s odds become $O_B \approx 2.38$. This means that the expected payout becomes:&lt;/p&gt;
+&lt;p&gt;$$
+\mathbb{E}[\text{Payout}] = 0.6 \times 1.59 + 0.4 \times 2.38
+$$&lt;/p&gt;
+&lt;p&gt;$$
+= 1.906 &amp;lt; 2.
+$$&lt;/p&gt;
+&lt;p&gt;Thus, we expect to make a profit of $2 - 1.906 = 0.094$, essentially collecting a $9$ cents fee from the pool of bettors. This fee is what is referred to as the &amp;ldquo;vigorish&amp;rdquo;, &amp;ldquo;vig&amp;rdquo; for short, or, colloquially, the &amp;ldquo;juice&amp;rdquo; and is how bookmakers make their money. It is a fee that is built into the odds, rather than charged directly.&lt;/p&gt;
+&lt;h3 id=&#34;necessary--sufficient-conditions-for-arbitrage&#34;&gt;Necessary &amp;amp; Sufficient Conditions for Arbitrage&lt;/h3&gt;
+&lt;p&gt;And now, we turn to the heart of the matter: how do we quantify the necessary &amp;amp; sufficient conditions for a sports betting arbitrage opportunity? Let&amp;rsquo;s intuit based on our conversation about the vig, in the previous section. If scaling up the implied probabilities yields a profit for the bookmaker, we may expect that scaling them down will yield a profit for the bettor. This, in fact, is the case.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;u&gt;Theorem&lt;/u&gt;:&lt;/strong&gt; Assume a sporting event&amp;rsquo;s outcomes can be partitioned $n$-ways (i.e. there are $n$ mutually exclusive and exhaustive outcomes). Let&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$O_i = $ decimal odds for outcome $i$, where $i = 1, 2, &amp;hellip;, n$&lt;/li&gt;
+&lt;li&gt;$p_i = $ the implied probability of outcome $i$ occurring&lt;/li&gt;
+&lt;li&gt;$S = \sum_{i=1}^n p_i = \sum_{i=1}^n \frac{1}{O_i}$.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Then, there exists an arbitrage opportunity if and only if $S &amp;lt; 1$.&lt;/p&gt;
+&lt;p&gt;In short, we are looking for instances where the implied probabilities sum to less than $1$.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;u&gt;proof (of Theorem)&lt;/u&gt;&lt;/strong&gt; &lt;br&gt;
+&lt;strong&gt;Forward Direction&lt;/strong&gt; &lt;br&gt;
+Assume an arbitrage opportunity exists. Without loss of generality, let the total amount of money invested be $1$ dollar and let $x_i$ be the fraction of money bet on outcome $i$ so that $\sum_{i=1}^n x_i = 1$.&lt;/p&gt;
+&lt;p&gt;By definition, if outcome $i$ occurs, the return is:&lt;/p&gt;
+&lt;p&gt;$$
+\text{Payout} = x_i \times O_i.
+$$&lt;/p&gt;
+&lt;p&gt;Since this is an arbitrage opportunity, the payout for each outcome must be greater than $1$. Namely:&lt;/p&gt;
+&lt;p&gt;$$
+x_i \times O_i &amp;gt; 1
+$$&lt;/p&gt;
+&lt;p&gt;$$
+\implies x_i &amp;gt; \frac{1}{O_i}
+$$&lt;/p&gt;
+&lt;p&gt;for all $i$. Summing both sides of the inequality over $i$ gives:&lt;/p&gt;
+&lt;p&gt;$$
+1 = \sum_{i=1}^n x_i &amp;gt; \sum_{i=1}^n \frac{1}{O_i} = S.
+$$&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Reverse Direction&lt;/strong&gt; &lt;br&gt;
+Now, assume:&lt;/p&gt;
+&lt;p&gt;$$
+\sum_{i=1}^n \frac{1}{O_i} = S &amp;lt; 1.
+$$&lt;/p&gt;
+&lt;p&gt;We need to show that there exists a way to bet on the $n$ outcomes such that the total return is greater than $1$, regardless of the observed outcome. Define&lt;/p&gt;
+&lt;p&gt;$$
+x_i = \frac{\frac{1}{O_i}}{S}.
+$$&lt;/p&gt;
+&lt;p&gt;This defines a betting strategy where:&lt;/p&gt;
+&lt;p&gt;$$
+\sum_{i=1}^n x_i = \sum_{i=1}^n \frac{1/O_i}{S} = \frac{1}{S} \times \sum_{i=1}^n \frac{1}{O_i} = 1
+$$&lt;/p&gt;
+&lt;p&gt;so that the total amount bet is equal to $1$. Then, if outcome $i$ occurs, the return in:&lt;/p&gt;
+&lt;p&gt;$$
+x_i \times O_i = \left(\frac{1/O_i}{S}\right) \times O_i = \frac{1}{S} &amp;gt; 1
+$$&lt;/p&gt;
+&lt;p&gt;where the inequality follows from our assumption that $S &amp;lt; 1$.$\blacksquare$&lt;/p&gt;
+&lt;p&gt;Suppose the odds on Team A vs Team B are $2.10$ and $2.10$ respectively. Then, the implied probabilities would be $\frac{1}{2.10}$ and $\frac{1}{2.10}$, respectively, the sum of which $\approx 0.95 &amp;lt; 1$ and is, thus an arbitrage opportunity. Using the betting strategy outlined in the reverse direction of the above proof, we put:&lt;/p&gt;
+&lt;p&gt;$$
+\frac{\frac{1}{2.10}}{\frac{1}{2.10} + \frac{1}{2.10}} = 0.5
+$$&lt;/p&gt;
+&lt;p&gt;on each team. As expected, this ensures a profit, regardless of the victor, since:&lt;/p&gt;
+&lt;p&gt;$$
+\text{Payout} = 2.10 \times 0.5 = 1.05
+$$&lt;/p&gt;
+&lt;p&gt;which is larger than $1$: the total stake wagered across both bets.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;architecting-an-arbitrage-notification-system-in-aws&#34;&gt;Architecting An Arbitrage Notification System in AWS&lt;/h2&gt;
+&lt;p&gt;Having established the theory behind arbitrage in sports betting, we can now detail how we used cloud resources (specifically in Amazon Web Services) to construct a fully automated detection and notification system.&lt;/p&gt;
+&lt;p&gt;We utilized the following AWS services:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Lambda Functions:&lt;/strong&gt; Three lambda functions with distinct responsibilities.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Step Function:&lt;/strong&gt; A step function to orchestrate the execution of the lambda functions.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Amazon Simple Notification Service (SNS):&lt;/strong&gt; Pub/Sub service to publish notifications to all subscribers in real-time.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Amazon EventBridge:&lt;/strong&gt; Trigger the pipeline to run once every six hours.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Amazon S3:&lt;/strong&gt; Durable store for raw API responses and computed arbitrage opportunities.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;AWS Secrets Manager:&lt;/strong&gt; Securely store API key.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The high-level execution flow is as follows:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;EventBridge fires once every six hours, triggering the &lt;code&gt;sports-betting-arbitrage-system-express&lt;/code&gt; step function.&lt;/li&gt;
+&lt;li&gt;The step function runs three states, in sequence:
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;sports_betting_arbitrage_query_api&lt;/code&gt;:&lt;/strong&gt; Fetches sportsbook lines and saves the raw JSON response to S3.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;sports_betting_arbitrage_search_for_arbitrage_opportunity&lt;/code&gt;:&lt;/strong&gt; Processes the API response, checks for opportunities and stores any findings in S3.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;sports_betting_arbitrage_publish_opportunities&lt;/code&gt;:&lt;/strong&gt; Compares new opportunities with previously published ones and sends notifications via SNS for &lt;em&gt;new&lt;/em&gt; opportunities only.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;SNS pushes notifications to all subscribers (in this case, via email).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;Sports Betting Arbitrage System Architecture Diagram&#34; srcset=&#34;
+               /project/sports-betting-arbitrage-system/sports-betting-arbitrage-system-architecture-diagram_hu4c0a768ca752d2a5c7e4cf56750659f4_94127_d59bdce3483507de11d82647cf488385.webp 400w,
+               /project/sports-betting-arbitrage-system/sports-betting-arbitrage-system-architecture-diagram_hu4c0a768ca752d2a5c7e4cf56750659f4_94127_105f097eff798d88d5bb0df68a9916ba.webp 760w,
+               /project/sports-betting-arbitrage-system/sports-betting-arbitrage-system-architecture-diagram_hu4c0a768ca752d2a5c7e4cf56750659f4_94127_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://bobbylumpkin.com/project/sports-betting-arbitrage-system/sports-betting-arbitrage-system-architecture-diagram_hu4c0a768ca752d2a5c7e4cf56750659f4_94127_d59bdce3483507de11d82647cf488385.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;634&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;For a detailed view of the source code for each lambda and step function, reference this repository: &lt;a href=&#34;https://github.com/BobbyLumpkin/sports-betting-arbitrage-system/tree/main&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;sports-betting-arbitrage-system&lt;/a&gt; (also linked at the top of this page).&lt;/p&gt;
+&lt;h3 id=&#34;lambda-query-api&#34;&gt;Lambda: Query API&lt;/h3&gt;
+&lt;p&gt;As the name suggests, the first Lambda (&lt;code&gt;sports_betting_arbitrage_query_api&lt;/code&gt;) is responsible for pulling the latest betting lines from &lt;a href=&#34;https://the-odds-api.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;The Odds API&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Key details:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Secrets Manager stores the API key securely; it is retrieved at runtime.&lt;/li&gt;
+&lt;li&gt;Multiple sports and regions can be queried in a single run.&lt;/li&gt;
+&lt;li&gt;All requests use decimal odds to simplify downstream calculations.&lt;/li&gt;
+&lt;li&gt;The raw API response is timestamped and saved to S3 as JSON.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;By storing unprocessed data, we ensure that the system can be re-run or audited at a later date without making additional API calls.&lt;/p&gt;
+&lt;h3 id=&#34;lambda-search-for-arbitrage-opportunities&#34;&gt;Lambda: Search for Arbitrage Opportunities&lt;/h3&gt;
+&lt;p&gt;The second Lambda (&lt;code&gt;sports_betting_arbitrage_seaerch_for_arbitrage_opportunity&lt;/code&gt;) consumes the API response from the first lambda and looks for opportunities using the necessary and sufficient condition derived earlier:&lt;/p&gt;
+&lt;p&gt;$$
+\sum_{i=1}^n \frac{1}{O_i} &amp;lt; 1
+$$&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#1d2432;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#ff636f&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#58a1dd&#34;&gt;is_arbitrage_opportunity&lt;/span&gt;(
+        &lt;span style=&#34;color:#58a1dd&#34;&gt;decimal_odds_list&lt;/span&gt;: &lt;span style=&#34;color:#58a1dd&#34;&gt;list&lt;/span&gt;[&lt;span style=&#34;color:#58a1dd&#34;&gt;float&lt;/span&gt;]
+    ) &lt;span style=&#34;color:#ff636f&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#58a1dd&#34;&gt;bool&lt;/span&gt;:
+    &lt;span style=&#34;color:#58a1dd&#34;&gt;implied_probabilities_list&lt;/span&gt; &lt;span style=&#34;color:#ff636f&#34;&gt;=&lt;/span&gt; [
+        &lt;span style=&#34;color:#a6be9d&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#ff636f&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#58a1dd&#34;&gt;odds&lt;/span&gt;
+        &lt;span style=&#34;color:#ff636f&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#58a1dd&#34;&gt;odds&lt;/span&gt; &lt;span style=&#34;color:#ff636f&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#58a1dd&#34;&gt;decimal_odds_list&lt;/span&gt;
+    ]
+    &lt;span style=&#34;color:#58a1dd&#34;&gt;total_implied_probabilities&lt;/span&gt; &lt;span style=&#34;color:#ff636f&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#58a1dd&#34;&gt;sum&lt;/span&gt;(&lt;span style=&#34;color:#58a1dd&#34;&gt;implied_probabilities_list&lt;/span&gt;)
+    &lt;span style=&#34;color:#ff636f&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#58a1dd&#34;&gt;total_implied_probabilities&lt;/span&gt; &lt;span style=&#34;color:#ff636f&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#a6be9d&#34;&gt;1&lt;/span&gt;:
+        &lt;span style=&#34;color:#ff636f&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ff636f&#34;&gt;True&lt;/span&gt;
+    &lt;span style=&#34;color:#ff636f&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ff636f&#34;&gt;False&lt;/span&gt;
+
+
+&lt;span style=&#34;color:#ff636f&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#58a1dd&#34;&gt;calculate_stake_proportions&lt;/span&gt;(
+        &lt;span style=&#34;color:#58a1dd&#34;&gt;decimal_odds_list&lt;/span&gt;: &lt;span style=&#34;color:#58a1dd&#34;&gt;list&lt;/span&gt;[&lt;span style=&#34;color:#58a1dd&#34;&gt;float&lt;/span&gt;]
+    ) &lt;span style=&#34;color:#ff636f&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#58a1dd&#34;&gt;list&lt;/span&gt;[&lt;span style=&#34;color:#58a1dd&#34;&gt;float&lt;/span&gt;]:
+    &lt;span style=&#34;color:#58a1dd&#34;&gt;implied_probabilities_list&lt;/span&gt; &lt;span style=&#34;color:#ff636f&#34;&gt;=&lt;/span&gt; [
+        &lt;span style=&#34;color:#a6be9d&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#ff636f&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#58a1dd&#34;&gt;odds&lt;/span&gt;
+        &lt;span style=&#34;color:#ff636f&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#58a1dd&#34;&gt;odds&lt;/span&gt; &lt;span style=&#34;color:#ff636f&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#58a1dd&#34;&gt;decimal_odds_list&lt;/span&gt;
+    ]
+    &lt;span style=&#34;color:#58a1dd&#34;&gt;total_implied_probabilities&lt;/span&gt; &lt;span style=&#34;color:#ff636f&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#58a1dd&#34;&gt;sum&lt;/span&gt;(&lt;span style=&#34;color:#58a1dd&#34;&gt;implied_probabilities_list&lt;/span&gt;)
+    &lt;span style=&#34;color:#ff636f&#34;&gt;return&lt;/span&gt; [
+        (&lt;span style=&#34;color:#a6be9d&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#ff636f&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#58a1dd&#34;&gt;odds&lt;/span&gt;) &lt;span style=&#34;color:#ff636f&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#58a1dd&#34;&gt;total_implied_probabilities&lt;/span&gt;
+        &lt;span style=&#34;color:#ff636f&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#58a1dd&#34;&gt;odds&lt;/span&gt; &lt;span style=&#34;color:#ff636f&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#58a1dd&#34;&gt;decimal_odds_list&lt;/span&gt;
+    ]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Key details:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Pairwise comparisons are made between books for the same matchup.&lt;/li&gt;
+&lt;li&gt;If an arbitrage condition is met, optimal stake proportions are calculated so that the payout is equal regardless of the observed outcome.&lt;/li&gt;
+&lt;li&gt;Each opportunity is timestamped and saved to S3 for future reference.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;lambda-publish-new-opportunities&#34;&gt;Lambda: Publish New Opportunities&lt;/h3&gt;
+&lt;p&gt;The third and final Lambda (&lt;code&gt;sports_betting_arbitrage_publish_opportunities&lt;/code&gt;) determines which opportunities are &lt;em&gt;new&lt;/em&gt; relative to the last run, formats them into an email message and publishes this message to the &lt;code&gt;VigVanquisher&lt;/code&gt; SNS topic.&lt;/p&gt;
+&lt;p&gt;Key details:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;AWS S3 is queried for the second-most recent opportunities file. The opportunities therein are compared with the current run&amp;rsquo;s opportunity list and any net new opportunities are noted.&lt;/li&gt;
+&lt;li&gt;Net new opportunities are formatted into an email message, including the bookmaker, matchup, odds, stake proportion, an &amp;ldquo;as of&amp;rdquo; date and the calculated payout multiplier. For example, a payout multiplier of $1.10$ means that for every dollar bet on the opportunity, $1.10$ dollars in payout is guaranteed.&lt;/li&gt;
+&lt;li&gt;An SNS topic broadcasts the message to all subscribers via email.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;step-function-orchestrating-the-workflow&#34;&gt;Step Function: Orchestrating the Workflow&lt;/h3&gt;
+&lt;p&gt;AWS Step Functions is a serverless workflow orchestration service that enables developers to coordinate multi-step application workflows by defining state machines. These state machines are composed of individual &amp;ldquo;states&amp;rdquo; that represent tasks, choices, or other control flow elements. We created a Step Function to operate as the backbone of our system, ensuring that Lambda executes in order and that data flows smoothly from one step to the next.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;Sports Betting Arbitrage System Step Function&#34; srcset=&#34;
+               /project/sports-betting-arbitrage-system/sports-betting-arbitrage-system-step-function_hu78594dd244bd658bd33d308e7ee00938_36808_1302759374e41c6f5b2e223871408714.webp 400w,
+               /project/sports-betting-arbitrage-system/sports-betting-arbitrage-system-step-function_hu78594dd244bd658bd33d308e7ee00938_36808_10a1819a237dfe96b788b6fdc729de88.webp 760w,
+               /project/sports-betting-arbitrage-system/sports-betting-arbitrage-system-step-function_hu78594dd244bd658bd33d308e7ee00938_36808_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://bobbylumpkin.com/project/sports-betting-arbitrage-system/sports-betting-arbitrage-system-step-function_hu78594dd244bd658bd33d308e7ee00938_36808_1302759374e41c6f5b2e223871408714.webp&#34;
+               width=&#34;338&#34;
+               height=&#34;409&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;Key details:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The constraints of our process allow for the use of a Step Function of type &amp;ldquo;Express&amp;rdquo; as opposed to &amp;ldquo;Standard&amp;rdquo;, introducing significant cost-savings.&lt;/li&gt;
+&lt;li&gt;We use JSONata expressions to pass specific fields from one Lambda&amp;rsquo;s output into the next.&lt;/li&gt;
+&lt;li&gt;Includes automatic retries with exponential backoff for transient errors, ensuring resilience.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Step Functions are represented in a JSON-based, structured language called &amp;ldquo;Amazon States Language&amp;rdquo; or ASL. The ASL definition is included in the repository here: &lt;a href=&#34;https://github.com/BobbyLumpkin/sports-betting-arbitrage-system/blob/main/step_function/sports-betting-arbitrage-system-asl.json&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;step_function/sports-betting-arbitrage-system-asl.json&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;simple-notification-service-sns-pubsub&#34;&gt;Simple Notification Service (SNS): Pub/Sub&lt;/h3&gt;
+&lt;p&gt;Finally, a quick word on Amazon SNS, the service we utilize to handle the distribution of arbitrage alerts. Amazon SNS is a fully managed service that provides message delivery from publishers (producers) to subscribers (consumers). Publishers communicate asynchronously with subscribers by sending messages to a topic, which is a logical access point and communication channel.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;SNS Pub/Sub Model Diagram&#34; srcset=&#34;
+               /project/sports-betting-arbitrage-system/introducing_sns_message_filtering_image_hu38a229bca3192361c99011441ee67646_30164_32c806dc0ec69098b7e79a18344d9af6.webp 400w,
+               /project/sports-betting-arbitrage-system/introducing_sns_message_filtering_image_hu38a229bca3192361c99011441ee67646_30164_ba465bfa4fae723f338c92aa2ff775b4.webp 760w,
+               /project/sports-betting-arbitrage-system/introducing_sns_message_filtering_image_hu38a229bca3192361c99011441ee67646_30164_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://bobbylumpkin.com/project/sports-betting-arbitrage-system/introducing_sns_message_filtering_image_hu38a229bca3192361c99011441ee67646_30164_32c806dc0ec69098b7e79a18344d9af6.webp&#34;
+               width=&#34;539&#34;
+               height=&#34;340&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;By taking advantage of this Pub/Sub pattern, we decouple the production and consumption components of our pipeline and allow for easy future scaling - both in number of consumers and in forms of notification (SMS, Lambda triggers, webhooks, etc.) - without the need to change upstream logic. Adding users, for example, amounts to a few clicks and entering the recipient address. The recipient will be sent an email prompting them to confirm their subscription, after which they will receive any future publishes messages.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Building the &lt;code&gt;VigVanquisher&lt;/code&gt; system was a rewarding exercise in blending applied statistics, sports analytics, and cloud engineering. By automating the process of fetching odds, detecting arbitrage opportunities, and instantly alerting subscribers, the system demonstrates how modern cloud architectures can turn a theoretical concept into a practical, real-world tool.&lt;/p&gt;
+&lt;p&gt;While the current implementation focuses on two-outcome arbitrage opportunities in select sports, the foundation is flexible. Future enhancements could include scanning a wider variety of sports, monitoring odds changes closer to real time, generalizing to $n$-outcome opportunities and expanding beyond pure arbitrage by applying machine learning models for odds prediction. These improvements would not only broaden the system’s scope but also deepen its analytical capabilities.&lt;/p&gt;
+&lt;p&gt;In the end, whether you view it as slaying the “vig” or simply applying statistical rigor to gain an edge, this project highlights the power of combining domain expertise with cloud-based automation. The thrill lies not just in finding opportunities, but in building the tools that make finding them possible.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
