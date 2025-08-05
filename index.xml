@@ -214,12 +214,12 @@ $$&lt;/p&gt;
 $$&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Remembering how to read and interpret the different conventions for odds formatting may well be the most irritating part of the sports-betting initiation process and to muddy the waters even further: for those those statistically-minded individuals out there, you&amp;rsquo;ll notice that none of these formats directly mirrors what we refer to formally as odds, in the technical sense. Only out of due-diligence did we present three formats here; we&amp;rsquo;ll choose one to work with throughout the rest of the post. While Moneyline odds are common in th US, we will not be utilizing them nor fractional odds. For their simplicity and convenience with calculations in future sections, we will adopt decimal odds as our convention.&lt;/p&gt;
+&lt;p&gt;Remembering how to read and interpret the different conventions for odds formatting may well be the most irritating part of the sports-betting initiation process and to muddy the waters even further: for those statistically-minded individuals out there, you&amp;rsquo;ll notice that none of these formats directly mirrors what we refer to formally as odds, in the technical sense. Only out of due-diligence did we present three formats here; we&amp;rsquo;ll choose one to work with throughout the rest of the post. While Moneyline odds are common in th US, we will not be utilizing them nor fractional odds. For their simplicity and convenience with calculations in future sections, we will adopt decimal odds as our convention.&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;sports-betting-arbitrage&#34;&gt;Sports Betting: Arbitrage&lt;/h2&gt;
 &lt;p&gt;Now that we know how to interpret and manipulate odds (the cornerstone of determining payouts, profits and arbitrage opportunities) we may naturally ask how odds are determined and what the necessary &amp;amp; sufficient conditions are for arbitrage opportunities. In order to answer these questions, we must talk about the relationship between betting odds and probabilities.&lt;/p&gt;
 &lt;h3 id=&#34;implied-probabilities&#34;&gt;Implied Probabilities&lt;/h3&gt;
-&lt;p&gt;Let&amp;rsquo;s take a step back and consider how bookmaker&amp;rsquo;s make money. Suppose we wan&amp;rsquo;t to manage a book to take bets on Team A vs Team B and that we know the true probability of Team A winning is $0.60$. What goes wrong if we set the decimal odds for this line to $2.00$ and $2.00$? A savvy bettor would notice that they can risk a dollar to make a dollar and that more than half of the time, their bet will hit. Thus, their &lt;em&gt;expected&lt;/em&gt; profit is:&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s take a step back and consider how bookmakers make money. Suppose we wan&amp;rsquo;t to manage a book to take bets on Team A vs Team B and that we know the true probability of Team A winning is $0.60$. What goes wrong if we set the decimal odds for this line to $2.00$ and $2.00$? A savvy bettor would notice that they can risk a dollar to make a dollar and that more than half of the time, their bet will hit. Thus, their &lt;em&gt;expected&lt;/em&gt; profit is:&lt;/p&gt;
 &lt;p&gt;$$
 \mathbb{E}[\text{Profit}] = 0.6 \times 1 + 0.4 \times (-1) = 0.2.
 $$&lt;/p&gt;
@@ -236,7 +236,8 @@ $$&lt;/p&gt;
 &lt;p&gt;$$
 \implies O = \frac{1}{P}
 $$&lt;/p&gt;
-&lt;p&gt;where $P$ is the probability of team A winning and $O$ are the listed odds for team A. Thus, we would set our odds to be $\frac{5}{3} = 1.67$ and $\frac{5}{2} = 2.5$. In reality, we want to make a non-zero profit over time. Suppose we collect a total of $1$ dollar in bets on each side (for both team A and B victories). Let&amp;rsquo;s see what happens if we inflate our probabilities by a factor of $1.05$. Then, team A&amp;rsquo;s odds become $O_A \approx 1.59$ and team B&amp;rsquo;s odds become $O_B \approx 2.38$. This means that the expected payout becomes:&lt;/p&gt;
+&lt;p&gt;where $P$ is the probability of team A winning and $O$ are the listed odds for team A. Thus, we would set our odds to be $\frac{5}{3} = 1.67$ and $\frac{5}{2} = 2.5$ for team A and team B victories, respectively.&lt;/p&gt;
+&lt;p&gt;In reality, we want to make a non-zero profit over time. Suppose we collect a total of $1$ dollar in bets on each side (for both team A and B victories). Let&amp;rsquo;s see what happens if we inflate our probabilities by a factor of $1.05$. Then, team A&amp;rsquo;s odds become $O_A \approx 1.59$ and team B&amp;rsquo;s odds become $O_B \approx 2.38$. This means that the expected payout becomes:&lt;/p&gt;
 &lt;p&gt;$$
 \mathbb{E}[\text{Payout}] = 0.6 \times 1.59 + 0.4 \times 2.38
 $$&lt;/p&gt;
@@ -464,16 +465,16 @@ $$&lt;/p&gt;
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;SNS Pub/Sub Model Diagram&#34; srcset=&#34;
-               /project/sports-betting-arbitrage-system/introducing_sns_message_filtering_image_hu38a229bca3192361c99011441ee67646_30164_32c806dc0ec69098b7e79a18344d9af6.webp 400w,
-               /project/sports-betting-arbitrage-system/introducing_sns_message_filtering_image_hu38a229bca3192361c99011441ee67646_30164_ba465bfa4fae723f338c92aa2ff775b4.webp 760w,
-               /project/sports-betting-arbitrage-system/introducing_sns_message_filtering_image_hu38a229bca3192361c99011441ee67646_30164_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
-               src=&#34;https://bobbylumpkin.com/project/sports-betting-arbitrage-system/introducing_sns_message_filtering_image_hu38a229bca3192361c99011441ee67646_30164_32c806dc0ec69098b7e79a18344d9af6.webp&#34;
-               width=&#34;539&#34;
-               height=&#34;340&#34;
+               /project/sports-betting-arbitrage-system/amazon-sns-overview-diagram_hu73ecbd5a4e3241a0096d9e2de626f3bd_71832_2180be190356fc9f76c863b7a46fc06c.webp 400w,
+               /project/sports-betting-arbitrage-system/amazon-sns-overview-diagram_hu73ecbd5a4e3241a0096d9e2de626f3bd_71832_560bde8e1194384601c786f878088fb1.webp 760w,
+               /project/sports-betting-arbitrage-system/amazon-sns-overview-diagram_hu73ecbd5a4e3241a0096d9e2de626f3bd_71832_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://bobbylumpkin.com/project/sports-betting-arbitrage-system/amazon-sns-overview-diagram_hu73ecbd5a4e3241a0096d9e2de626f3bd_71832_2180be190356fc9f76c863b7a46fc06c.webp&#34;
+               width=&#34;724&#34;
+               height=&#34;760&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
   &lt;/div&gt;&lt;/figure&gt;
 &lt;/p&gt;
-&lt;p&gt;By taking advantage of this Pub/Sub pattern, we decouple the production and consumption components of our pipeline and allow for easy future scaling - both in number of consumers and in forms of notification (SMS, Lambda triggers, webhooks, etc.) - without the need to change upstream logic. Adding users, for example, amounts to a few clicks and entering the recipient address. The recipient will be sent an email prompting them to confirm their subscription, after which they will receive any future publishes messages.&lt;/p&gt;
+&lt;p&gt;By taking advantage of this Pub/Sub pattern, we decouple the production and consumption components of our pipeline and allow for easy future scaling - both in number of consumers and in forms of notification (SMS, Lambda triggers, webhooks, etc.) - without the need to change upstream logic. Adding users, for example, amounts to a few clicks and entering the recipient address. The recipient will be sent an email prompting them to confirm their subscription, after which they will receive any future published messages.&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
 &lt;p&gt;Building the &lt;code&gt;VigVanquisher&lt;/code&gt; system was a rewarding exercise in blending applied statistics, sports analytics, and cloud engineering. By automating the process of fetching odds, detecting arbitrage opportunities, and instantly alerting subscribers, the system demonstrates how modern cloud architectures can turn a theoretical concept into a practical, real-world tool.&lt;/p&gt;
