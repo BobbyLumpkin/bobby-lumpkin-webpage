@@ -219,7 +219,7 @@ $$&lt;/p&gt;
 &lt;h2 id=&#34;sports-betting-arbitrage&#34;&gt;Sports Betting: Arbitrage&lt;/h2&gt;
 &lt;p&gt;Now that we know how to interpret and manipulate odds (the cornerstone of determining payouts, profits and arbitrage opportunities) we may naturally ask how odds are determined and what the necessary &amp;amp; sufficient conditions are for arbitrage opportunities. In order to answer these questions, we must talk about the relationship between betting odds and probabilities.&lt;/p&gt;
 &lt;h3 id=&#34;implied-probabilities&#34;&gt;Implied Probabilities&lt;/h3&gt;
-&lt;p&gt;Let&amp;rsquo;s take a step back and consider how bookmakers make money. Suppose we wan&amp;rsquo;t to manage a book to take bets on Team A vs Team B and that we know the true probability of Team A winning is $0.60$. What goes wrong if we set the decimal odds for this line to $2.00$ and $2.00$? A savvy bettor would notice that they can risk a dollar to make a dollar and that more than half of the time, their bet will hit. Thus, their &lt;em&gt;expected&lt;/em&gt; profit is:&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s take a step back and consider how bookmakers make money. Suppose we want to manage a book to take bets on Team A vs Team B and that we know the true probability of Team A winning is $0.60$. What goes wrong if we set the decimal odds for this line to $2.00$ and $2.00$? A savvy bettor would notice that they can risk a dollar to make a dollar and that more than half of the time, their bet will hit. Thus, their &lt;em&gt;expected&lt;/em&gt; profit is:&lt;/p&gt;
 &lt;p&gt;$$
 \mathbb{E}[\text{Profit}] = 0.6 \times 1 + 0.4 \times (-1) = 0.2.
 $$&lt;/p&gt;
